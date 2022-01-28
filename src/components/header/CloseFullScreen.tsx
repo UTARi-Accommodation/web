@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const CloseFullScreen = ({ close }: { readonly close: () => void }) => (
+const CloseFullScreen = ({ close }: Readonly<{ close: () => void }>) => (
     <CloseButton onClick={() => close()}>&times;</CloseButton>
 );
 

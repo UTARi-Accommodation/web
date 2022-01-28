@@ -21,6 +21,13 @@
         "no-async-promise-executor": 0,
         "@typescript-eslint/no-namespace": 0,
         "no-fallthrough": 0,
-        "@typescript-eslint/no-unused-vars": 2
+        "@typescript-eslint/no-unused-vars": 2,
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "TSEnumDeclaration",
+                "message": "Don't declare enums"
+            }
+        ]
     }
 }

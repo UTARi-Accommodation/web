@@ -2,49 +2,35 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
-interface NavLinksProps {
-    readonly fullScreen: boolean;
-    readonly close: () => void;
-}
+type House = Readonly<{
+    href: '/house';
+    title: 'House';
+}>;
 
-type House = {
-    readonly href: '/house';
-    readonly title: 'House';
-};
+type Room = Readonly<{
+    href: '/room';
+    title: 'Room';
+}>;
 
-type Room = {
-    readonly href: '/room';
-    readonly title: 'Room';
-};
+type Apartment = Readonly<{
+    href: '/apartment';
+    title: 'Apartment';
+}>;
 
-type Apartment = {
-    readonly href: '/apartment';
-    readonly title: 'Apartment';
-};
+type Roommate = Readonly<{
+    href: '/roommate';
+    title: 'Roommate';
+}>;
 
-type Roommate = {
-    readonly href: '/roommate';
-    readonly title: 'Roommate';
-};
+export type NavLinkType = House | Room | Apartment | Roommate;
 
-type SignUp = {
-    readonly href: '/signup';
-    readonly title: 'Sign Up';
-};
-
-type Login = {
-    readonly href: '/login';
-    readonly title: 'Login';
-};
-
-export type NavLinkType = House | Room | Apartment | Roommate | SignUp | Login;
-
-interface NavLinkProps {
-    readonly navLink: NavLinkType;
-    readonly close: () => void;
-}
-
-const NavLink = ({ navLink: { href, title }, close }: NavLinkProps) => {
+const NavLink = ({
+    navLink: { href, title },
+    close,
+}: Readonly<{
+    navLink: NavLinkType;
+    close: () => void;
+}>) => {
     const CustomNavLink =
         useLocation().pathname === href ? NavLinkWrapperActive : NavLinkWrapper;
     return (
@@ -56,30 +42,28 @@ const NavLink = ({ navLink: { href, title }, close }: NavLinkProps) => {
     );
 };
 
-const NavLinks = ({ fullScreen, close }: NavLinksProps) => {
-    const navLinks: ReadonlyArray<NavLinkType> = [
-        { href: '/house', title: 'House' },
-        { href: '/room', title: 'Room' },
-        { href: '/apartment', title: 'Apartment' },
-        { href: '/roommate', title: 'Roommate' },
-    ];
+const NavLinks = ({
+    fullScreen,
+    close,
+}: Readonly<{
+    fullScreen: boolean;
+    close: () => void;
+}>) => {
+    const Container = fullScreen ? NavMenu : CenterNav;
 
-    const NavLinksElem = (): JSX.Element => (
-        <>
-            {navLinks.map((navLink, index) => (
+    return (
+        <Container>
+            {(
+                [
+                    { href: '/house', title: 'House' },
+                    { href: '/room', title: 'Room' },
+                    { href: '/apartment', title: 'Apartment' },
+                    { href: '/roommate', title: 'Roommate' },
+                ] as ReadonlyArray<NavLinkType>
+            ).map((navLink, index) => (
                 <NavLink close={close} key={index} navLink={navLink} />
             ))}
-        </>
-    );
-
-    return fullScreen ? (
-        <NavMenu>
-            <NavLinksElem />
-        </NavMenu>
-    ) : (
-        <CenterNav>
-            <NavLinksElem />
-        </CenterNav>
+        </Container>
     );
 };
 

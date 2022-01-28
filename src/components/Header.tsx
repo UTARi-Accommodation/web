@@ -4,19 +4,14 @@ import styled, { keyframes } from 'styled-components';
 import { HashLoading, ErrorBoundary } from './HashLoading';
 import { FaArrowUp } from 'react-icons/fa';
 import FullScreen from './header/FullScreen';
-import SignUpLogin from './header/SignUpLogin';
 
 const NavLinks = React.lazy(() => import('./header/NavLinks'));
 
-interface BackToTopAnimation {
-    readonly slideIn: boolean;
-}
+type BackToTopAnimation = Readonly<{
+    slideIn: boolean;
+}>;
 
-interface BackToTopProps {
-    readonly scroll: boolean;
-}
-
-const BackToTop = ({ scroll }: BackToTopProps) => {
+const BackToTop = ({ scroll }: Readonly<{ scroll: boolean }>) => {
     const [state, setState] = React.useState({
         animate: scroll,
         load: scroll,
@@ -39,21 +34,16 @@ const BackToTop = ({ scroll }: BackToTopProps) => {
 
     const { animate, load } = state;
 
-    if (load) {
-        return (
-            <BackToTopContainer>
-                <ArrowUpContainer
-                    slideIn={animate}
-                    onClick={() =>
-                        window.scrollTo({ top: 0, behavior: 'smooth' })
-                    }
-                >
-                    <ArrowUp />
-                </ArrowUpContainer>
-            </BackToTopContainer>
-        );
-    }
-    return null;
+    return !load ? null : (
+        <BackToTopContainer>
+            <ArrowUpContainer
+                slideIn={animate}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+                <ArrowUp />
+            </ArrowUpContainer>
+        </BackToTopContainer>
+    );
 };
 
 const Header = () => {
@@ -66,24 +56,26 @@ const Header = () => {
         width: window.innerWidth,
     });
 
+    const handlePageOffset = () =>
+        setState((prevState) => ({
+            ...prevState,
+            scroll: window.pageYOffset > 500,
+        }));
+
     React.useEffect(() => {
-        const handlePageOffset = () =>
-            setState((prevState) => ({
-                ...prevState,
-                scroll: window.pageYOffset > 500,
-            }));
         window.addEventListener('scroll', handlePageOffset);
         return () => {
             window.removeEventListener('scroll', handlePageOffset);
         };
     }, []);
 
+    const handleResizeWindow = () =>
+        setState((prevState) => ({
+            ...prevState,
+            width: window.innerWidth,
+        }));
+
     React.useEffect(() => {
-        const handleResizeWindow = () =>
-            setState((prevState) => ({
-                ...prevState,
-                width: window.innerWidth,
-            }));
         window.addEventListener('resize', handleResizeWindow);
         return () => {
             window.removeEventListener('resize', handleResizeWindow);
@@ -92,41 +84,29 @@ const Header = () => {
 
     const { scroll, show, width } = state;
 
-    const setShow = (show: boolean) => {
+    const setShow = (show: boolean) =>
         setState((prevState) => ({
             ...prevState,
             show,
         }));
-    };
 
     const NavLinksNavigation = () =>
         width > firstBreakPoint ? (
             <NavLinks fullScreen={false} close={() => setShow(false)} />
         ) : null;
 
-    const HamburgerNavigation = () => {
-        if (width <= secondBreakPoint) {
-            return null;
-        } else if (width <= firstBreakPoint) {
-            return (
-                <HamburgerNav onClick={() => setShow(true)}>
-                    <HamburgerButton>☰</HamburgerButton>
-                </HamburgerNav>
-            );
-        }
-        return null;
-    };
+    const HamburgerNavigation = () =>
+        width <= secondBreakPoint ? null : width <= firstBreakPoint ? (
+            <HamburgerNav onClick={() => setShow(true)}>
+                <HamburgerButton>☰</HamburgerButton>
+            </HamburgerNav>
+        ) : null;
 
     const RightHamburgerNavigation = () =>
         width > secondBreakPoint ? null : (
             <HamburgerNav onClick={() => setShow(true)}>
                 <HamburgerButton>☰</HamburgerButton>
             </HamburgerNav>
-        );
-
-    const SignUpLoginNavigation = () =>
-        width <= secondBreakPoint ? null : (
-            <SignUpLogin includeInFullScreenNav={false} close={undefined} />
         );
 
     return (
@@ -143,14 +123,9 @@ const Header = () => {
                         </HeaderLinkContainer>
                         <HeaderLinkContainer>
                             <RightHamburgerNavigation />
-                            <SignUpLoginNavigation />
                         </HeaderLinkContainer>
                     </TopHeader>
-                    <FullScreen
-                        show={show}
-                        close={() => setShow(false)}
-                        displaySignUpLogin={width <= secondBreakPoint}
-                    />
+                    <FullScreen show={show} close={() => setShow(false)} />
                 </React.Suspense>
             </ErrorBoundary>
             <BackToTop scroll={scroll} />
@@ -173,7 +148,7 @@ const TitleHeader = styled.h1`
 
 const TopHeader = styled.header`
     padding: 10px 50px 10px 50px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid ${({ theme }) => theme.border};
     position: sticky;
     top: 0;
     display: flex;

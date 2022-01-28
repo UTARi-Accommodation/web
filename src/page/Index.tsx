@@ -2,29 +2,24 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-enum ColorType {
-    FIRST,
-    SECOND,
-    THIRD,
-}
+type ColorType = 'First' | 'Second' | 'Third';
 
-interface SubtitleProps {
-    readonly colorType: ColorType;
-}
+type SubtitleProps = Readonly<{
+    colorType: ColorType;
+}>;
 
-interface IndexImageContainerProps {
-    readonly imageName: 'roommate' | 'partition' | 'tailored';
-}
+type IndexImageContainerProps = Readonly<{
+    imageName: 'roommate' | 'partition' | 'tailored';
+}>;
 
-interface CustomWordContainerProps extends SubtitleProps {
-    readonly title: string;
-    readonly subTitle: string;
-    readonly titleDescription: string;
-}
+type CustomWordContainerProps = SubtitleProps &
+    Readonly<{
+        title: string;
+        subTitle: string;
+        titleDescription: string;
+    }>;
 
-interface IndexInfoProps
-    extends CustomWordContainerProps,
-        IndexImageContainerProps {}
+type IndexInfoProps = CustomWordContainerProps & IndexImageContainerProps;
 
 const IndexWordContainer = ({
     title,
@@ -60,11 +55,12 @@ const RightIndexInfo = ({
         width: window.innerWidth,
     });
 
+    const handleResizeWindow = () =>
+        setState(() => ({
+            width: window.innerWidth,
+        }));
+
     React.useEffect(() => {
-        const handleResizeWindow = () =>
-            setState(() => ({
-                width: window.innerWidth,
-            }));
         window.addEventListener('resize', handleResizeWindow);
         return () => {
             window.removeEventListener('resize', handleResizeWindow);
@@ -97,67 +93,61 @@ const LeftIndexInfo = ({
     titleDescription,
     colorType,
     imageName,
-}: IndexInfoProps): JSX.Element => {
-    return (
-        <Intro>
-            <IndexImageContainer imageName={imageName} />
-            <IndexWordContainer
-                title={title}
-                colorType={colorType}
-                subTitle={subTitle}
-                titleDescription={titleDescription}
+}: IndexInfoProps): JSX.Element => (
+    <Intro>
+        <IndexImageContainer imageName={imageName} />
+        <IndexWordContainer
+            title={title}
+            colorType={colorType}
+            subTitle={subTitle}
+            titleDescription={titleDescription}
+        />
+    </Intro>
+);
+
+const WelcomeMessage = (): JSX.Element => (
+    <WelcomeMsg>
+        <WelcomeMsgContainer>
+            <div>
+                <WelcomeMsgSpan>Welcome To UTARi</WelcomeMsgSpan>
+            </div>
+            <HowUtariWorksContainer>
+                <Link to="/tenant-work" rel="noopener noreferrer">
+                    How UTARi works
+                </Link>
+            </HowUtariWorksContainer>
+        </WelcomeMsgContainer>
+    </WelcomeMsg>
+);
+
+const Index = (): JSX.Element => (
+    <Container>
+        <WelcomeMessage />
+        <IntroContainer>
+            <LeftIndexInfo
+                title="Welcome to the future of co-living!"
+                subTitle="A ROOMMATE FOR EVERYONE"
+                titleDescription="Whether you're looking for a new BFF or just someone to split the rent, UTARi is the easiest roommate finder out there."
+                imageName="roommate"
+                colorType="First"
             />
-        </Intro>
-    );
-};
-
-const WelcomeMessage = (): JSX.Element => {
-    return (
-        <WelcomeMsg>
-            <WelcomeMsgContainer>
-                <div>
-                    <WelcomeMsgSpan>Welcome To UTARi</WelcomeMsgSpan>
-                </div>
-                <HowUtariWorksContainer>
-                    <Link to="/tenant-work" rel="noopener noreferrer">
-                        How UTARi works
-                    </Link>
-                </HowUtariWorksContainer>
-            </WelcomeMsgContainer>
-        </WelcomeMsg>
-    );
-};
-
-const Index = (): JSX.Element => {
-    return (
-        <Container>
-            <WelcomeMessage />
-            <IntroContainer>
-                <LeftIndexInfo
-                    title="Welcome to the future of co-living!"
-                    subTitle="A ROOMMATE FOR EVERYONE"
-                    titleDescription="Whether you're looking for a new BFF or just someone to split the rent, UTARi is the easiest roommate finder out there."
-                    imageName="roommate"
-                    colorType={ColorType.FIRST}
-                />
-                <RightIndexInfo
-                    title="Safe & Legal"
-                    subTitle="NO ILLEGALLY PARTITIONED ROOMS"
-                    titleDescription="All rooms put up for rent have been verified to be in compliance with regulation."
-                    imageName="partition"
-                    colorType={ColorType.SECOND}
-                />
-                <LeftIndexInfo
-                    title="Rent Easier"
-                    subTitle="HOSTEL SEARCHING ALGORITHM TAILORED FOR YOU"
-                    titleDescription="UTARi makes finding affordable rooms easier than ever"
-                    imageName="tailored"
-                    colorType={ColorType.THIRD}
-                />
-            </IntroContainer>
-        </Container>
-    );
-};
+            <RightIndexInfo
+                title="Safe & Legal"
+                subTitle="NO ILLEGALLY PARTITIONED ROOMS"
+                titleDescription="All rooms put up for rent have been verified to be in compliance with regulation."
+                imageName="partition"
+                colorType="Second"
+            />
+            <LeftIndexInfo
+                title="Rent Easier"
+                subTitle="HOSTEL SEARCHING ALGORITHM TAILORED FOR YOU"
+                titleDescription="UTARi makes finding affordable rooms easier than ever"
+                imageName="tailored"
+                colorType="Third"
+            />
+        </IntroContainer>
+    </Container>
+);
 
 const Container = styled.main`
     font-family: 'Montserrat', sans-serif !important;
@@ -251,9 +241,9 @@ const HomeTitle = styled.div`
 
 const SubTitle = styled.div`
     color: ${({ colorType }: SubtitleProps) =>
-        colorType === ColorType.FIRST
+        colorType === 'First'
             ? ({ theme }) => theme.firstIndexSubtitle
-            : colorType === ColorType.THIRD
+            : colorType === 'Third'
             ? ({ theme }) => theme.secondIndexSubtitle
             : ({ theme }) => theme.thirdIndexSubtitle};
     font-size: 20px;

@@ -4,61 +4,55 @@ import { GlobalContainer } from '../util/theme/GlobalTheme';
 import HashLoader from 'react-spinners/HashLoader';
 import { primaryTheme } from '../util/theme/colorTheme';
 
-export const HashLoading = (): JSX.Element => {
-    return (
-        <Container>
-            <InnerContainer>
-                <LoadingMessage>Loading...</LoadingMessage>
-                <HashLoader
-                    loading={true}
-                    size={100}
-                    color={primaryTheme.secondaryColor}
-                />
-            </InnerContainer>
-        </Container>
-    );
-};
+const HashLoading = (): JSX.Element => (
+    <Container>
+        <InnerContainer>
+            <LoadingMessage>Loading...</LoadingMessage>
+            <HashLoader
+                loading={true}
+                size={100}
+                color={primaryTheme.secondaryColor}
+            />
+        </InnerContainer>
+    </Container>
+);
 
-interface ErrorBoundaryProps {
-    readonly children: React.ReactNode;
-}
+type ErrorBoundaryState = Readonly<{
+    hasError: boolean;
+}>;
 
-interface ErrorBoundaryState {
-    readonly hasError: boolean;
-}
-
-export class ErrorBoundary extends React.Component<
-    ErrorBoundaryProps,
+class ErrorBoundary extends React.Component<
+    Readonly<{
+        children: React.ReactNode;
+    }>,
     ErrorBoundaryState
 > {
-    public state: ErrorBoundaryState = {
+    state: ErrorBoundaryState = {
         hasError: false,
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public static getDerivedStateFromError = (): ErrorBoundaryState => ({
+    static getDerivedStateFromError = (): ErrorBoundaryState => ({
         hasError: true,
     });
 
-    public componentDidCatch = (error: Error, errorInfo: React.ErrorInfo) =>
+    componentDidCatch = (error: Error, errorInfo: React.ErrorInfo) =>
         console.error('Uncaught error: ', error, errorInfo);
 
-    public render = (): JSX.Element | React.ReactNode => {
-        if (this.state.hasError) {
-            return (
-                <Container>
-                    <InnerContainer>
-                        <LoadingMessage>
-                            Oops! Seems like there&apos;s a problem loading the
-                            content
-                        </LoadingMessage>
-                        <LoadingMessage>Please try again</LoadingMessage>
-                    </InnerContainer>
-                </Container>
-            );
-        }
-        return this.props.children;
-    };
+    render = (): JSX.Element | React.ReactNode =>
+        !this.state.hasError ? (
+            this.props.children
+        ) : (
+            <Container>
+                <InnerContainer>
+                    <LoadingMessage>
+                        Oops! Seems like there&apos;s a problem loading the
+                        content
+                    </LoadingMessage>
+                    <LoadingMessage>Please try again</LoadingMessage>
+                </InnerContainer>
+            </Container>
+        );
 }
 
 const Container = styled(GlobalContainer)`
@@ -79,3 +73,5 @@ const InnerContainer = styled.div`
     display: grid;
     place-items: center;
 `;
+
+export { ErrorBoundary, HashLoading };

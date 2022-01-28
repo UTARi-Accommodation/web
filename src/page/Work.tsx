@@ -1,52 +1,32 @@
 import * as React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Title from '../components/Title';
 
-enum ColorType {
-    ORANGE,
-    BLUE,
-}
+type WorkInformation = Readonly<{
+    title: string;
+    stepDescription: string;
+    imageName: string;
+}>;
 
-interface ColorProps {
-    readonly colorType: ColorType;
-}
+type Tenant = Readonly<{
+    message: 'SEARCH PROPERTY';
+    title: 'How to search for rental property';
+}>;
 
-interface WorkInformation extends ColorProps {
-    readonly title: string;
-    readonly stepDescription: string;
-    readonly imageName: string;
-}
+type ButtonProps = Readonly<{
+    message: Tenant['message'];
+}>;
 
-interface Landlord {
-    readonly message: 'LIST PROPERTY';
-    readonly title: 'How to list rental property';
-    readonly colorType: ColorType.ORANGE;
-}
+type ImageContainer = Readonly<{
+    hide: boolean;
+}>;
 
-interface Tenant {
-    readonly message: 'SEARCH PROPERTY';
-    readonly title: 'How to search for rental property';
-    readonly colorType: ColorType.BLUE;
-}
-
-interface ButtonProps extends ColorProps {
-    readonly message: Landlord['message'] | Tenant['message'];
-}
-
-interface MessageContainerProps {
-    readonly title: Landlord['title'] | Tenant['title'];
-}
-
-interface NavigationButtonStyledProps {
-    readonly inverted: boolean;
-}
-
-interface ImageContainer {
-    readonly hide: boolean;
-}
-
-const MessageContainer = ({ title }: MessageContainerProps): JSX.Element => (
+const MessageContainer = ({
+    title,
+}: Readonly<{
+    title: Tenant['title'];
+}>): JSX.Element => (
     <WorkMessageContainer>
         <div>
             <WorkMessageDiv>
@@ -60,7 +40,6 @@ const RightWorkInfo = ({
     title,
     stepDescription,
     imageName,
-    colorType,
 }: WorkInformation): JSX.Element => {
     const breakPoint = 1237;
 
@@ -68,11 +47,12 @@ const RightWorkInfo = ({
         width: window.innerWidth,
     });
 
+    const handleResizeWindow = () =>
+        setState(() => ({
+            width: window.innerWidth,
+        }));
+
     React.useEffect(() => {
-        const handleResizeWindow = () =>
-            setState(() => ({
-                width: window.innerWidth,
-            }));
         window.addEventListener('resize', handleResizeWindow);
         return () => {
             window.removeEventListener('resize', handleResizeWindow);
@@ -81,11 +61,8 @@ const RightWorkInfo = ({
 
     const { width } = state;
 
-    const ImageContainer = ({ hide }: ImageContainer) => {
-        if (hide) {
-            return null;
-        }
-        return (
+    const ImageContainer = ({ hide }: ImageContainer) =>
+        hide ? null : (
             <WorkImageContainer>
                 <WorkImage
                     src={`img/work/${imageName}.webp`}
@@ -93,13 +70,12 @@ const RightWorkInfo = ({
                 />
             </WorkImageContainer>
         );
-    };
 
     return (
         <WorkStepContainer>
             <ImageContainer hide={width <= breakPoint} />
             <WorkContentContainer>
-                <WorkTitle colorType={colorType}>{title}</WorkTitle>
+                <WorkTitle>{title}</WorkTitle>
                 <WorkDescription>{stepDescription}</WorkDescription>
             </WorkContentContainer>
             <ImageContainer hide={width > breakPoint} />
@@ -111,11 +87,10 @@ const LeftWorkInfo = ({
     title,
     stepDescription,
     imageName,
-    colorType,
 }: WorkInformation): JSX.Element => (
     <WorkStepContainer>
         <WorkContentContainer>
-            <WorkTitle colorType={colorType}>{title}</WorkTitle>
+            <WorkTitle>{title}</WorkTitle>
             <WorkDescription>{stepDescription}</WorkDescription>
         </WorkContentContainer>
         <WorkImageContainer>
@@ -127,37 +102,29 @@ const LeftWorkInfo = ({
     </WorkStepContainer>
 );
 
-const Button = ({ message, colorType }: ButtonProps): JSX.Element => (
+const Button = ({ message }: ButtonProps): JSX.Element => (
     <div>
-        <FinalStepContainer colorType={colorType}>
+        <FinalStepContainer>
             <FinalStepTitle>Ready to get started?</FinalStepTitle>
             <Link to="/room">{message}</Link>
         </FinalStepContainer>
     </div>
 );
 
-const NavigationButton = (): JSX.Element => {
-    const isTenant = useLocation().pathname === '/tenant-work';
-
-    return (
-        <NavigationButtonContainer>
-            <NavigationLinkContainer>
-                <Link to="/tenant-work">
-                    <Search inverted={!isTenant}>Search Property</Search>
-                </Link>
-                <Link to="/landlord-work">
-                    <List inverted={isTenant}>List Property</List>
-                </Link>
-            </NavigationLinkContainer>
-        </NavigationButtonContainer>
-    );
-};
+const NavigationButton = (): JSX.Element => (
+    <NavigationButtonContainer>
+        <NavigationLinkContainer>
+            <Link to="/tenant-work">
+                <Search>Search Property</Search>
+            </Link>
+        </NavigationLinkContainer>
+    </NavigationButtonContainer>
+);
 
 const TenantWork = () => {
-    const { message, title, colorType }: Tenant = {
+    const { message, title }: Tenant = {
         message: 'SEARCH PROPERTY',
         title: 'How to search for rental property',
-        colorType: ColorType.BLUE,
     };
 
     return (
@@ -168,66 +135,23 @@ const TenantWork = () => {
             />
             <MessageContainer title={title} />
             <NavigationButton />
-            <WorkContainer colorType={colorType}>
+            <WorkContainer>
                 <LeftWorkInfo
                     title="Browse Properties"
                     stepDescription="Browse hundreds of places on UTARi for free. Listing are verified to ensure a safe searching experience."
                     imageName="tenant/search"
-                    colorType={colorType}
                 />
                 <RightWorkInfo
                     title="Contact The Landlord!"
                     stepDescription="WhatsApp or email of the landlord to learn more about a listing and send a booking request when you find the perfect place!"
                     imageName="tenant/chat"
-                    colorType={colorType}
                 />
                 <LeftWorkInfo
                     title="Move In"
                     stepDescription="Time to pack your stuffs and celebrate finding a new place to move into."
                     imageName="tenant/pack"
-                    colorType={colorType}
                 />
-                <Button message={message} colorType={colorType} />
-            </WorkContainer>
-        </main>
-    );
-};
-
-const LandlordWork = () => {
-    const { message, title, colorType }: Landlord = {
-        message: 'LIST PROPERTY',
-        title: 'How to list rental property',
-        colorType: ColorType.ORANGE,
-    };
-
-    return (
-        <main>
-            <Title
-                title="How UTARi Works"
-                content="This page explains how UTARi works in general"
-            />
-            <MessageContainer title={title} />
-            <NavigationButton />
-            <WorkContainer colorType={colorType}>
-                <RightWorkInfo
-                    title="Get Verified"
-                    stepDescription="To avoid the issue of fake listing, please register at DSA of UTAR department before proceeding"
-                    imageName="landlord/verify"
-                    colorType={colorType}
-                />
-                <LeftWorkInfo
-                    title="Post Your Property!"
-                    stepDescription="Start to list your property upon successful registration!"
-                    imageName="landlord/post"
-                    colorType={colorType}
-                />
-                <RightWorkInfo
-                    title="Be Ready To Reply WhatsApp Messages or Email"
-                    stepDescription="Tenants or any other person interested with your listed property may contact you for more details."
-                    imageName="landlord/reply"
-                    colorType={colorType}
-                />
-                <Button message={message} colorType={colorType} />
+                <Button message={message} />
             </WorkContainer>
         </main>
     );
@@ -248,11 +172,7 @@ const WorkMessageContainer = styled.div`
 const WorkContainer = styled.div`
     margin: 0 150px 150px 150px;
     padding: 100px;
-    border: 5px solid
-        ${({ colorType }: ColorProps) =>
-            colorType === ColorType.BLUE
-                ? ({ theme }) => theme.lightBlue
-                : ({ theme }) => theme.lightOrange};
+    border: 5px solid ${({ theme }) => theme.lightBlue};
     @media (max-width: 1237px) {
         justify-content: center;
     }
@@ -262,7 +182,6 @@ const WorkContainer = styled.div`
     @media (max-width: 894px) {
         padding: 100px 50px 100px 50px;
     }
-
     @media (max-width: 694px) {
         margin: 0 50px 150px 50px;
     }
@@ -331,36 +250,10 @@ const NavigationStyled = styled.div`
     }
 `;
 
-const List = styled(NavigationStyled)`
-    background-color: ${({ inverted }: NavigationButtonStyledProps) =>
-        inverted
-            ? ({ theme }) => theme.primaryColor
-            : ({ theme }) => theme.denseOrange};
-    border: 3px solid
-        ${({ inverted }: NavigationButtonStyledProps) =>
-            inverted
-                ? ({ theme }) => theme.mediumOrange
-                : ({ theme }) => theme.denseOrange};
-    color: ${({ inverted }: NavigationButtonStyledProps) =>
-        inverted
-            ? ({ theme }) => theme.mediumOrange
-            : ({ theme }) => theme.primaryColor};
-`;
-
 const Search = styled(NavigationStyled)`
-    background-color: ${({ inverted }: NavigationButtonStyledProps) =>
-        inverted
-            ? ({ theme }) => theme.primaryColor
-            : ({ theme }) => theme.denseBlue};
-    border: 3px solid
-        ${({ inverted }: NavigationButtonStyledProps) =>
-            inverted
-                ? ({ theme }) => theme.lightBlue
-                : ({ theme }) => theme.denseBlue};
-    color: ${({ inverted }: NavigationButtonStyledProps) =>
-        inverted
-            ? ({ theme }) => theme.lightBlue
-            : ({ theme }) => theme.primaryColor};
+    background-color: ${({ theme }) => theme.denseBlue};
+    border: 3px solid ${({ theme }) => theme.denseBlue};
+    color: ${({ theme }) => theme.primaryColor};
 `;
 
 const WorkStepContainer = styled.div`
@@ -413,10 +306,7 @@ const WorkTitle = styled.div`
     font-weight: bolder;
     text-transform: uppercase;
     font-family: 'Montserrat', serif;
-    color: ${({ colorType }: ColorProps) =>
-        colorType === ColorType.BLUE
-            ? ({ theme }) => theme.denseBlue
-            : ({ theme }) => theme.denseOrange};
+    color: ${({ theme }) => theme.denseBlue};
 `;
 
 const WorkDescription = styled.div`
@@ -433,10 +323,7 @@ const FinalStepContainer = styled.div`
     font-weight: 700;
     font-family: 'Montserrat', serif;
     > a {
-        background-color: ${({ colorType }: ColorProps) =>
-            colorType === ColorType.BLUE
-                ? ({ theme }) => theme.denseBlue
-                : ({ theme }) => theme.denseOrange};
+        background-color: ${({ theme }) => theme.denseBlue};
         color: ${({ theme }) => theme.primaryColor};
         padding: 25px 50px 25px 50px;
         text-decoration: none;
@@ -452,4 +339,4 @@ const FinalStepTitle = styled.div`
     font-family: 'Montserrat', serif;
 `;
 
-export { TenantWork, LandlordWork };
+export default TenantWork;

@@ -4,19 +4,22 @@ export const primaryTheme: DefaultTheme = {
     title: '#678EFB',
     redColor: '#CC0F39',
     greenColor: '#0FFBF9',
+
     denseBlue: '#4fC0DF',
+    denseOrange: '#DF6E4F',
+
     errorHomeButton: '#1DACD6',
     firstIndexSubtitle: '#EFCEA3',
     secondIndexSubtitle: '#F55F36',
+
     thirdIndexSubtitle: '#4fC0DF',
-    denseOrange: '#DF6E4F',
     stepDescription: '#4A4A4A',
+
     lightBlue: '#D9E3FF',
     lightOrange: '#FAF0E3',
+
     mediumOrange: '#EBC291',
     mediumBlue: '#6D8FFE',
-    signUpInputBorder: '#DDDFE2',
-    friendlyErrorColor: '#E0115F',
 
     primaryColor: '#FEFEFE',
     secondaryColor: '#121212',
@@ -25,23 +28,17 @@ export const primaryTheme: DefaultTheme = {
     disabledTextColor: '#00000061',
 
     scrollBarBackground: '#F5F5F5',
-    signUpLabel: '#00539C',
-    accountFormBoxShadow: '#0000001a',
-
-    google: '#4285f4',
-    mobile: '#000000DD',
 
     howItWorks: '#002ee3',
 
-    floatingLabel: '#32CD32',
-    placeHolder: '#999',
+    smallRoom: '#337AB7',
+    middleRoom: '#5CB85C',
+    masterRoom: '#E0115F',
 
-    loginButton: '#4fC0DF',
-    loginHover: '#27AFD4',
+    unit: '#BC1A6E',
 
-    signUpButton: '#DF6E4F',
-    signUpHover: '#D44C27',
+    rating: '#FF385C',
 
-    recoveryButton: '#121212',
-    recoverHover: '#000D0D',
+    accommodationHorizontalLine: '#EBEBEB',
+    border: '#D3D3D3',
 };
