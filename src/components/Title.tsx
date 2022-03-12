@@ -6,7 +6,19 @@ const Title = ({
     title,
     content,
 }: Readonly<{
-    title: NavLinkType['title'] | 'Page Not Found' | 'How UTARi Works';
+    title:
+        | NavLinkType['title']
+        | 'Page Not Found'
+        | 'How UTARi Works'
+        | 'Sign in | UTARi'
+        | 'Delete Account'
+        | 'Bookmarked Rooms'
+        | 'Bookmarked Units'
+        | 'Home'
+        | 'Room Detailed Info'
+        | 'Unit Detailed Info'
+        | 'Terms and Conditions'
+        | 'Privacy Policy';
     content: string;
 }>) => (
     <Helmet>

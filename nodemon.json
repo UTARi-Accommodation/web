@@ -2,5 +2,5 @@
     "watch": ["src", "public"],
     "ignore": ["node_modules"],
     "ext": "ts, tsx, html",
-    "exec": "yarn start && echo Frontend Nodemon Done"
+    "exec": "make start && echo Frontend Nodemon Done"
 }

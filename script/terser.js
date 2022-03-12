@@ -1,5 +1,6 @@
 import { minify } from 'html-minifier-terser';
 import fs from 'fs';
+import { getAllFilesAndCode, getAllFiles } from './util.js';
 
 const config = {
     removeComments: true,
@@ -9,53 +10,25 @@ const config = {
     collapseBooleanAttributes: true,
 };
 
-const getAllHTMLFiles = (dir) =>
-    fs.readdirSync(dir).flatMap((file) => {
-        const path = `${dir}/${file}`;
-        if (fs.statSync(path).isDirectory()) {
-            return getAllHTMLFiles(path);
-        }
-        const extension = path.split('.').pop();
-        return extension ? (extension === 'html' ? [path] : []) : [];
-    });
-
-const readCode = (files) =>
-    new Promise((resolve, reject) => {
-        let fetchData = '';
-        fs.createReadStream(files)
-            .on('data', (data) => {
-                fetchData = data.toString();
-            })
-            .on('end', () => resolve(fetchData))
-            .on('error', reject);
-    });
-
-const getAllHTMLCodes = (files) =>
-    files.map(async (file) => ({
-        file,
-        code: await readCode(file),
-    }));
-
-const main = async (dir) => {
-    const files = getAllHTMLFiles(dir);
+(async (dir) => {
+    const files = getAllFiles(dir, (extension) => extension === 'html');
     if (files.length === 0) {
         console.log('No HTML file in build folder');
         process.exit(0);
     }
-    (
-        await getAllHTMLCodes(files).reduce(
-            async (prev, curr) => (await prev).concat(await curr),
-            Promise.resolve([])
+    await Promise.all(
+        (
+            await getAllFilesAndCode(files).reduce(
+                async (prev, curr) => (await prev).concat(await curr),
+                Promise.resolve([])
+            )
+        ).map(async ({ code, file }) =>
+            fs.writeFile(file, await minify(code, config), (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            })
         )
-    ).forEach(async ({ code, file }) => {
-        const minified = await minify(code, config);
-        fs.writeFile(file, minified, (err) => {
-            if (err) {
-                console.error(err);
-            }
-        });
-    });
+    );
     console.log('Frontend HTML Terser done its job!');
-};
-
-main('build');
+})('build');

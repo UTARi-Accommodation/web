@@ -1,173 +1,178 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components';
-import { FaInstagram, FaTwitter, FaTiktok } from 'react-icons/fa';
-import { TiSocialLinkedin, TiSocialFacebook } from 'react-icons/ti';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import HorizontalLine from './accommodation/display/HorizontalLine';
+import { condominiumsRoute, housesRoute } from '../url/query/general/unit';
+import { roommatesRoute, roomsRoute } from '../url/query/general/room';
+
+const LinkToContent = ({
+    link,
+    content,
+}: Readonly<{
+    link: string;
+    content: string;
+}>) => {
+    const summaryContent = <SummaryContent>{content}</SummaryContent>;
+
+    return (
+        <LinkContainer>
+            {link.startsWith('/') ? (
+                <Link to={link}>{summaryContent}</Link>
+            ) : (
+                <a
+                    href={link}
+                    target="_blank"
+                    rel="external nofollow noopener noreferrer"
+                >
+                    {summaryContent}
+                </a>
+            )}
+        </LinkContainer>
+    );
+};
 
 const Footer = () => (
     <Container>
-        <CopyRight>
-            <p>copyright &copy;{new Date().getFullYear()}</p>
-        </CopyRight>
-        <SocialLinkContainer>
-            <Linkedin href="https://www.linkedin.com/school/universiti-tunku-abdul-rahman/?originalSubdomain=my">
-                <LinkedinLogo />
-            </Linkedin>
-            <Facebook href="https://www.facebook.com/UTARnet">
-                <FacebookLogo />
-            </Facebook>
-            <Instagram href="https://www.instagram.com/utarnet1/?hl=en">
-                <InstagramLogo />
-            </Instagram>
-            <Twitter href="https://twitter.com/utarnet?lang=en">
-                <TwitterLogo />
-            </Twitter>
-            <TikTok href="https://www.tiktok.com/@utarnet?lang=en">
-                <TikTokLogo />
-            </TikTok>
-        </SocialLinkContainer>
+        <InnerContainer>
+            <SummaryContainer>
+                <ColumnSummary>
+                    <SummaryTitle>Accommodation Type</SummaryTitle>
+                    <LinkToContent
+                        content="Condominium"
+                        link={condominiumsRoute}
+                    />
+                    <LinkToContent content="House" link={housesRoute} />
+                    <LinkToContent content="Room" link={roomsRoute} />
+                    <LinkToContent
+                        content="Find Roommate"
+                        link={roommatesRoute}
+                    />
+                </ColumnSummary>
+                <ColumnSummary>
+                    <SummaryTitle>Website</SummaryTitle>
+                    <LinkToContent content="Home" link="/" />
+                    <LinkToContent content="About" link="/about" />
+                    <LinkToContent content="Contact" link="/contact" />
+                </ColumnSummary>
+                <ColumnSummary>
+                    <SummaryTitle>Developers</SummaryTitle>
+                    <LinkToContent
+                        content="Open Source"
+                        link="https://github.com/Utari-Room/"
+                    />
+                </ColumnSummary>
+                <ColumnSummary>
+                    <SummaryTitle>Social</SummaryTitle>
+                    <LinkToContent
+                        content="Github"
+                        link="https://github.com/Utari-Room/"
+                    />
+                    <LinkToContent
+                        content="Facebook"
+                        link="https://www.facebook.com/UTARnet/"
+                    />
+                    <LinkToContent
+                        content="LinkedIn"
+                        link="https://www.linkedin.com/school/universiti-tunku-abdul-rahman/"
+                    />
+                    <LinkToContent
+                        content="apple"
+                        link="https://apple.com/utarnet/"
+                    />
+                </ColumnSummary>
+            </SummaryContainer>
+            <FooterHozitonalLine />
+            <CopyRightContainer>
+                <CopyRight>
+                    Copyright &copy;{new Date().getFullYear()}
+                </CopyRight>
+                <RowSummary>
+                    <LinkToContent content="Privacy" link="/privacy-policy" />
+                    <LinkToContent content="Terms" link="/terms-conditions" />
+                </RowSummary>
+            </CopyRightContainer>
+        </InnerContainer>
     </Container>
 );
 
 const Container = styled.footer`
-    height: fit-content;
-    text-align: center;
-    background-color: transparent;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: Montserrat, sans-serif !important;
+    margin: 64px 0 0 0;
+    padding: 32px 0;
+    font-weight: 400;
+    display: grid;
+    place-items: center;
+    background-color: ${({ theme }) => theme.footerBackground};
 `;
 
-const SocialLinkContainer = styled.div`
-    display: inline-flex;
+const InnerContainer = styled.div`
+    display: grid;
+    place-items: center;
+    width: 75%;
+    > div {
+        width: 100%;
+    }
+    @media (max-width: 820px) {
+        width: 85%;
+    }
+`;
+
+const SummaryContainer = styled.div`
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding-bottom: 20px;
+    justify-content: space-between;
+    grid-gap: 24px;
+    @media (max-width: 365px) {
+        flex-wrap: no-wrap;
+        flex-direction: column;
+    }
+`;
+
+const ColumnSummary = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const RowSummary = styled(ColumnSummary)`
+    flex-direction: row;
+    grid-gap: 16px;
+    justify-content: space-between;
+`;
+
+const SummaryTitle = styled.div`
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+    font-weight: 500;
+    color: ${({ theme }) => theme.highEmphasesTextColor};
+`;
+
+const SummaryContent = styled.div`
+    margin: 0 0 8px 0;
+    transition: 0.3s;
+    &:hover {
+        color: ${({ theme }) => theme.mediumEmphasesTextColor};
+    }
+    color: gray;
+`;
+
+const LinkContainer = styled.div`
+    > a {
+        text-decoration: none;
+    }
+`;
+
+const CopyRightContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const FooterHozitonalLine = styled(HorizontalLine)`
+    margin: 32px 0;
 `;
 
 const CopyRight = styled.div`
-    font-size: 1.3em;
-    text-transform: uppercase;
-    color: ${({ theme }) => theme.secondaryColor};
-    @media (max-width: 586px) {
-        font-size: 1em;
-    }
-`;
-
-const SocialIcon = styled.a.attrs({
-    target: '_blank',
-    rel: 'noreferrer noopener',
-})`
-    display: grid;
-    place-items: center;
-    color: whitesmoke;
-    border-radius: 50%;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
-    transition: all 0.3s ease;
-    margin: 5px 10px;
-    border: none;
-    &:hover {
-        transform: rotate(360deg) scale(1.3);
-        background: whitesmoke;
-    }
-    &:focus {
-        outline: none;
-    }
-    @media (max-width: 366px) {
-        padding: 5px;
-    } ;
-`;
-
-const BigIcon = css`
-    font-size: 2.5em !important;
-    @media (max-width: 366px) {
-        font-size: 2.2em !important;
-    }
-`;
-
-const SmallIcon = css`
-    font-size: 2.2em !important;
-    @media (max-width: 366px) {
-        font-size: 2em !important;
-    }
-`;
-
-const Facebook = styled(SocialIcon)`
-    background: #3b5998;
-    &:hover {
-        color: #3b5998;
-    }
-`;
-
-const FacebookLogo = styled(TiSocialFacebook)`
-    ${SmallIcon}
-`;
-
-const Linkedin = styled(SocialIcon)`
-    background: #007bb5;
-    &:hover {
-        color: #007bb5;
-    }
-`;
-
-const LinkedinLogo = styled(TiSocialLinkedin)`
-    ${SmallIcon}
-`;
-
-const Instagram = styled(SocialIcon)`
-    background: #f09433;
-    background: -moz-linear-gradient(
-        45deg,
-        #f09433 0%,
-        #e6683c 25%,
-        #dc2743 50%,
-        #cc2366 75%,
-        #bc1888 100%
-    );
-    background: -webkit-linear-gradient(
-        45deg,
-        #f09433 0%,
-        #e6683c 25%,
-        #dc2743 50%,
-        #cc2366 75%,
-        #bc1888 100%
-    );
-    background: linear-gradient(
-        45deg,
-        #f09433 0%,
-        #e6683c 25%,
-        #dc2743 50%,
-        #cc2366 75%,
-        #bc1888 100%
-    );
-    &:hover {
-        color: #dc2743;
-    }
-`;
-
-const InstagramLogo = styled(FaInstagram)`
-    ${BigIcon}
-`;
-
-const TikTok = styled(SocialIcon)`
-    background: #282a36;
-    &:hover {
-        color: #282a36;
-    }
-`;
-
-const TikTokLogo = styled(FaTiktok)`
-    ${SmallIcon}
-`;
-
-const Twitter = styled(SocialIcon)`
-    background: #326ada;
-    &:hover {
-        color: #326ada;
-    }
-`;
-
-const TwitterLogo = styled(FaTwitter)`
-    ${SmallIcon}
+    font-size: 1em;
+    color: gray;
 `;
 
 export default Footer;

@@ -1,87 +1,130 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import useWindowResize from '../../hook/windowResize';
 
-type House = Readonly<{
-    href: '/house';
+type BookmarkedUnit = Readonly<{
+    href: '/bookmarked-units';
+    title: 'Bookmarked Units';
+}>;
+
+type BookmarkedRoom = Readonly<{
+    href: '/bookmarked-rooms';
+    title: 'Bookmarked Rooms';
+}>;
+
+type DetailedRoom = Readonly<{
+    href: '/detailed-room';
+    title: 'Detailed Room';
+}>;
+
+type DetailedUnit = Readonly<{
+    href: '/detailed-unit';
+    title: 'Detailed Unit';
+}>;
+
+type Houses = Readonly<{
+    href: '/houses';
     title: 'House';
 }>;
 
-type Room = Readonly<{
-    href: '/room';
+type Rooms = Readonly<{
+    href: '/rooms';
     title: 'Room';
 }>;
 
-type Apartment = Readonly<{
-    href: '/apartment';
-    title: 'Apartment';
+type Condominiums = Readonly<{
+    href: '/condominiums';
+    title: 'Condominium';
 }>;
 
-type Roommate = Readonly<{
-    href: '/roommate';
-    title: 'Roommate';
+type Roommates = Readonly<{
+    href: '/roommates';
+    title: 'Find Roommate';
 }>;
 
-export type NavLinkType = House | Room | Apartment | Roommate;
+type About = Readonly<{
+    href: '/about';
+    title: 'About';
+}>;
+
+type Contact = Readonly<{
+    href: '/contact';
+    title: 'Contact';
+}>;
+
+type Home = Readonly<{
+    href: '/';
+    title: 'Home';
+}>;
+
+type Auth = Readonly<{
+    href: '/auth';
+    title: 'Sign In';
+}>;
+
+type NavLinkType =
+    | Houses
+    | Rooms
+    | Condominiums
+    | Roommates
+    | BookmarkedRoom
+    | BookmarkedUnit
+    | DetailedUnit
+    | DetailedRoom
+    | About
+    | Contact
+    | Home
+    | Auth;
 
 const NavLink = ({
     navLink: { href, title },
-    close,
 }: Readonly<{
     navLink: NavLinkType;
-    close: () => void;
 }>) => {
     const CustomNavLink =
-        useLocation().pathname === href ? NavLinkWrapperActive : NavLinkWrapper;
+        useLocation().pathname === href
+            ? NavLinkContainerActive
+            : NavLinkContainer;
     return (
         <CustomNavLink>
-            <Link onClick={close} to={href}>
-                {title}
-            </Link>
+            <Link to={href}>{title}</Link>
         </CustomNavLink>
     );
 };
 
-const NavLinks = ({
-    fullScreen,
-    close,
-}: Readonly<{
-    fullScreen: boolean;
-    close: () => void;
-}>) => {
-    const Container = fullScreen ? NavMenu : CenterNav;
+const NavLinks = () => {
+    const { width } = useWindowResize();
+
+    const breakPoint = 635;
+
+    const links = [
+        { href: '/', title: 'Home' },
+        { href: '/about', title: 'About' },
+        { href: '/contact', title: 'Contact' },
+        width <= breakPoint ? { href: '/auth', title: 'Sign In' } : undefined,
+    ].filter(Boolean) as ReadonlyArray<NavLinkType>;
 
     return (
-        <Container>
-            {(
-                [
-                    { href: '/house', title: 'House' },
-                    { href: '/room', title: 'Room' },
-                    { href: '/apartment', title: 'Apartment' },
-                    { href: '/roommate', title: 'Roommate' },
-                ] as ReadonlyArray<NavLinkType>
-            ).map((navLink, index) => (
-                <NavLink close={close} key={index} navLink={navLink} />
+        <CenterNav>
+            {links.map((navLink) => (
+                <NavLink key={navLink.href} navLink={navLink} />
             ))}
-        </Container>
+        </CenterNav>
     );
 };
 
-const NavLinkWrapperStyled = styled.div`
-    font-family: 'Montserrat', sans-serif !important;
-    margin: 0 10px 0 0;
+const NavLinkContainerStyled = styled.div`
+    font-family: Montserrat, sans-serif !important;
     font-size: 1em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    @media (max-width: 916px) {
-        font-size: 1.5em;
-    }
-    @media (max-width: 400px) {
+    padding: 8px 16px;
+    @media (max-width: 635px) {
         font-size: 1em;
     }
     > a {
         text-decoration: none;
         transition: color 0.5s;
+        font-weight: 400;
         &:focus {
             outline: none;
         }
@@ -91,13 +134,14 @@ const NavLinkWrapperStyled = styled.div`
     }
 `;
 
-const NavLinkWrapperActive = styled(NavLinkWrapperStyled)`
+const NavLinkContainerActive = styled(NavLinkContainerStyled)`
     > a {
+        font-weight: 500;
         color: ${({ theme }) => theme.secondaryColor};
     }
 `;
 
-const NavLinkWrapper = styled(NavLinkWrapperStyled)`
+const NavLinkContainer = styled(NavLinkContainerStyled)`
     > a {
         color: gray;
     }
@@ -109,15 +153,5 @@ const CenterNav = styled.div`
     justify-content: center;
 `;
 
-const NavMenu = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    > div {
-        font-size: 1.75em;
-        margin: 10px;
-    }
-`;
-
 export default NavLinks;
+export type { NavLinkType };

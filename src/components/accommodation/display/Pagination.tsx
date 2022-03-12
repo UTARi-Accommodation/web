@@ -1,0 +1,225 @@
+import * as React from 'react';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import styled, { css } from 'styled-components';
+import { maxItemsPerPage } from 'utari-common';
+
+// refer https://stackblitz.com/edit/react-1zaeqk?file=src%2FusePagination.js
+
+const range = (start: number, end: number) =>
+    Array.from({ length: end - start + 1 }, (_, index) => index + start);
+
+const usePagination = ({
+    siblingCount = 1,
+    currentPage,
+    totalPage,
+}: Readonly<{
+    currentPage: number;
+    totalPage: number;
+    siblingCount: number;
+}>) => {
+    const dots = '...';
+    const paginationRange: ReadonlyArray<string | number> =
+        React.useMemo(() => {
+            const totalPageNumbers = siblingCount + 5;
+
+            if (totalPageNumbers >= totalPage) {
+                return range(1, totalPage);
+            }
+
+            const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+            const rightSiblingIndex = Math.min(
+                currentPage + siblingCount,
+                totalPage
+            );
+
+            const shouldShowLeftDots = leftSiblingIndex > 2;
+            const shouldShowRightDots = rightSiblingIndex < totalPage - 2;
+
+            const firstPageIndex = 1;
+            const lastPageIndex = totalPage;
+
+            if (!shouldShowLeftDots && shouldShowRightDots) {
+                const leftItemCount = 3 + 2 * siblingCount;
+                const leftRange = range(1, leftItemCount);
+
+                return [...leftRange, dots, totalPage];
+            }
+
+            if (shouldShowLeftDots && !shouldShowRightDots) {
+                const rightItemCount = 3 + 2 * siblingCount;
+                const rightRange = range(
+                    totalPage - rightItemCount + 1,
+                    totalPage
+                );
+                return [firstPageIndex, dots, ...rightRange];
+            }
+
+            if (shouldShowLeftDots && shouldShowRightDots) {
+                const middleRange = range(leftSiblingIndex, rightSiblingIndex);
+                return [
+                    firstPageIndex,
+                    dots,
+                    ...middleRange,
+                    dots,
+                    lastPageIndex,
+                ];
+            }
+
+            return [];
+        }, [totalPage, siblingCount, currentPage]);
+
+    return paginationRange;
+};
+
+//ref https://stackoverflow.com/questions/49784294/warning-received-false-for-a-non-boolean-attribute-how-do-i-pass-a-boolean-f
+//ref https://styled-components.com/docs/api#transient-props
+type PaginationNavigationProps = Readonly<{
+    $disallowed: boolean;
+}>;
+
+const Pagination = ({
+    totalPage,
+    currentPage,
+    onClick,
+    numberOfResults,
+    numberOfResultsQueried,
+}: Readonly<{
+    totalPage: number;
+    currentPage: number;
+    onClick: (page: number) => void;
+    numberOfResults: number;
+    numberOfResultsQueried: number;
+}>) => (
+    <>
+        <Container>
+            <NumberPaginationContainer>
+                <LeftCircle
+                    $disallowed={!numberOfResults || currentPage === 1}
+                    onClick={() => {
+                        if (currentPage > 1) {
+                            onClick(currentPage - 1);
+                        }
+                    }}
+                />
+            </NumberPaginationContainer>
+            {usePagination({
+                currentPage,
+                totalPage,
+                siblingCount: 1,
+            }).map((page) =>
+                currentPage === page ? (
+                    <CurrentPaginationContainer key={page}>
+                        <CurrentPaginationButton>
+                            {page}
+                        </CurrentPaginationButton>
+                    </CurrentPaginationContainer>
+                ) : typeof page === 'number' ? (
+                    <NumberPaginationContainer
+                        key={page}
+                        onClick={() => onClick(page)}
+                    >
+                        <PaginationButton>{page}</PaginationButton>
+                    </NumberPaginationContainer>
+                ) : (
+                    <DotPaginationContainer key={page}>
+                        <PaginationButton>{page}</PaginationButton>
+                    </DotPaginationContainer>
+                )
+            )}
+            <NumberPaginationContainer>
+                <RightCircle
+                    $disallowed={!numberOfResults || currentPage === totalPage}
+                    onClick={() => {
+                        if (currentPage < totalPage) {
+                            onClick(currentPage + 1);
+                        }
+                    }}
+                />
+            </NumberPaginationContainer>
+        </Container>
+        <SearchResultDescription>
+            {`${
+                !numberOfResults ? 0 : (currentPage - 1) * maxItemsPerPage + 1
+            } - ${
+                !currentPage
+                    ? maxItemsPerPage
+                    : Math.min(
+                          maxItemsPerPage * currentPage,
+                          numberOfResultsQueried
+                      )
+            } out of ${numberOfResultsQueried} result${
+                numberOfResultsQueried > 1 ? 's' : ''
+            } was shown`}
+        </SearchResultDescription>
+    </>
+);
+
+const Container = styled.div`
+    width: 100%;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const PaginationContainer = styled.div`
+    border-radius: 50%;
+    padding: 4px;
+    display: grid;
+    place-items: center;
+    margin: 8px;
+`;
+
+const DotPaginationContainer = styled(PaginationContainer)`
+    color: ${({ theme }) => theme.primaryColor};
+`;
+
+const NumberPaginationContainer = styled(PaginationContainer)`
+    &:hover {
+        background-color: whitesmoke;
+    }
+    cursor: pointer;
+    color: ${({ theme }) => theme.primaryColor};
+`;
+
+const CurrentPaginationContainer = styled(PaginationContainer)`
+    background-color: black;
+`;
+
+const PaginationCircle = css`
+    height: 24px;
+    width: 24px;
+    display: grid;
+    place-items: center;
+    color: ${({ theme }) => theme.secondaryColor};
+`;
+
+const PaginationButton = styled.div`
+    text-align: center;
+    ${PaginationCircle}
+`;
+
+const CurrentPaginationButton = styled(PaginationButton)`
+    color: ${({ theme }) => theme.primaryColor};
+`;
+
+const LeftCircle = styled(IoChevronBackOutline)`
+    ${PaginationCircle};
+    cursor: ${({ $disallowed }: PaginationNavigationProps) =>
+        $disallowed ? 'not-allowed' : 'pointer'};
+`;
+
+const RightCircle = styled(IoChevronForwardOutline)`
+    ${PaginationCircle};
+    cursor: ${({ $disallowed }: PaginationNavigationProps) =>
+        $disallowed ? 'not-allowed' : 'pointer'};
+`;
+
+const SearchResultDescription = styled.div`
+    display: grid;
+    place-items: center;
+    color: ${({ theme }) => theme.secondaryColor};
+    padding: 0 0 16px 0;
+`;
+
+export default Pagination;

@@ -1,246 +1,116 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
-import { HashLoading, ErrorBoundary } from './HashLoading';
-import { FaArrowUp } from 'react-icons/fa';
-import FullScreen from './header/FullScreen';
-
-const NavLinks = React.lazy(() => import('./header/NavLinks'));
-
-type BackToTopAnimation = Readonly<{
-    slideIn: boolean;
-}>;
-
-const BackToTop = ({ scroll }: Readonly<{ scroll: boolean }>) => {
-    const [state, setState] = React.useState({
-        animate: scroll,
-        load: scroll,
-    });
-
-    React.useEffect(() => {
-        setState((prevState) => ({
-            ...prevState,
-            animate: scroll,
-        }));
-        setTimeout(
-            () =>
-                setState((prevState) => ({
-                    ...prevState,
-                    load: scroll,
-                })),
-            scroll ? 0 : 350
-        );
-    }, [scroll]);
-
-    const { animate, load } = state;
-
-    return !load ? null : (
-        <BackToTopContainer>
-            <ArrowUpContainer
-                slideIn={animate}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-                <ArrowUp />
-            </ArrowUpContainer>
-        </BackToTopContainer>
-    );
-};
+import styled from 'styled-components';
+import Logo from './Logo';
+import AuthIcon from './header/AuthIcon';
+import NavLinks from './header/NavLinks';
+import useWindowResize from '../hook/windowResize';
+import SideNav from './sideNav/SideNav';
+import BackToTop from './buttons/BackToTop';
+import Hamburger from './buttons/Hamburger';
 
 const Header = () => {
-    const firstBreakPoint = 916,
-        secondBreakPoint = 518;
+    const breakPoint = 635;
 
     const [state, setState] = React.useState({
-        show: false,
-        scroll: false,
-        width: window.innerWidth,
+        isShow: false,
+        isScroll: false,
     });
 
-    const handlePageOffset = () =>
-        setState((prevState) => ({
-            ...prevState,
-            scroll: window.pageYOffset > 500,
-        }));
-
     React.useEffect(() => {
+        const handlePageOffset = () =>
+            setState((prevState) => ({
+                ...prevState,
+                isScroll: window.pageYOffset > 500,
+            }));
         window.addEventListener('scroll', handlePageOffset);
         return () => {
             window.removeEventListener('scroll', handlePageOffset);
         };
     }, []);
 
-    const handleResizeWindow = () =>
+    const { width } = useWindowResize();
+
+    const { isScroll, isShow } = state;
+
+    const setShow = (isShow: boolean) =>
         setState((prevState) => ({
             ...prevState,
-            width: window.innerWidth,
+            isShow,
         }));
-
-    React.useEffect(() => {
-        window.addEventListener('resize', handleResizeWindow);
-        return () => {
-            window.removeEventListener('resize', handleResizeWindow);
-        };
-    }, []);
-
-    const { scroll, show, width } = state;
-
-    const setShow = (show: boolean) =>
-        setState((prevState) => ({
-            ...prevState,
-            show,
-        }));
-
-    const NavLinksNavigation = () =>
-        width > firstBreakPoint ? (
-            <NavLinks fullScreen={false} close={() => setShow(false)} />
-        ) : null;
-
-    const HamburgerNavigation = () =>
-        width <= secondBreakPoint ? null : width <= firstBreakPoint ? (
-            <HamburgerNav onClick={() => setShow(true)}>
-                <HamburgerButton>☰</HamburgerButton>
-            </HamburgerNav>
-        ) : null;
-
-    const RightHamburgerNavigation = () =>
-        width > secondBreakPoint ? null : (
-            <HamburgerNav onClick={() => setShow(true)}>
-                <HamburgerButton>☰</HamburgerButton>
-            </HamburgerNav>
-        );
 
     return (
         <>
-            <ErrorBoundary>
-                <React.Suspense fallback={<HashLoading />}>
-                    <TopHeader>
+            <TopHeader>
+                <TopOuterHeader>
+                    <TopInnerHeader>
+                        <LeftHeaderLinkContainer>
+                            <HeaderLinkContainer>
+                                <Logo />
+                            </HeaderLinkContainer>
+                        </LeftHeaderLinkContainer>
                         <HeaderLinkContainer>
-                            <TitleHeader>
-                                <Link to="/">UTARi</Link>
-                            </TitleHeader>
-                            <NavLinksNavigation />
-                            <HamburgerNavigation />
+                            {width > breakPoint ? <NavLinks /> : null}
                         </HeaderLinkContainer>
-                        <HeaderLinkContainer>
-                            <RightHamburgerNavigation />
-                        </HeaderLinkContainer>
-                    </TopHeader>
-                    <FullScreen show={show} close={() => setShow(false)} />
-                </React.Suspense>
-            </ErrorBoundary>
-            <BackToTop scroll={scroll} />
+                        <RightHeaderLinkContainer>
+                            <HeaderLinkContainer>
+                                {width > breakPoint ? (
+                                    <AuthIcon />
+                                ) : (
+                                    <Hamburger onClick={() => setShow(true)} />
+                                )}
+                            </HeaderLinkContainer>
+                        </RightHeaderLinkContainer>
+                    </TopInnerHeader>
+                </TopOuterHeader>
+            </TopHeader>
+            {isShow ? (
+                <SideNav onClose={() => setShow(false)} isSlideIn={isShow} />
+            ) : null}
+            <BackToTop isScroll={isScroll} />
         </>
     );
 };
 
-const TitleHeader = styled.h1`
-    text-align: center;
-    background-color: ${({ theme }) => theme.title};
-    margin: 0 25px 0 0;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-family: 'Montserrat', sans-serif !important;
-    > a {
-        color: ${({ theme }) => theme.primaryColor};
-        text-decoration: none;
+const TopHeader = styled.div`
+    position: sticky;
+    padding: 8px 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    z-index: 4;
+    width: 100%;
+    border-bottom: 1px solid ${({ theme }) => theme.border};
+    background-color: ${({ theme }) => theme.primaryColor};
+`;
+
+const TopOuterHeader = styled.div`
+    width: 75%;
+    display: grid;
+    place-items: center;
+    @media (max-width: 820px) {
+        width: 85%;
     }
 `;
 
-const TopHeader = styled.header`
-    padding: 10px 50px 10px 50px;
-    border-bottom: 1px solid ${({ theme }) => theme.border};
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: ${({ theme }) => theme.primaryColor};
-    z-index: 2;
+const TopInnerHeader = styled.header`
+    width: 100%;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const HeaderLinkContainer = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
 `;
 
-const BackToTopContainer = styled.div`
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
+const LeftHeaderLinkContainer = styled.div`
+    margin: 0 auto 0 0;
 `;
 
-const HamburgerNav = styled.div`
-    font-family: 'Montserrat', sans-serif !important;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-`;
-
-const HamburgerButton = styled.button`
-    background-color: transparent;
-    font-size: 2em;
-    color: ${({ theme }) => theme.secondaryColor};
-    border: none;
-    margin: -6px 0 0 0;
-`;
-
-const FadeOut = keyframes`
-    0% {
-        opacity:1;
-        transform: scale(1);
-    }
-    100% {
-        opacity:0;
-        transform: scale(0.9);
-    }
-`;
-
-const FadeIn = keyframes`
-    0% {
-        opacity:0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity:1;
-        transform: scale(1);
-    }
-`;
-
-const ArrowUpContainer = styled.div`
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.secondaryColor};
-    padding: 15px;
-    margin: 10px;
-    animation: ${({ slideIn: show }: BackToTopAnimation) =>
-            show ? FadeIn : FadeOut}
-        ease 0.5s;
-    -moz-animation: ${({ slideIn: show }: BackToTopAnimation) =>
-            show ? FadeIn : FadeOut}
-        ease 0.5s;
-    -webkit-animation: ${({ slideIn: show }: BackToTopAnimation) =>
-            show ? FadeIn : FadeOut}
-        ease 0.5s;
-    -o-animation: ${({ slideIn: show }: BackToTopAnimation) =>
-            show ? FadeIn : FadeOut}
-        ease 0.5s;
-    -ms-animation: ${({ slideIn: show }: BackToTopAnimation) =>
-            show ? FadeIn : FadeOut}
-        ease 0.5s;
-    &:hover {
-        cursor: pointer;
-        transition: 0.1s ease all;
-    }
-    &:active {
-        transform: scale(1.25);
-    }
-    &:focus {
-        outline: none;
-    }
-`;
-
-const ArrowUp = styled(FaArrowUp)`
-    font-size: 1.5em !important;
-    color: ${({ theme }) => theme.primaryColor} !important;
+const RightHeaderLinkContainer = styled.div`
+    margin: 0 0 0 auto;
 `;
 
 export default Header;
