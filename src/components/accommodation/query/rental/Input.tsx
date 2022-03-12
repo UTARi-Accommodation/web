@@ -23,7 +23,7 @@ const Field = ({
                 <Currency>RM</Currency>
                 <InputField
                     type="text"
-                    value={empty ? '' : value}
+                    value={empty ? '' : value.toFixed(2)}
                     required
                     onChange={(event) => {
                         setState((prev) => ({

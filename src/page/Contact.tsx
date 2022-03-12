@@ -161,8 +161,8 @@ const Contact = () => {
                                         ),
                                     }))
                                 }
-                                label="Name"
-                                placeHolder="Hello, I am Bruce Wayne"
+                                label="Hello, my name is"
+                                placeHolder="Bruce Wayne"
                                 name="name"
                                 type="text"
                                 prop={{ type: 'textField' }}
@@ -180,8 +180,8 @@ const Contact = () => {
                                         ),
                                     }))
                                 }
-                                label="Email"
-                                placeHolder="You can reach me at batman@gmail.com"
+                                label="You can reach me at"
+                                placeHolder="batman@gmail.com"
                                 name="email"
                                 type="text"
                                 prop={{ type: 'textField' }}
@@ -199,8 +199,8 @@ const Contact = () => {
                                         ),
                                     }))
                                 }
-                                label="Message"
-                                placeHolder="I would like to buy you a bank"
+                                label="I would like to"
+                                placeHolder="buy you a bank/ask you something"
                                 name="email"
                                 type="text"
                                 prop={{ type: 'textArea', rows: 8 }}

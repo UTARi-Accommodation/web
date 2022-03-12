@@ -2,29 +2,29 @@
 .PHONY: build test
 
 ## type check
-tsc=./node_modules/.bin/tsc
+tsc=node_modules/.bin/tsc
 typecheck:
-	 $(tsc) --pretty --skipLibCheck --noEmit
+	$(tsc) --pretty --skipLibCheck --noEmit
 
 typecheck-watch:
-	 $(tsc) --pretty --skipLibCheck --noEmit --w
+	$(tsc) --pretty --skipLibCheck --noEmit --w
 
 ## start
 start:
-	 (trap 'kill 0' INT; make typecheck & make build)
+	(trap 'kill 0' INT; make typecheck & make build)
 
 start-watch:
-	./node_modules/.bin/nodemon
+	node_modules/.bin/nodemon
 
 ## build
 build:
 	rm -rf build\
-	&& cp -R public build\
-	&& node script/esbuild.js\
-	&& node script/terser.js
+		&& cp -R public build\
+		&& node script/esbuild.js\
+		&& node script/terser.js
 
 ## test
-jest=./node_modules/.bin/jest
+jest=node_modules/.bin/jest
 test-parser:
 	$(jest) test/parser/*
 
@@ -51,6 +51,6 @@ format:
 	make format-ts
 
 ## lint
-eslint=./node_modules/.bin/eslint
+eslint=node_modules/.bin/eslint
 lint-src:
 	${eslint} src/** -f='stylish' --color
