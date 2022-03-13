@@ -29,7 +29,7 @@
         "react-tooltip": "^4.2.21",
         "react-vertical-timeline-component": "^3.5.2",
         "styled-components": "^5.3.3",
-        "utari-common": "git+ssh://git@github.com:Utari-Room/common.git#main",
+        "utari-common": "git+https://github.com/Utari-Room/common.git",
         "web-vitals": "^1.0.1"
     },
     "devDependencies": {
