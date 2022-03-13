@@ -21,6 +21,7 @@ build:
 	rm -rf build\
 		&& cp -R public build\
 		&& node script/esbuild.js\
+		&& cd build/ && cp index.html 200.html && cd ../\
 		&& node script/terser.js
 
 ## test
@@ -44,11 +45,15 @@ $(cov):
 	${jest} ${cov} --coverage --coverageDirectory='coverage'
 
 ## format
+prettier=node_modules/.bin/prettier
 format-ts:
-	node script/prettier.js
+	${prettier} --write src/
 
 format:
 	make format-ts
+
+format-check:
+	${prettier} --check src/
 
 ## lint
 eslint=node_modules/.bin/eslint
