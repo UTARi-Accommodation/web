@@ -4,17 +4,14 @@
 ## type check
 tsc=node_modules/.bin/tsc
 typecheck:
-	$(tsc) --pretty --skipLibCheck --noEmit
+	$(tsc) -p tsconfig.json
 
 typecheck-watch:
-	$(tsc) --pretty --skipLibCheck --noEmit --w
+	$(tsc) -p tsconfig.json --w
 
 ## start
 start:
-	(trap 'kill 0' INT; make typecheck & make build)
-
-start-watch:
-	node_modules/.bin/nodemon
+	(trap 'kill 0' INT; make build & make typecheck-watch)
 
 ## build
 build:

@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-const fontWeights = [100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
-// Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif
-
 const Font = ({
     fontFamily,
 }: Readonly<{
@@ -15,13 +12,12 @@ const Font = ({
             href="https://fonts.gstatic.com"
             crossOrigin="anonymous"
         />
-        {fontWeights.map((fontWeight) => (
-            <link
-                key={fontWeight}
-                href={`https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${fontWeight}&display=swap`}
-                rel="stylesheet"
-            />
-        ))}
+        <link
+            href={`https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${[
+                100, 200, 300, 400, 500, 600, 700, 800, 900,
+            ].join(';')}&display=swap`}
+            rel="stylesheet"
+        />
     </>
 );
 
