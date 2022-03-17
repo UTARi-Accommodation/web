@@ -27,7 +27,9 @@ jobs:
               run: make format-check
 
             - name: Run Tests
-              run: make test
+              run: |
+                  make test
+                  rm -rf __tests__
 
             - name: Run Build
               run: make build

@@ -2,12 +2,11 @@
 .PHONY: build test
 
 ## type check
-tsc=node_modules/.bin/tsc
 typecheck:
-	$(tsc) -p tsconfig.json
+	node_modules/.bin/tsc -p tsconfig.json $(arguments) 
 
 typecheck-watch:
-	$(tsc) -p tsconfig.json --w
+	make typecheck arguments=--w
 
 ## start
 start:
@@ -22,37 +21,41 @@ build:
 		&& node script/terser.js
 
 ## test
-jest=node_modules/.bin/jest
-test-parser:
-	$(jest) test/parser/*
+test-command:
+	rm -rf __tests__ \
+	&& node script/test.js\
+	&& node_modules/.bin/jest $(arguments) --runInBand
 
-test-url:
-	$(jest) test/url/*
-
-test-converter:
-	$(jest) test/converter/*
+test-dir=__tests__
 
 test:
-	${jest}
-	echo "All tests passed"
+	make test-command arguments=$(test-dir)
+
+test-parser:
+	make test-command arguments=$(test-dir)/parser/*
+
+test-url:
+	make test-command arguments=$(test-dir)/url/*
+
+test-converter:
+	make test-command arguments=$(test-dir)/converter/*
 
 ## code coverage
-cov=code-cov
-$(cov):
-	${jest} ${cov} --coverage --coverageDirectory='coverage'
+code-cov:
+	make test-command arguments=$(test-dir) --coverage --coverageDirectory='coverage'
 
 ## format
 prettier=node_modules/.bin/prettier
 format-ts:
-	${prettier} --write src/
+	$(prettier) --write src/
+
+format-check:
+	$(prettier) --check src/
 
 format:
 	make format-ts
 
-format-check:
-	${prettier} --check src/
-
 ## lint
-eslint=node_modules/.bin/eslint
+eslint=
 lint-src:
-	${eslint} src/** -f='stylish' --color
+	node_modules/.bin/eslint src/** -f='stylish' --color
