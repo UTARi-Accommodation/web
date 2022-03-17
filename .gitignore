@@ -7,12 +7,10 @@
 
 # testing
 /coverage
+/__tests__
 
 # production
 /build
-
-# gibberish
-/temp
 
 # misc
 .env

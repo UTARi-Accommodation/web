@@ -1,6 +1,0 @@
-{
-    "watch": ["src", "public"],
-    "ignore": ["node_modules"],
-    "ext": "ts, tsx, html",
-    "exec": "make start && echo Frontend Nodemon Done"
-}
