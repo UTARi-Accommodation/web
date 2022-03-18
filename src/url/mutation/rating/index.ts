@@ -1,5 +1,3 @@
-import { api } from '../../common';
-
-const ratingAPI = `${api}/rating`;
+const ratingAPI = '/rating';
 
 export default ratingAPI;

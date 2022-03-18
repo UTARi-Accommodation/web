@@ -46,9 +46,11 @@ const DetailedRoom = () => {
             .then(({ visitorId }) => {
                 utariAxios
                     .put(visitCountAPI, {
-                        visitorId,
-                        id: queryParam.id,
-                        type: 'Room',
+                        data: {
+                            visitorId,
+                            id: queryParam.id,
+                            type: 'Room',
+                        },
                     })
                     .then(() =>
                         setState((prev) => ({

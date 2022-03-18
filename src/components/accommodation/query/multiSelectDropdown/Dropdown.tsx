@@ -178,6 +178,9 @@ const DropdownInnerContainer = styled(InnerContainer)`
     padding: 8px 16px;
     margin: -4px 0 -16px 0;
     text-align: left;
+    @media (max-width: 800px) {
+        padding: 16px;
+    }
 `;
 
 export default MultiSelectDropdown;

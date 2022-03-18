@@ -11,8 +11,6 @@ import {
 } from 'utari-common';
 import { QueryDetailed } from './query/detailed/common';
 
-const api = `${process.env.NODE_ENV === 'test' ? 'test' : process.env.API}/api`;
-
 const formQuery = (
     query: Readonly<
         | {
@@ -69,4 +67,4 @@ const formQuery = (
         .filter(Boolean)
         .join('&')}`;
 
-export { formQuery, api };
+export { formQuery };

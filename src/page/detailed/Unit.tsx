@@ -44,9 +44,11 @@ const DetailedUnit = () => {
             .then(({ visitorId }) => {
                 utariAxios
                     .put(visitCountAPI, {
-                        visitorId,
-                        id: queryParam.id,
-                        type: 'Unit',
+                        data: {
+                            visitorId,
+                            id: queryParam.id,
+                            type: 'Unit',
+                        },
                     })
                     .then(() =>
                         setState((prev) => ({

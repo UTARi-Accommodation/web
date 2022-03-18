@@ -41,12 +41,15 @@ const accountAction = (auth: Auth) => {
                     metadata: { lastSignInTime, creationTime },
                 } = user;
                 await utariAxios.post(userAPI, {
-                    token: await userCredential.user.getIdToken(true),
-                    timeCreated: new Date(
-                        parseAsString(creationTime).orElseThrowDefault(
-                            'creationTime'
-                        )
-                    ).toISOString(),
+                    data: {
+                        token: await userCredential.user.getIdToken(true),
+                        timeCreated: new Date(
+                            parseAsString(creationTime).orElseThrowDefault(
+                                'creationTime'
+                            )
+                        ).toISOString(),
+                    },
+                    headers: {},
                 });
                 return {
                     type: 'succeed',
@@ -78,7 +81,9 @@ const accountAction = (auth: Auth) => {
                 const token = await user.getIdToken(true);
                 await reauthenticateWithPopup(user, provider);
                 await user.delete();
-                await utariAxios.delete(`${userAPI}/?token=${token}`);
+                await utariAxios.delete(`${userAPI}/?token=${token}`, {
+                    headers: {},
+                });
                 return {
                     type: 'succeed',
                 } as const;

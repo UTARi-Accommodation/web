@@ -159,7 +159,8 @@ const Query = ({
         case 'Unit': {
             const { width } = useWindowResize();
 
-            const breakPoint = 800;
+            const breakPoint = 800,
+                mapBreakPoint = 760;
 
             return (
                 <DropdownSearch breakPoint={breakPoint}>
@@ -195,7 +196,10 @@ const Query = ({
                         value="Search"
                     />
 
-                    <MapButton isShow={width <= breakPoint} markers={markers} />
+                    <MapButton
+                        isShow={width <= mapBreakPoint}
+                        markers={markers}
+                    />
                 </DropdownSearch>
             );
         }

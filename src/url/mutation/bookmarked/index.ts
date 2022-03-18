@@ -1,5 +1,3 @@
-import { api } from '../../common';
-
-const bookmarkedAPI = `${api}/bookmarked`;
+const bookmarkedAPI = '/bookmarked';
 
 export default bookmarkedAPI;

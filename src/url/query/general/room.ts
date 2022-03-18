@@ -1,5 +1,5 @@
 import { QueryRoomsAPI } from 'utari-common';
-import { api, formQuery } from '../../common';
+import { formQuery } from '../../common';
 
 type QueryRoom = Omit<QueryRoomsAPI, 'token'>;
 
@@ -10,7 +10,7 @@ const formGeneralRoomsQuery = (query: QueryRoom) =>
     formQuery({ type: 'room', query });
 
 const formGeneralRoomsAPIQuery = (query: QueryRoomsAPI) =>
-    `${api}/rooms/${formQuery({ type: 'roomsAPI', query })}`;
+    `/rooms/${formQuery({ type: 'roomsAPI', query })}`;
 
 export {
     formGeneralRoomsAPIQuery,

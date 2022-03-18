@@ -30,7 +30,7 @@ describe('Unit Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/units/?unitType=Condominium&region=BTHO&page=1&token=1'
+            '/units/?unitType=Condominium&region=BTHO&page=1&token=1'
         );
     });
     it('should form query URL with empty key-value pair for falsy value', () => {
@@ -61,7 +61,7 @@ describe('Unit Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/units/?bathRooms=1&bedRooms=2&unitType=Condominium&region=BTHO&page=1&token=1'
+            '/units/?bathRooms=1&bedRooms=2&unitType=Condominium&region=BTHO&page=1&token=1'
         );
     });
     it('should form query URL with joined string for array type query', () => {
@@ -92,7 +92,7 @@ describe('Unit Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/units/?bathRooms=1,2,3,4,5&bedRooms=1,2,3,4,5,6&unitType=Condominium&region=BTHO&page=1&token=1'
+            '/units/?bathRooms=1,2,3,4,5&bedRooms=1,2,3,4,5,6&unitType=Condominium&region=BTHO&page=1&token=1'
         );
     });
 });

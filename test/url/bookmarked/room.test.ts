@@ -28,7 +28,7 @@ describe('Object Bookmarked Room Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/bookmarked-rooms/?roomTypes=Room&regions=BTHO&page=1&token=1'
+            '/bookmarked-rooms/?roomTypes=Room&regions=BTHO&page=1&token=1'
         );
     });
     it('should form query URL with empty key-value pair for falsy value', () => {
@@ -55,7 +55,7 @@ describe('Object Bookmarked Room Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/bookmarked-rooms/?roomTypes=Room,Roommate&regions=BTHO,KP&page=1&token=1'
+            '/bookmarked-rooms/?roomTypes=Room,Roommate&regions=BTHO,KP&page=1&token=1'
         );
     });
     it('should form query URL with joined string for array type query', () => {
@@ -82,7 +82,7 @@ describe('Object Bookmarked Room Query Object to Query URL Param', () => {
                 token: '123',
             })
         ).toBe(
-            'test/api/bookmarked-rooms/?capacities=1,2,3,4,5&roomTypes=Room&regions=BTHO&page=1&token=123'
+            '/bookmarked-rooms/?capacities=1,2,3,4,5&roomTypes=Room&regions=BTHO&page=1&token=123'
         );
     });
 });

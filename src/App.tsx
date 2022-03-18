@@ -69,7 +69,7 @@ if (typeof window !== 'undefined') {
 const App = () => {
     const [state, setState] = React.useState(React.useContext(AppContext));
 
-    const { user, loadedUser } = state;
+    const { user, loadedUser, visitor } = state;
 
     React.useEffect(() => {
         const style = (color: string) =>
@@ -79,7 +79,7 @@ const App = () => {
             style('#50FA7B')
         );
         console.log(
-            '%cDo me favor, contribute to https://github.com/Utari-Room/',
+            '%cPlease do me favor, contribute to https://github.com/Utari-Room/',
             style('#8BE9FD')
         );
         console.log(
@@ -94,9 +94,13 @@ const App = () => {
                 user,
             }));
         });
-        state.visitor
+        visitor
             .then(({ visitorId }) => {
-                utariAxios.put(visitorAPI, { visitorId }).catch(ToastError);
+                utariAxios
+                    .put(visitorAPI, {
+                        data: { visitorId },
+                    })
+                    .catch(ToastError);
             })
             .catch(ToastError);
         return utariUnsubscribe;
