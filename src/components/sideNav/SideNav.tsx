@@ -85,13 +85,16 @@ const SideBarNav = ({
                             <HorizontalLine />
                             <LinkContainer>
                                 {user ? (
-                                    <Link to="/delete">
-                                        <SideBarBodyButton>
-                                            <SideBarBodyButtonText>
-                                                Delete Account
-                                            </SideBarBodyButtonText>
-                                        </SideBarBodyButton>
-                                    </Link>
+                                    <>
+                                        <Link to="/delete">
+                                            <SideBarBodyButton>
+                                                <SideBarBodyButtonText>
+                                                    Delete Account
+                                                </SideBarBodyButtonText>
+                                            </SideBarBodyButton>
+                                        </Link>
+                                        <HorizontalLine />
+                                    </>
                                 ) : (
                                     <Link to="/auth">
                                         <SideBarBodyButton>
@@ -102,7 +105,6 @@ const SideBarNav = ({
                                     </Link>
                                 )}
                             </LinkContainer>
-                            <HorizontalLine />
                             {user ? (
                                 <SideBarBodyButton
                                     onClick={async () => {

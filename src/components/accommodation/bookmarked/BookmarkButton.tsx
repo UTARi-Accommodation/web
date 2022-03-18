@@ -72,9 +72,11 @@ const BookmarkButton = ({
                                 const { data } = await utariAxios.post(
                                     bookmarkedAPI,
                                     {
-                                        token,
-                                        id,
-                                        type,
+                                        data: {
+                                            token,
+                                            id,
+                                            type,
+                                        },
                                     }
                                 );
                                 onClick(id, parseAsBookmarked(data.bookmarked));

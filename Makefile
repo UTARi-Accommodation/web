@@ -8,9 +8,13 @@ typecheck:
 typecheck-watch:
 	make typecheck arguments=--w
 
+## serve
+serve:
+	node server
+
 ## start
 start:
-	(trap 'kill 0' INT; make build & make typecheck-watch)
+	(trap 'kill 0' INT; make serve & make build & make typecheck-watch)
 
 ## build
 build:

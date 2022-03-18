@@ -3,15 +3,26 @@
     "version": "0.0.0",
     "manifest_version": 2,
     "short_name": "UTARi",
-    "theme_color": "#000d0d",
-    "background_color": "#000d0d",
+    "description": "Find hostel around UTARi",
+    "theme_color": "#678EFB",
+    "background_color": "#678EFB",
     "display": "standalone",
     "scope": "/",
     "start_url": ".",
     "icons": [
         {
+            "src": "img/icons/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "img/icons/favicon-32x32.png",
+            "sizes": "32x32 24x24",
+            "type": "image/png"
+        },
+        {
             "src": "img/icons/favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
+            "sizes": "64x64",
             "type": "image/x-icon"
         },
         {

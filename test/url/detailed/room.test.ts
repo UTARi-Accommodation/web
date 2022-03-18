@@ -7,6 +7,6 @@ describe('Object Room Query Object to Query URL Param', () => {
                 id: 1,
                 token: 'token',
             })
-        ).toBe('test/api/detailed-room/?id=1&token=token');
+        ).toBe('/detailed-room/?id=1&token=token');
     });
 });

@@ -149,6 +149,9 @@ const QueryInnerContainer = styled.div`
     padding: 8px;
     box-sizing: border-box;
     border-bottom: 1px solid ${({ theme }) => theme.border};
+    @media (max-width: 550px) {
+        padding: 8px 0;
+    }
 `;
 
 const HideScrollBar = css`
@@ -186,7 +189,6 @@ const DropdownSearch = styled.div`
 
 const DisplayContainer = styled.div`
     width: 100%;
-    height: 100%;
     justify-content: space-between;
     display: flex;
     height: 100vh !important;
@@ -194,6 +196,9 @@ const DisplayContainer = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.border};
     @media (max-width: 760px) {
         flex-direction: column;
+    }
+    @media (max-width: 425px) {
+        width: fit-content;
     }
 `;
 
@@ -205,6 +210,12 @@ const AccommodationContainer = styled.div`
     ${HideScrollBar}
     @media (max-width: 760px) {
         width: fit-content;
+    }
+    @media (max-width: 365px) {
+        margin: 0 8px;
+    }
+    @media (max-width: 350px) {
+        margin: 0;
     }
 `;
 
@@ -220,6 +231,9 @@ const AccommodationInfoStyled = styled.div`
     }
     background-color: ${({ theme }) => theme.primaryColor};
     border: 1px solid ${({ theme }) => theme.border};
+    @media (max-width: 350px) {
+        margin: 16px;
+    }
 `;
 
 const LinkContainer = styled.div`

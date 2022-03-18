@@ -1,0 +1,12 @@
+{
+    "name": "utari-client-dev-server",
+    "version": "0.0.0",
+    "private": true,
+    "author": "PoolOfDeath20",
+    "license": "MIT",
+    "proxy": "http://localhost:5000",
+    "type": "module",
+    "dependencies": {
+        "express": "^4.17.3"
+    }
+}

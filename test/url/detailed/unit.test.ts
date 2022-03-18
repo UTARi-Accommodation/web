@@ -7,6 +7,6 @@ describe('Object Unit Query Object to Query URL Param', () => {
                 id: 1,
                 token: 'token',
             })
-        ).toBe('test/api/detailed-unit/?id=1&token=token');
+        ).toBe('/detailed-unit/?id=1&token=token');
     });
 });

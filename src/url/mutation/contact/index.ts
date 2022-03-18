@@ -1,5 +1,3 @@
-import { api } from '../../common';
-
-const contactAPI = `${api}/contact`;
+const contactAPI = '/contact';
 
 export default contactAPI;

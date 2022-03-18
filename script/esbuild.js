@@ -30,7 +30,7 @@ dotenv.config({});
         },
         logLevel: 'silent',
         watch:
-            process.env.NODE_ENV !== 'DEVELOPMENT'
+            process.env.NODE_ENV !== 'development'
                 ? undefined
                 : {
                       onRebuild: (error, result) =>

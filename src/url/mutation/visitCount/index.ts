@@ -1,5 +1,3 @@
-import { api } from '../../common';
-
-const visitCountAPI = `${api}/visit`;
+const visitCountAPI = '/visit';
 
 export default visitCountAPI;

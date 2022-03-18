@@ -27,7 +27,7 @@ describe('Object Room Query Object to Query URL Param', () => {
                 page: 1,
                 token: '1',
             })
-        ).toBe('test/api/rooms/?roomType=Room&region=BTHO&page=1&token=1');
+        ).toBe('/rooms/?roomType=Room&region=BTHO&page=1&token=1');
     });
     it('should form query URL with empty key-value pair for falsy value', () => {
         expect(
@@ -52,7 +52,7 @@ describe('Object Room Query Object to Query URL Param', () => {
                 page: 1,
                 token: '1',
             })
-        ).toBe('test/api/rooms/?roomType=Room&region=BTHO&page=1&token=1');
+        ).toBe('/rooms/?roomType=Room&region=BTHO&page=1&token=1');
     });
     it('should form query URL with joined string for array type query', () => {
         expect(
@@ -78,7 +78,7 @@ describe('Object Room Query Object to Query URL Param', () => {
                 token: '1',
             })
         ).toBe(
-            'test/api/rooms/?capacities=1,2,3,4,5&roomType=Room&region=BTHO&page=1&token=1'
+            '/rooms/?capacities=1,2,3,4,5&roomType=Room&region=BTHO&page=1&token=1'
         );
     });
 });

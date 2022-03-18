@@ -1,5 +1,5 @@
 import { QueryBookmarkedUnitAPI } from 'utari-common';
-import { api, formQuery } from '../../common';
+import { formQuery } from '../../common';
 
 type QueryBookmarkedUnit = Omit<QueryBookmarkedUnitAPI, 'token'>;
 
@@ -9,7 +9,7 @@ const formBookmarkedUnitsQuery = (query: QueryBookmarkedUnit) =>
     formQuery({ type: 'bookmarkedUnit', query });
 
 const formBookmarkedUnitsAPIQuery = (query: QueryBookmarkedUnitAPI) =>
-    `${api}${bookmarkedUnitsRoute}/${formQuery({
+    `${bookmarkedUnitsRoute}/${formQuery({
         type: 'bookmarkedUnitAPI',
         query,
     })}`;

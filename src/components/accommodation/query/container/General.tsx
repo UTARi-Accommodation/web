@@ -40,7 +40,8 @@ const Query = ({
     const { type } = prop;
     const { width } = useWindowResize();
 
-    const breakPoint = 800;
+    const breakPoint = 800,
+        mapBreakPoint = 760;
 
     return (
         <DropdownSearch breakPoint={breakPoint}>
@@ -64,7 +65,7 @@ const Query = ({
             />
             <AccommodationSpecificQuery breakPoint={breakPoint} prop={prop} />
             <BookmarkedTypeDropDown breakPoint={breakPoint} />
-            <MapButton isShow={width <= breakPoint} markers={markers} />
+            <MapButton isShow={width <= mapBreakPoint} markers={markers} />
         </DropdownSearch>
     );
 };

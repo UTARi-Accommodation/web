@@ -119,9 +119,11 @@ const Contact = () => {
                                 const promise = new Promise<string>((res) =>
                                     utariAxios
                                         .post(contactAPI, {
-                                            name: name.value,
-                                            email: email.value,
-                                            message: message.value,
+                                            data: {
+                                                name: name.value,
+                                                email: email.value,
+                                                message: message.value,
+                                            },
                                         })
                                         .then(({ data }) => {
                                             showMessage(parseAsData(data));

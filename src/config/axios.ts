@@ -1,18 +1,69 @@
-import axios from 'axios';
+import axios, { Method } from 'axios';
+import { parseAsString } from 'parse-dont-validate';
+import csrf from '../url/query/csrf';
 
-const config = {
-    headers: {
-        'Referrer-Policy': 'strict-origin-when-cross-origin',
-    },
-} as const;
+const createInstance = (method: Method) =>
+    axios.create({
+        baseURL: `${process.env.API}/api`,
+        headers: {
+            'Referrer-Policy': 'strict-origin-when-cross-origin',
+        },
+        withCredentials: true,
+        method,
+    });
 
-const utariAxios = {
-    ...axios,
-    get: (url: string) => axios.get(url, config),
-    delete: (url: string) => axios.delete(url, config),
-    put: (url: string, data?: any) => axios.put(url, data, config),
-    post: (url: string, data?: any, additionalConfig?: any) =>
-        axios.post(url, data, { ...config, ...additionalConfig }),
-} as const;
+const utariAxios = (() => {
+    const get = (url: string) => createInstance('get').get(url);
+    const getCrsfToken = async () => {
+        const { data } = await get(csrf);
+        return parseAsString(data.csrfToken).orElseThrowDefault('csrfToken');
+    };
+    return {
+        ...axios,
+        get,
+        delete: async (url: string, headers?: Readonly<Record<string, any>>) =>
+            await createInstance('delete').delete(url, {
+                headers: {
+                    ...headers,
+                    ['CSRF-Token']: await getCrsfToken(),
+                },
+            }),
+        put: async (
+            url: string,
+            {
+                headers,
+                data,
+            }: Readonly<{
+                headers?: Readonly<Record<string, any>>;
+                data?: any;
+            }>
+        ) =>
+            await createInstance('put').put(url, data, {
+                headers: {
+                    ...headers,
+                    ['CSRF-Token']: await getCrsfToken(),
+                },
+            }),
+        post: async (
+            url: string,
+            {
+                headers,
+                data,
+                additionalConfig,
+            }: Readonly<{
+                data: any;
+                additionalConfig?: any;
+                headers?: Readonly<Record<string, any>>;
+            }>
+        ) =>
+            await createInstance('post').post(url, data, {
+                ...additionalConfig,
+                headers: {
+                    ...headers,
+                    ['CSRF-Token']: await getCrsfToken(),
+                },
+            }),
+    } as const;
+})();
 
 export default utariAxios;

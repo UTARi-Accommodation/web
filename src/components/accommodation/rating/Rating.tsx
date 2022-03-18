@@ -61,10 +61,12 @@ const Rating = ({
                                         .then((token) =>
                                             utariAxios
                                                 .put(ratingAPI, {
-                                                    token,
-                                                    id,
-                                                    type,
-                                                    rating: rate,
+                                                    data: {
+                                                        token,
+                                                        id,
+                                                        type,
+                                                        rating: rate,
+                                                    },
                                                 })
                                                 .then(onRatingGiven)
                                                 .catch(ToastError)

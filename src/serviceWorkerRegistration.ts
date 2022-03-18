@@ -17,7 +17,7 @@ const register = (config?: Config) => {
     const PUBLIC_URL = process.env.PUBLIC_URL;
     const NODE_ENV = process.env.NODE_ENV;
     if (
-        NODE_ENV !== 'DEVELOPMENT' &&
+        NODE_ENV !== 'development' &&
         PUBLIC_URL &&
         'serviceWorker' in navigator
     ) {

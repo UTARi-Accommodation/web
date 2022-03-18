@@ -1,5 +1,5 @@
 import { QueryUnitsAPI } from 'utari-common';
-import { api, formQuery } from '../../common';
+import { formQuery } from '../../common';
 
 type QueryUnit = Omit<QueryUnitsAPI, 'token'>;
 
@@ -10,7 +10,7 @@ const formGeneralUnitsQuery = (query: QueryUnit) =>
     formQuery({ type: 'unit', query });
 
 const formGeneralUnitsAPIQuery = (query: QueryUnitsAPI) =>
-    `${api}/units/${formQuery({ type: 'unitAPI', query })}`;
+    `/units/${formQuery({ type: 'unitAPI', query })}`;
 
 export {
     formGeneralUnitsAPIQuery,
