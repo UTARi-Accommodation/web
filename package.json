@@ -5,6 +5,9 @@
     "author": "PoolOfDeath20",
     "license": "MIT",
     "proxy": "http://localhost:5000",
+    "scripts": {
+        "build": "make scrap && make build && make clean-up"
+    },
     "dependencies": {
         "@fingerprintjs/fingerprintjs": "^3.3.2",
         "@react-google-maps/api": "^2.7.0",

@@ -24,6 +24,10 @@ build:
 		&& cd build/ && cp index.html 200.html && cd ../\
 		&& node script/terser.js
 
+## clean-up:
+clean-up:
+	rm -rf src test node_modules script sql .github .git
+
 ## test
 test-command:
 	rm -rf __tests__ \
