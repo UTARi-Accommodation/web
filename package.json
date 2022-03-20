@@ -36,7 +36,8 @@
         "styled-components": "^5.3.3",
         "terser": "^5.10.0",
         "utari-common": "git+https://github.com/Utari-Room/common.git",
-        "web-vitals": "^1.0.1"
+        "web-vitals": "^1.0.1",
+        "workbox-cli": "^6.5.1"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.5",
