@@ -36,8 +36,7 @@ build: pre-build
 
 ## clean-up:
 clean-up:
-	rm -rf src test node_modules script sql .github .git server\
-		&& rm !(Makefile)
+	rm -rf src test node_modules script sql .github .git server
 
 ## test
 test-command:
