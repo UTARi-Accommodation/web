@@ -52,7 +52,8 @@ const Unit = ({
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+        state;
 
     const url = initialLoad ? search : formGeneralUnitsQuery(queryParam);
 

@@ -51,7 +51,8 @@ const Room = ({
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+        state;
 
     const url = initialLoad ? search : formGeneralRoomsQuery(queryParam);
 
