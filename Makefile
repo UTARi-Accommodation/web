@@ -16,23 +16,34 @@ serve:
 start:
 	(trap 'kill 0' INT; make serve & make build & make typecheck-watch)
 
-## build
-build:
-	rm -rf build\
-		&& cp -R public build\
-		&& node script/esbuild.js\
+## generate-sw
+generate-sw:
+	node_modules/.bin/workbox generateSW workbox-config.cjs
+
+## pre-build
+pre-build:
+	rm -rf build && cp -R public build
+
+## transpile
+transpile:
+	node script/esbuild.js\
 		&& cd build/ && cp index.html 200.html && cd ../\
 		&& node script/terser.js
 
+## build
+build: pre-build
+	make generate-sw && make transpile
+
 ## clean-up:
 clean-up:
-	rm -rf src test node_modules script sql .github .git server
+	rm -rf src test node_modules script sql .github .git server\
+		&& rm !(Makefile)
 
 ## test
 test-command:
 	rm -rf __tests__ \
-	&& node script/test.js\
-	&& node_modules/.bin/jest $(arguments) --runInBand
+		&& node script/test.js\
+		&& node_modules/.bin/jest $(arguments) --runInBand
 
 test-dir=__tests__
 
