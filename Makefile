@@ -39,28 +39,13 @@ clean-up:
 	rm -rf src test node_modules script sql .github .git server
 
 ## test
-test-command:
-	rm -rf __tests__ \
-		&& node script/test.js\
-		&& node_modules/.bin/jest $(arguments) --runInBand
-
-test-dir=__tests__
-
 test:
-	make test-command arguments=$(test-dir)
-
-test-parser:
-	make test-command arguments=$(test-dir)/parser/*
-
-test-url:
-	make test-command arguments=$(test-dir)/url/*
-
-test-converter:
-	make test-command arguments=$(test-dir)/converter/*
+	node_modules/.bin/esbuild test/index.ts --bundle --minify --target=node16.3.1 --platform=node --outfile=__tests__/index.test.js &&\
+		node_modules/.bin/jest __tests__ $(arguments)
 
 ## code coverage
 code-cov:
-	make test-command arguments=$(test-dir) --coverage --coverageDirectory='coverage'
+	make test arguments=$(test-dir) --coverage --coverageDirectory='coverage'
 
 ## format
 prettier=node_modules/.bin/prettier
