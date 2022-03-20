@@ -36,7 +36,8 @@
         "terser": "^5.10.0",
         "utari-common": "git+https://github.com/Utari-Room/common.git",
         "web-vitals": "^1.0.1",
-        "html-minifier-terser": "^7.0.0-alpha.1"
+        "html-minifier-terser": "^7.0.0-alpha.1",
+        "workbox-cli": "^6.5.1"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.5",
@@ -54,8 +55,7 @@
         "eslint-plugin-react": "^7.29.3",
         "jest": "^27.5.1",
         "prettier": "^2.5.1",
-        "typescript": "^4.6.2",
-        "workbox-cli": "^6.5.1"
+        "typescript": "^4.6.2"
     },
     "eslintConfig": {
         "extends": [
