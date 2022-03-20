@@ -153,7 +153,7 @@ const SlideInContainer = styled(FullScreenContainer)`
 
 const Container = styled.div`
     font-family: Montserrat, sans-serif;
-    position: absolute;
+    position: sticky;
     top: 0;
     width: 150px;
     height: 100%;
