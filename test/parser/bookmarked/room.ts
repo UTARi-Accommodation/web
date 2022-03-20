@@ -3,54 +3,55 @@ import {
     parseAsDownloadQueriedRooms,
 } from '../../../src/parser/bookmarked/room';
 
-describe('Query URL Param to Object Bookmarked Room Query', () => {
-    it('should form query param object', () => {
-        expect(
-            parseAsQueryRooms(
-                new URLSearchParams('?roomTypes=Room&regions=BTHO&page=1')
-            )
-        ).toStrictEqual({
-            capacities: [],
-            maxRental: undefined,
-            minRental: undefined,
-            search: undefined,
-            regions: ['BTHO'],
-            roomTypes: ['Room'],
-            page: 1,
-        });
-    });
-    it(`should form array value for string joined by ',' delimiter`, () => {
-        expect(
-            parseAsQueryRooms(
-                new URLSearchParams(
-                    '?capacities=1,2,3,4,5&roomTypes=Room,Roommate&regions=BTHO,SL,KP&page=100'
+export default () =>
+    describe('Query URL Param to Object Bookmarked Room Query', () => {
+        it('should form query param object', () => {
+            expect(
+                parseAsQueryRooms(
+                    new URLSearchParams('?roomTypes=Room&regions=BTHO&page=1')
                 )
-            )
-        ).toStrictEqual({
-            capacities: [1, 2, 3, 4, 5],
-            maxRental: undefined,
-            minRental: undefined,
-            search: undefined,
-            regions: ['BTHO', 'SL', 'KP'],
-            roomTypes: ['Room', 'Roommate'],
-            page: 100,
+            ).toStrictEqual({
+                capacities: [],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                regions: ['BTHO'],
+                roomTypes: ['Room'],
+                page: 1,
+            });
+        });
+        it(`should form array value for string joined by ',' delimiter`, () => {
+            expect(
+                parseAsQueryRooms(
+                    new URLSearchParams(
+                        '?capacities=1,2,3,4,5&roomTypes=Room,Roommate&regions=BTHO,SL,KP&page=100'
+                    )
+                )
+            ).toStrictEqual({
+                capacities: [1, 2, 3, 4, 5],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                regions: ['BTHO', 'SL', 'KP'],
+                roomTypes: ['Room', 'Roommate'],
+                page: 100,
+            });
+        });
+        it('should return default value for regions, roomTypes, capacities and page should it fail to parse', () => {
+            expect(parseAsQueryRooms(new URLSearchParams(''))).toStrictEqual({
+                capacities: [],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                regions: [],
+                roomTypes: [],
+                page: 1,
+            });
         });
     });
-    it('should return default value for regions, roomTypes, capacities and page should it fail to parse', () => {
-        expect(parseAsQueryRooms(new URLSearchParams(''))).toStrictEqual({
-            capacities: [],
-            maxRental: undefined,
-            minRental: undefined,
-            search: undefined,
-            regions: [],
-            roomTypes: [],
-            page: 1,
-        });
-    });
-});
 
-describe('API Download Room', () => {
-    it('should form download api object', () => {
+describe('Parse Query Results Bookmarked Room', () => {
+    it('should parse the queried units correctly', () => {
         const rooms = [
             {
                 id: 12,

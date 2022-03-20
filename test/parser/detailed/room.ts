@@ -1,24 +1,26 @@
-import { parseAsQueryUnit } from '../../../src/parser/detailed/unit';
-import { parseAsQueriedUnit } from '../../../src/parser/detailed/unit';
+import { parseAsQueryRoom } from '../../../src/parser/detailed/room';
+import { parseAsQueriedRoom } from '../../../src/parser/detailed/room';
 
-describe('Query URL Param to Object', () => {
-    describe('Detailed Unit Query', () => {
+const testDetailedRoomURLParser = () =>
+    describe('Detailed Room Query URL Param to Object', () => {
         it('should form query param object', () => {
             expect(
-                parseAsQueryUnit(new URLSearchParams('?id=1'))
+                parseAsQueryRoom(new URLSearchParams('?id=1'))
             ).toStrictEqual({
                 id: 1,
             });
         });
     });
-});
 
-describe('Parse Query Results', () => {
-    describe('Detailed Unit', () => {
-        it('should parse the queried units correctly', () => {
-            const unit = {
-                id: 9,
-                handler: { name: 'Lee Yuan Khai', handlerType: 'Owner' },
+const testDetailedRoomQueryParser = () =>
+    describe('Detailed Room Parse Query Results', () => {
+        it('should parse the queried rooms correctly', () => {
+            const room = {
+                id: 12,
+                handler: {
+                    name: 'Lee Yuan Khai',
+                    handlerType: 'Owner',
+                },
                 contact: {
                     mobileNumber: ['0173339988'],
                     email: ['yklee1306@gmail.com'],
@@ -38,18 +40,25 @@ describe('Parse Query Results', () => {
                     year: 2021,
                     month: 'December',
                 },
-                properties: { bedRooms: 10, rental: 2600, bathRooms: 5 },
+                properties: {
+                    size: 'Master',
+                    capacities: [7],
+                    rental: 320,
+                },
                 bookmarked: false,
                 visitCount: 2,
                 ratings: [3],
                 rating: undefined,
             };
-            expect(parseAsQueriedUnit(unit)).toStrictEqual(unit);
+            expect(parseAsQueriedRoom(room)).toStrictEqual(room);
         });
         it('should fail to parse', () => {
-            const unit = {
-                id: 9,
-                handler: { name: 'Lee Yuan Khai', handlerType: 'Owner' },
+            const room = {
+                id: 12,
+                handler: {
+                    name: 'Lee Yuan Khai',
+                    handlerType: 'Owner',
+                },
                 contact: {
                     mobileNumber: ['0173339988'],
                     email: ['yklee1306@gmail.com'],
@@ -69,11 +78,16 @@ describe('Parse Query Results', () => {
                     year: 2021,
                     month: 'December',
                 },
-                properties: { bedRooms: 10, rental: 2600, bathRooms: 5 },
+                properties: {
+                    size: 'Master',
+                    capacities: [7],
+                    rental: 320,
+                },
                 visitCount: 2,
                 ratings: [3],
             };
-            expect(() => parseAsQueriedUnit(unit)).toThrowError();
+            expect(() => parseAsQueriedRoom(room)).toThrowError();
         });
     });
-});
+
+export { testDetailedRoomQueryParser, testDetailedRoomURLParser };
