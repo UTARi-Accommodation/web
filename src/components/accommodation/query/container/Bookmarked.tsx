@@ -26,7 +26,7 @@ import { Markers } from '../../display/map/GoogleMapViewer';
 import useWindowResize from '../../../../hook/windowResize';
 import MapButton from '../../display/map/Button';
 
-const processInfo = (info?: string) => info ?? '*NOT PROVIDED*';
+const processInfo = (info?: string) => info?.trim() || '*NOT PROVIDED*';
 
 const processContactInfo = ({
     name,

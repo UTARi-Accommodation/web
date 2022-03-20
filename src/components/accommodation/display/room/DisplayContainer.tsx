@@ -121,6 +121,7 @@ const RoomDisplayContainer = ({
                             })
                         ),
                         hoveredAccommodationID,
+                        link: 'Room',
                     }}
                     center={center}
                 />

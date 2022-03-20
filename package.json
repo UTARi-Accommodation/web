@@ -5,6 +5,9 @@
     "author": "PoolOfDeath20",
     "license": "MIT",
     "proxy": "http://localhost:5000",
+    "scripts": {
+        "build": "make build && make clean-up"
+    },
     "dependencies": {
         "@fingerprintjs/fingerprintjs": "^3.3.2",
         "@react-google-maps/api": "^2.7.0",
@@ -51,7 +54,8 @@
         "jest": "^27.5.1",
         "prettier": "^2.5.1",
         "terser": "^5.10.0",
-        "typescript": "^4.1.2"
+        "typescript": "^4.6.2",
+        "workbox-cli": "^6.5.1"
     },
     "eslintConfig": {
         "extends": [

@@ -1,7 +1,12 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 import Title from '../components/Title';
-import { SiMicrosoftsqlserver, SiThreedotjs, SiRedux } from 'react-icons/si';
+import {
+    SiMicrosoftsqlserver,
+    SiThreedotjs,
+    SiHyperledger,
+    SiElectron,
+} from 'react-icons/si';
 
 const Work = () => (
     <Container>
@@ -26,26 +31,39 @@ const Work = () => (
                     <StepContent>
                         All of the information of accommodations is obtained
                         through web scrapping the UTAR Accommodation List
-                        Website. The scrapped information is processed or
-                        formatted and stored into a Database
+                        Website periodically. The scrapped information is
+                        processed or formatted and stored into a remote Database
+                    </StepContent>
+                </StepContainer>
+                <StepContainer>
+                    <StepTitle>
+                        <ConnectionIcon />
+                        <StrongTitle>2. The Connection</StrongTitle>
+                    </StepTitle>
+                    <StepContent>
+                        Whenever you search for accommodations with UTARi, UTARi
+                        will need to establish a stable connection to the remote
+                        Database. Once connection is established, it will look
+                        for for any information that matches your searching
+                        criterias
                     </StepContent>
                 </StepContainer>
                 <StepContainer>
                     <StepTitle>
                         <AlgorithmIcon />
-                        <StrongTitle>2. The Algorithm</StrongTitle>
+                        <StrongTitle>3. The Algorithm</StrongTitle>
                     </StepTitle>
                     <StepContent>
-                        Whenever you search for accommodations with UTARi, there
-                        is an algorithm that ranks each accommodations according
-                        to their information it has. Hence what was presented to
+                        Once the searching is completed, there will be an
+                        algorithm that ranks each accommodations according to
+                        the information it has. Hence what was presented to you
                         you is deemed as the best by the algorithm
                     </StepContent>
                 </StepContainer>
                 <StepContainer>
                     <StepTitle>
                         <ResultIcon />
-                        <StrongTitle>3. The Result</StrongTitle>
+                        <StrongTitle>4. The Result</StrongTitle>
                     </StepTitle>
                     <StepContent>
                         Right after the algorithm completed its process, the
@@ -61,6 +79,10 @@ const Work = () => (
 
 const Container = styled.div`
     font-family: Montserrat, sans-serif;
+    min-height: calc(100vh - 72px - 299px);
+    @media (min-height: 1000px) {
+        margin: 0 0 -64px 0;
+    }
 `;
 
 const Msg = styled.div`
@@ -102,10 +124,10 @@ const StepsContainer = styled.div`
     width: 100%;
     grid-gap: 16px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     @media (max-width: 704px) {
         grid-template-columns: none;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
     }
 `;
 
@@ -149,7 +171,12 @@ const ScrapIcon = styled(SiMicrosoftsqlserver)`
     ${IconStyle}
 `;
 
-const AlgorithmIcon = styled(SiRedux)`
+const ConnectionIcon = styled(SiHyperledger)`
+    color: ${({ theme }) => theme.workConnection};
+    ${IconStyle}
+`;
+
+const AlgorithmIcon = styled(SiElectron)`
     color: ${({ theme }) => theme.workAlgorithm};
     ${IconStyle}
 `;

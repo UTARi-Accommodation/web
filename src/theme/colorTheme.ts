@@ -45,6 +45,7 @@ export const primaryTheme: Readonly<DefaultTheme> = {
 
     workAlgorithm: '#BC1A6E',
     workScrapAndResult: '#E91E63',
+    workConnection: '#CA0123',
 
     error: '#E74C3C',
 

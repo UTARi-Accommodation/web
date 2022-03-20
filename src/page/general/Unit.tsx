@@ -45,14 +45,15 @@ const Unit = ({
     const [state, setState] = React.useState({
         queried: undefined as UnitsQueried | undefined,
         hoveredAccommodationID: undefined as number | undefined,
-        isPop: false,
+        shouldNotPush: true,
         queryParam: parseAsQueryUnits(new URLSearchParams(search), {
             region,
             unitType,
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, isPop } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+        state;
 
     const url = initialLoad ? search : formGeneralUnitsQuery(queryParam);
 
@@ -70,7 +71,7 @@ const Unit = ({
                         setState((prev) => ({
                             ...prev,
                             queried: parseAsUnitsQueried(data),
-                            isPop: false,
+                            shouldNotPush: false,
                         }))
                     )
                     .catch((error) => {
@@ -78,7 +79,7 @@ const Unit = ({
                         setState((prev) => ({
                             ...prev,
                             queried: undefined,
-                            isPop: false,
+                            shouldNotPush: false,
                         }));
                     })
             )
@@ -87,7 +88,7 @@ const Unit = ({
                 setState((prev) => ({
                     ...prev,
                     queried: undefined,
-                    isPop: false,
+                    shouldNotPush: false,
                 }));
             });
 
@@ -95,7 +96,7 @@ const Unit = ({
         if (initialLoad || !loadedUser) {
             return;
         }
-        if (!isPop) {
+        if (!shouldNotPush) {
             navigate(`${properPathname}${url}`);
         }
         query();
@@ -108,10 +109,10 @@ const Unit = ({
         }));
         return historyListener(
             properPathname,
-            (search, isPop) =>
+            (search, shouldNotPush) =>
                 setState((prev) => ({
                     ...prev,
-                    isPop,
+                    shouldNotPush,
                     queryParam: parseAsQueryUnits(new URLSearchParams(search), {
                         region,
                         unitType,
@@ -229,6 +230,7 @@ const Unit = ({
                                 ),
                                 hoveredAccommodationID,
                                 center: queried.center,
+                                link: 'Unit',
                             }}
                         />
                     )}

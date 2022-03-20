@@ -41,12 +41,13 @@ const UnitBookmarked = () => {
 
     const [state, setState] = React.useState({
         queried: undefined as UnitsQueried | undefined,
-        isPop: false,
+        shouldNotPush: true,
         hoveredAccommodationID: undefined as number | undefined,
         queryParam: parseAsQueryUnits(new URLSearchParams(search)),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, isPop } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+        state;
 
     const url = initialLoad ? search : formBookmarkedUnitsQuery(queryParam);
 
@@ -54,7 +55,7 @@ const UnitBookmarked = () => {
         if (initialLoad || !loadedUser) {
             return;
         }
-        if (!isPop) {
+        if (!shouldNotPush) {
             navigate(`${bookmarkedUnitsRoute}${url}`);
         }
         user.getIdToken()
@@ -70,7 +71,7 @@ const UnitBookmarked = () => {
                         setState((prev) => ({
                             ...prev,
                             queried: parseAsUnitsQueried(data),
-                            isPop: false,
+                            shouldNotPush: false,
                         }))
                     )
                     .catch((error) => {
@@ -78,7 +79,7 @@ const UnitBookmarked = () => {
                         setState((prev) => ({
                             ...prev,
                             queried: undefined,
-                            isPop: false,
+                            shouldNotPush: false,
                         }));
                     })
             )
@@ -87,7 +88,7 @@ const UnitBookmarked = () => {
                 setState((prev) => ({
                     ...prev,
                     queried: undefined,
-                    isPop: false,
+                    shouldNotPush: false,
                 }));
             });
     }, [url, initialLoad, loadedUser, JSON.stringify(user)]);
@@ -95,10 +96,10 @@ const UnitBookmarked = () => {
     React.useEffect(() => {
         return historyListener(
             bookmarkedUnitsRoute,
-            (search, isPop) =>
+            (search, shouldNotPush) =>
                 setState((prev) => ({
                     ...prev,
-                    isPop,
+                    shouldNotPush,
                     queryParam: parseAsQueryUnits(new URLSearchParams(search)),
                 })),
             history
@@ -221,6 +222,7 @@ const UnitBookmarked = () => {
                                 ),
                                 hoveredAccommodationID,
                                 center: queried.center,
+                                link: 'Unit',
                             }}
                         />
                     )}

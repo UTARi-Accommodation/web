@@ -156,11 +156,7 @@ const Contact = () => {
                                 onChange={(value) =>
                                     setState((prev) => ({
                                         ...prev,
-                                        name: getName(
-                                            GranulaString.createFromString(
-                                                value
-                                            )
-                                        ),
+                                        name: getName(value),
                                     }))
                                 }
                                 label="Hello, my name is"
@@ -175,11 +171,7 @@ const Contact = () => {
                                 onChange={(value) =>
                                     setState((prev) => ({
                                         ...prev,
-                                        email: getEmail(
-                                            GranulaString.createFromString(
-                                                value
-                                            )
-                                        ),
+                                        email: getEmail(value),
                                     }))
                                 }
                                 label="You can reach me at"
@@ -194,11 +186,7 @@ const Contact = () => {
                                 onChange={(value) =>
                                     setState((prev) => ({
                                         ...prev,
-                                        message: getMessage(
-                                            GranulaString.createFromString(
-                                                value
-                                            )
-                                        ),
+                                        message: getMessage(value),
                                     }))
                                 }
                                 label="I would like to"

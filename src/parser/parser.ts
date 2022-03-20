@@ -117,7 +117,7 @@ const parseAsCenter = (center: unknown) =>
     parseAsReadonlyObject(center, (center) => ({
         lat: parseAsLatitude(center.lat),
         lng: parseAsLongitude(center.lng),
-    })).orElseGetUndefined();
+    })).orElseThrowDefault('center');
 
 const parseExactlyAsNumber = (num: unknown) =>
     parseAsNumber(num).orElseThrowDefault('num');

@@ -2,7 +2,7 @@ import { BrowserHistory } from 'history';
 
 const historyListener = (
     startsWith: string,
-    setState: (search: string, isPop: boolean) => void,
+    setState: (search: string, shouldNotPush: boolean) => void,
     history: BrowserHistory
 ) =>
     history.listen(({ location: { pathname, search } }) => {
