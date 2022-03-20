@@ -123,6 +123,7 @@ const UnitDisplayContainer = ({
                             })
                         ),
                         hoveredAccommodationID,
+                        link: 'Unit',
                     }}
                     center={center}
                 />

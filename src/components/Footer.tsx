@@ -53,6 +53,7 @@ const Footer = () => (
                     <LinkToContent content="Home" link="/" />
                     <LinkToContent content="About" link="/about" />
                     <LinkToContent content="Contact" link="/contact" />
+                    <LinkToContent content="How it works" link="/work" />
                 </ColumnSummary>
                 <ColumnSummary>
                     <SummaryTitle>Developers</SummaryTitle>
@@ -76,8 +77,8 @@ const Footer = () => (
                         link="https://www.linkedin.com/school/universiti-tunku-abdul-rahman/"
                     />
                     <LinkToContent
-                        content="apple"
-                        link="https://apple.com/utarnet/"
+                        content="Twitter"
+                        link="https://twitter.com/utarnet/"
                     />
                 </ColumnSummary>
             </SummaryContainer>

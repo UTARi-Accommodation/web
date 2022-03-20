@@ -44,14 +44,14 @@ const Room = ({
     const [state, setState] = React.useState({
         queried: undefined as RoomsQueried | undefined,
         hoveredAccommodationID: undefined as number | undefined,
-        isPop: false,
+        shouldNotPush: true,
         queryParam: parseAsQueryRooms(new URLSearchParams(search), {
             region,
             roomType,
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, isPop } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } = state;
 
     const url = initialLoad ? search : formGeneralRoomsQuery(queryParam);
 
@@ -69,7 +69,7 @@ const Room = ({
                         setState((prev) => ({
                             ...prev,
                             queried: parseAsRoomsQueried(data),
-                            isPop: false,
+                            shouldNotPush: false,
                         }))
                     )
                     .catch((error) => {
@@ -77,7 +77,7 @@ const Room = ({
                         setState((prev) => ({
                             ...prev,
                             queried: undefined,
-                            isPop: false,
+                            shouldNotPush: false,
                         }));
                     })
             )
@@ -86,7 +86,7 @@ const Room = ({
                 setState((prev) => ({
                     ...prev,
                     queried: undefined,
-                    isPop: false,
+                    shouldNotPush: false,
                 }));
             });
 
@@ -94,7 +94,7 @@ const Room = ({
         if (initialLoad || !loadedUser) {
             return;
         }
-        if (!isPop) {
+        if (!shouldNotPush) {
             navigate(`${properPathname}${url}`);
         }
         query();
@@ -103,10 +103,10 @@ const Room = ({
     React.useEffect(() => {
         return historyListener(
             properPathname,
-            (search, isPop) =>
+            (search, shouldNotPush) =>
                 setState((prev) => ({
                     ...prev,
-                    isPop,
+                    shouldNotPush,
                     queryParam: parseAsQueryRooms(new URLSearchParams(search), {
                         region,
                         roomType,
@@ -212,6 +212,7 @@ const Room = ({
                                 ),
                                 hoveredAccommodationID,
                                 center: queried.center,
+                                link: 'Room',
                             }}
                         />
                     )}

@@ -33,7 +33,19 @@
         "react-vertical-timeline-component": "^3.5.2",
         "styled-components": "^5.3.3",
         "utari-common": "git+https://github.com/Utari-Room/common.git",
-        "web-vitals": "^1.0.1"
+        "web-vitals": "^1.0.1",
+        "workbox-background-sync": "^5.1.3",
+        "workbox-broadcast-update": "^5.1.3",
+        "workbox-cacheable-response": "^5.1.3",
+        "workbox-core": "^5.1.3",
+        "workbox-expiration": "^5.1.3",
+        "workbox-google-analytics": "^5.1.3",
+        "workbox-navigation-preload": "^5.1.3",
+        "workbox-precaching": "^5.1.3",
+        "workbox-range-requests": "^5.1.3",
+        "workbox-routing": "^5.1.3",
+        "workbox-strategies": "^5.1.3",
+        "workbox-streams": "^5.1.3"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.5",
@@ -54,7 +66,7 @@
         "jest": "^27.5.1",
         "prettier": "^2.5.1",
         "terser": "^5.10.0",
-        "typescript": "^4.1.2"
+        "typescript": "^4.6.2"
     },
     "eslintConfig": {
         "extends": [

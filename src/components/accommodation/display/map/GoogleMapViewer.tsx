@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LoadScript, GoogleMap } from '@react-google-maps/api';
 import styled from 'styled-components';
-import { Location, Center } from 'utari-common';
+import { Location, Center, AccommodationType } from 'utari-common';
 import { DefaultMapMarker, MapMarker } from './MapMarker';
 import { parseAsString } from 'parse-dont-validate';
 
@@ -13,6 +13,7 @@ type MarkerArray = Readonly<{
         id: number;
     }>;
     hoveredAccommodationID: number | undefined;
+    link: AccommodationType;
 }>;
 
 type Markers = Omit<MarkerArray, 'type'> &
@@ -60,7 +61,9 @@ const GoogleMapViewer = ({
                             rental,
                         }) => (
                             <MapMarker
+                                id={id}
                                 key={id}
+                                link={marker.link}
                                 latitude={latitude}
                                 longitude={longitude}
                                 change={id === marker.hoveredAccommodationID}

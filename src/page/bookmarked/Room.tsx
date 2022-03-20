@@ -42,11 +42,12 @@ const BookmarkedRoom = () => {
     const [state, setState] = React.useState({
         queried: undefined as RoomsQueried | undefined,
         hoveredAccommodationID: undefined as number | undefined,
-        isPop: false,
+        shouldNotPush: true,
         queryParam: parseAsQueryRooms(new URLSearchParams(search)),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, isPop } = state;
+    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+        state;
 
     const url = initialLoad ? search : formBookmarkedRoomsQuery(queryParam);
 
@@ -54,7 +55,7 @@ const BookmarkedRoom = () => {
         if (initialLoad || !loadedUser) {
             return;
         }
-        if (!isPop) {
+        if (!shouldNotPush) {
             navigate(`${bookmarkedRoomsRoute}${url}`);
         }
         user.getIdToken()
@@ -69,7 +70,7 @@ const BookmarkedRoom = () => {
                     .then(({ data }) =>
                         setState((prev) => ({
                             ...prev,
-                            isPop: false,
+                            shouldNotPush: false,
                             queried: parseAsRoomsQueried(data),
                         }))
                     )
@@ -77,7 +78,7 @@ const BookmarkedRoom = () => {
                         ToastError(error);
                         setState((prev) => ({
                             ...prev,
-                            isPop: false,
+                            shouldNotPush: false,
                             queried: undefined,
                         }));
                     })
@@ -86,7 +87,7 @@ const BookmarkedRoom = () => {
                 ToastError(error);
                 setState((prev) => ({
                     ...prev,
-                    isPop: false,
+                    shouldNotPush: false,
                     queried: undefined,
                 }));
             });
@@ -95,10 +96,10 @@ const BookmarkedRoom = () => {
     React.useEffect(() => {
         return historyListener(
             bookmarkedRoomsRoute,
-            (search, isPop) =>
+            (search, shouldNotPush) =>
                 setState((prev) => ({
                     ...prev,
-                    isPop,
+                    shouldNotPush,
                     queryParam: parseAsQueryRooms(new URLSearchParams(search)),
                 })),
             history
@@ -209,6 +210,7 @@ const BookmarkedRoom = () => {
                                 ),
                                 hoveredAccommodationID,
                                 center: queried.center,
+                                link: 'Room',
                             }}
                         />
                     )}

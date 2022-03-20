@@ -1,16 +1,21 @@
 import { Marker } from '@react-google-maps/api';
 import * as React from 'react';
+import { AccommodationType } from 'utari-common';
 
 const MapMarker = ({
     change,
     latitude,
     longitude,
     rental,
+    id,
+    link,
 }: Readonly<{
     latitude: number;
     longitude: number;
     rental: number;
     change: boolean;
+    id: number;
+    link: AccommodationType;
 }>) => {
     const [state, setState] = React.useState({
         change: false,
@@ -32,6 +37,13 @@ const MapMarker = ({
             }}
             onMouseOver={() => setChange(true)}
             onMouseOut={() => setChange(false)}
+            onClick={() => {
+                const a = document.createElement('a');
+                a.target = '_blank';
+                a.href = `/detailed-${link.toLowerCase()}?id=${id}`;
+                a.rel = 'nofollow noopener noreferrer';
+                a.click();
+            }}
             label={{
                 text: `RM ${rental}`,
                 color: 'white',

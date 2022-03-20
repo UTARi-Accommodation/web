@@ -51,7 +51,7 @@ const LeftContainer = ({
         <LeftInnerContainer>
             <TitleWithBorder title="Additional info" />
             <LeftInnerInfoContainer>
-                {remark ?? 'Not provided'}
+                {remark.trim() || 'Not Provided'}
             </LeftInnerInfoContainer>
         </LeftInnerContainer>
     </Container>
@@ -90,13 +90,14 @@ const LeftInnerContainer = styled.div`
 `;
 
 const Facilities = styled.div`
-    -webkit-box-pack: start;
-    -webkit-box-align: stretch;
+    word-break: break-word;
     display: flex;
     align-items: stretch;
     justify-content: flex-start;
     flex-wrap: wrap;
-    width: 80%; ;
+    @media (max-width: 750px) {
+        width: 100%;
+    }
 `;
 
 const Facility = styled.div`
@@ -104,6 +105,9 @@ const Facility = styled.div`
     padding: 16px 0px;
     box-sizing: border-box;
     color: ${({ theme }) => theme.mediumEmphasesTextColor};
+    @media (max-width: 556px) {
+        width: calc(100% / 2);
+    }
 `;
 
 const LeftInnerInfoContainer = styled.div`

@@ -92,9 +92,10 @@ const Pagination = ({
 }>) => (
     <>
         <Container>
-            <NumberPaginationContainer>
+            <NumberPaginationContainer
+                $disallowed={!numberOfResults || currentPage === 1}
+            >
                 <LeftCircle
-                    $disallowed={!numberOfResults || currentPage === 1}
                     onClick={() => {
                         if (currentPage > 1) {
                             onClick(currentPage - 1);
@@ -117,6 +118,7 @@ const Pagination = ({
                     <NumberPaginationContainer
                         key={page}
                         onClick={() => onClick(page)}
+                        $disallowed={!numberOfResults}
                     >
                         <PaginationButton>{page}</PaginationButton>
                     </NumberPaginationContainer>
@@ -126,9 +128,10 @@ const Pagination = ({
                     </DotPaginationContainer>
                 )
             )}
-            <NumberPaginationContainer>
+            <NumberPaginationContainer
+                $disallowed={!numberOfResults || currentPage === totalPage}
+            >
                 <RightCircle
-                    $disallowed={!numberOfResults || currentPage === totalPage}
                     onClick={() => {
                         if (currentPage < totalPage) {
                             onClick(currentPage + 1);
@@ -168,6 +171,12 @@ const PaginationContainer = styled.div`
     display: grid;
     place-items: center;
     margin: 8px;
+    @media (max-width: 460px) {
+        margin: 4px;
+    }
+    @media (max-width: 330px) {
+        margin: 2px;
+    }
 `;
 
 const DotPaginationContainer = styled(PaginationContainer)`
@@ -178,12 +187,14 @@ const NumberPaginationContainer = styled(PaginationContainer)`
     &:hover {
         background-color: whitesmoke;
     }
-    cursor: pointer;
     color: ${({ theme }) => theme.primaryColor};
+    cursor: ${({ $disallowed }: PaginationNavigationProps) =>
+        $disallowed ? 'not-allowed' : 'pointer'};
 `;
 
 const CurrentPaginationContainer = styled(PaginationContainer)`
     background-color: black;
+    cursor: pointer;
 `;
 
 const PaginationCircle = css`
@@ -205,14 +216,10 @@ const CurrentPaginationButton = styled(PaginationButton)`
 
 const LeftCircle = styled(IoChevronBackOutline)`
     ${PaginationCircle};
-    cursor: ${({ $disallowed }: PaginationNavigationProps) =>
-        $disallowed ? 'not-allowed' : 'pointer'};
 `;
 
 const RightCircle = styled(IoChevronForwardOutline)`
     ${PaginationCircle};
-    cursor: ${({ $disallowed }: PaginationNavigationProps) =>
-        $disallowed ? 'not-allowed' : 'pointer'};
 `;
 
 const SearchResultDescription = styled.div`

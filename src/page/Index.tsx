@@ -72,7 +72,7 @@ const RightIndexInfo = ({
     titleDescription,
     imageName,
 }: IndexInfoProps) => {
-    const breakPoint = 1057;
+    const breakPoint = 1260;
 
     const { width } = useWindowResize();
 
@@ -345,7 +345,7 @@ const Intro = styled.div`
     > div {
         flex: 0.5;
     }
-    @media (max-width: 1057px) {
+    @media (max-width: 1260px) {
         flex-direction: column;
         > div {
             flex: 1;
@@ -365,10 +365,9 @@ const ImageContainer = styled.div`
 `;
 
 const IndexImage = styled.img`
-    max-width: 100%;
-    max-height: 100%;
-    @media (max-width: 1057px) {
-        width: 100%;
+    width: 100%;
+    @media (max-width: 1260px) {
+        height: 100%;
     }
 `;
 
@@ -379,7 +378,7 @@ const WordContainer = styled(IndexContainer)`
         text-align: ${({ align }: WordContainerProps) => align};
     }
     ${({ isVisible }: WordContainerProps) => (isVisible ? Visible : FadeIn)};
-    @media (max-width: 1057px) {
+    @media (max-width: 1260px) {
         > div {
             margin: 16px 0;
         }
@@ -416,7 +415,7 @@ const SubTitle = styled.div`
 const TitleDescription = styled.div`
     font-size: 1.125em;
     color: ${({ theme }) => theme.indexTitleDescription};
-    @media (max-width: 1057px) {
+    @media (max-width: 1260px) {
         margin: 16px 0 40px 0 !important;
     }
     @media (max-width: 635px) {

@@ -146,6 +146,8 @@ const SideBarNav = ({
 
 const SlideInContainer = styled(FullScreenContainer)`
     z-index: 6;
+    width: 150vw;
+    height: 150vh;
     background-color: ${({ theme }) => theme.popUpBackground};
 `;
 
@@ -154,7 +156,7 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     width: 150px;
-    height: 100vh;
+    height: 100%;
     box-shadow: 0px 1px 2px #00000014, 0px 4px 12px #0000000d;
     transition: 0.1s ease-in;
     background-color: ${({ theme }) => theme.primaryColor};
