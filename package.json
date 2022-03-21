@@ -18,6 +18,7 @@
         "file-saver": "^2.0.5",
         "firebase": "^9.6.7",
         "granula-string": "^1.0.3",
+        "html-minifier-terser": "^7.0.0-alpha.1",
         "parse-dont-validate": "^1.0.3",
         "react": "^17.0.2",
         "react-chartjs-2": "^4.0.1",
@@ -33,10 +34,8 @@
         "react-tooltip": "^4.2.21",
         "react-vertical-timeline-component": "^3.5.2",
         "styled-components": "^5.3.3",
-        "terser": "^5.10.0",
         "utari-common": "git+https://github.com/Utari-Room/common.git",
         "web-vitals": "^1.0.1",
-        "html-minifier-terser": "^7.0.0-alpha.1",
         "workbox-cli": "^6.5.1"
     },
     "devDependencies": {

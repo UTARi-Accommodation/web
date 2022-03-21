@@ -20,10 +20,6 @@ start:
 generate-sw:
 	node_modules/.bin/workbox generateSW workbox-config.cjs
 
-## pre-build
-pre-build:
-	rm -rf build && cp -R public build
-
 ## transpile
 transpile:
 	node script/esbuild.js\
@@ -31,6 +27,9 @@ transpile:
 		&& node script/terser.js
 
 ## build
+pre-build:
+	rm -rf build && cp -R public build
+
 build: pre-build
 	make generate-sw && make transpile
 
