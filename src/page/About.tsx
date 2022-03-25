@@ -50,14 +50,14 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         Foundation in Science
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         Although UTAR Accommodation List Website (UALW)
                         didn&apos;t provide any searching or filtering features,
                         and as a Sabahan, I am not familiar with the places at
                         all, thus it wasn&apos;t easy to search for hostel
                         rooms. Still, with the grace of God, my mom and I still
                         managed to found the first hostel room
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                     className="vertical-timeline-element--work"
@@ -73,12 +73,12 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         Bachelor of Software Engineering (Hons)
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         Found the second hostel with my friends as UALW still
                         didn&apos;t provide any searching or filtering features.
                         As such it&apos;s still very hard to search for hostel
                         rooms that fits my needs
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                     className="vertical-timeline-element--work"
@@ -94,12 +94,12 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         Terminated my rental contract
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         Inspired by TTAP and the urge to solve a problem that
                         bothered me badly, I had decided to improve my
                         programming skills to build a website that search for
                         hostel rooms before I am required to go back to campus
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                     className="vertical-timeline-element--work"
@@ -115,7 +115,7 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         Collaboration with my friend
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         Eugene Yong and I collaborated and decided to solve this
                         problem. Unfortunately, because of my lack of experience
                         in creating a scalable web application, the final
@@ -123,7 +123,7 @@ const About = () => {
                         total disaster. In the end, the project was abandoned by
                         us. On the bright side, it provided me experiences and
                         knowledge so I don&apos;t repeat the same mistake again
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                     className="vertical-timeline-element--education"
@@ -150,14 +150,14 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         Rebuild the website
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         After 7 months, I am well equipped with the knowledge
                         and skills I have obtained from both my internship at
                         Didian and from building my own website, I decided
                         it&apos;s time to rebuild the website, it wasn&apos;t
                         smooth sailing, thus I consulted my supervisor Wong Jia
                         Hau and a friend of mine, Lee Quan on database design
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                     className="vertical-timeline-element--education"
@@ -184,13 +184,13 @@ const About = () => {
                     <h4 className="vertical-timeline-element-subtitle">
                         An Open Source Project
                     </h4>
-                    <p>
+                    <JustifiedParagraph>
                         Due to the previous failure, experiences and guidance
                         from my supervisor and my friend, I was able to complete
                         the development of UTARi and deploy it. Now it&apos;s
                         available on Github as an Open Source project so anyone
                         can contribute to it
-                    </p>
+                    </JustifiedParagraph>
                 </VerticalTimelineElement>
             </VerticalTimelineContainer>
         </>
@@ -239,6 +239,10 @@ const TitleContainer = styled.div`
     @media (max-width: 437px) {
         font-size: 1.5em;
     }
+`;
+
+const JustifiedParagraph = styled.p`
+    text-align: justify;
 `;
 
 export default About;

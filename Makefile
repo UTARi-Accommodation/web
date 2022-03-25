@@ -44,7 +44,7 @@ test:
 
 ## code coverage
 code-cov:
-	make test arguments=$(test-dir) --coverage --coverageDirectory='coverage'
+	make test arguments=--coverage
 
 ## format
 prettier=node_modules/.bin/prettier

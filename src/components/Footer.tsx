@@ -70,15 +70,15 @@ const Footer = () => (
                     />
                     <LinkToContent
                         content="Facebook"
-                        link="https://www.facebook.com/UTARnet/"
+                        link="https://m.facebook.com/GervinFung/"
                     />
                     <LinkToContent
                         content="LinkedIn"
-                        link="https://www.linkedin.com/school/universiti-tunku-abdul-rahman/"
+                        link="https://my.linkedin.com/in/gervin-fung-387409209/"
                     />
                     <LinkToContent
-                        content="Twitter"
-                        link="https://twitter.com/utarnet/"
+                        content="Instagram"
+                        link="https://www.instagram.com/poolofdeath20/"
                     />
                 </ColumnSummary>
             </SummaryContainer>
