@@ -41,12 +41,12 @@ const BookmarkedRoom = () => {
 
     const [state, setState] = React.useState({
         queried: undefined as RoomsQueried | undefined,
-        hoveredAccommodationID: undefined as number | undefined,
+        hoveredAccommodationId: undefined as number | undefined,
         shouldNotPush: true,
         queryParam: parseAsQueryRooms(new URLSearchParams(search)),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+    const { queried, hoveredAccommodationId, queryParam, shouldNotPush } =
         state;
 
     const url = initialLoad ? search : formBookmarkedRoomsQuery(queryParam);
@@ -208,7 +208,7 @@ const BookmarkedRoom = () => {
                                         rental,
                                     })
                                 ),
-                                hoveredAccommodationID,
+                                hoveredAccommodationId,
                                 center: queried.center,
                                 link: 'Room',
                             }}
@@ -223,13 +223,13 @@ const BookmarkedRoom = () => {
                     onMouseEnter={(id) =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: id,
+                            hoveredAccommodationId: id,
                         }))
                     }
                     onMouseLeave={() =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: undefined,
+                            hoveredAccommodationId: undefined,
                         }))
                     }
                     onBookmarkButtonClick={(id, bookmarked) =>
@@ -251,7 +251,7 @@ const BookmarkedRoom = () => {
                     paginateQuery={paginateQuery}
                     totalPage={queried.totalPage}
                     page={queried.page}
-                    hoveredAccommodationID={hoveredAccommodationID}
+                    hoveredAccommodationId={hoveredAccommodationId}
                     center={queried.center}
                     numberOfAccommodationFound={{
                         type: 'bookmarked',

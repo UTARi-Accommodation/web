@@ -1,6 +1,6 @@
 import { DefaultTheme } from 'styled-components';
 
-export const primaryTheme: Readonly<DefaultTheme> = {
+const theme: Readonly<DefaultTheme> = {
     pureWhite: '#FFF',
     logo: '#678EFB',
 
@@ -53,3 +53,5 @@ export const primaryTheme: Readonly<DefaultTheme> = {
     emptyAuthAndVisitCountIcon: '#717171',
     popUpBackground: '#00000066',
 };
+
+export default theme;

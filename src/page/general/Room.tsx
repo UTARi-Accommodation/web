@@ -43,7 +43,7 @@ const Room = ({
 
     const [state, setState] = React.useState({
         queried: undefined as RoomsQueried | undefined,
-        hoveredAccommodationID: undefined as number | undefined,
+        hoveredAccommodationId: undefined as number | undefined,
         shouldNotPush: true,
         queryParam: parseAsQueryRooms(new URLSearchParams(search), {
             region,
@@ -51,7 +51,7 @@ const Room = ({
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+    const { queried, hoveredAccommodationId, queryParam, shouldNotPush } =
         state;
 
     const url = initialLoad ? search : formGeneralRoomsQuery(queryParam);
@@ -211,7 +211,7 @@ const Room = ({
                                         rental,
                                     })
                                 ),
-                                hoveredAccommodationID,
+                                hoveredAccommodationId,
                                 center: queried.center,
                                 link: 'Room',
                             }}
@@ -226,13 +226,13 @@ const Room = ({
                     onMouseEnter={(id) =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: id,
+                            hoveredAccommodationId: id,
                         }))
                     }
                     onMouseLeave={() =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: undefined,
+                            hoveredAccommodationId: undefined,
                         }))
                     }
                     onBookmarkButtonClick={(id, bookmarked) =>
@@ -254,7 +254,7 @@ const Room = ({
                     paginateQuery={paginateQuery}
                     totalPage={queried.totalPage}
                     page={queried.page}
-                    hoveredAccommodationID={hoveredAccommodationID}
+                    hoveredAccommodationId={hoveredAccommodationId}
                     center={queried.center}
                     numberOfAccommodationFound={{
                         type: 'general',
@@ -266,7 +266,4 @@ const Room = ({
     );
 };
 
-const Roommate = () => <Room roomType="Roommate" />;
-const R = () => <Room roomType="Room" />;
-
-export { Roommate, R as Room };
+export default Room;
