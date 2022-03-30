@@ -12,7 +12,7 @@ type MarkerArray = Readonly<{
         rental: number;
         id: number;
     }>;
-    hoveredAccommodationID: number | undefined;
+    hoveredAccommodationId: number | undefined;
     link: AccommodationType;
 }>;
 
@@ -66,7 +66,7 @@ const GoogleMapViewer = ({
                                 link={marker.link}
                                 latitude={latitude}
                                 longitude={longitude}
-                                change={id === marker.hoveredAccommodationID}
+                                change={id === marker.hoveredAccommodationId}
                                 rental={rental}
                             />
                         )

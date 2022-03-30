@@ -4,7 +4,7 @@ import Header from './components/Header';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import GlobalStyle from './theme/GlobalTheme';
 import { ThemeProvider } from 'styled-components';
-import { primaryTheme } from './theme/colorTheme';
+import theme from './theme/colorTheme';
 import ErrorBoundary from './components/ErrorBoundary';
 import { HashLoading } from './components/loader/Load';
 import getVisitor from './visitor';
@@ -24,22 +24,8 @@ import { detailedUnitRoute } from './url/query/detailed/unit';
 import { detailedRoomRoute } from './url/query/detailed/room';
 
 const Index = React.lazy(() => import('./page/Index'));
-const Room = React.lazy(() =>
-    import('./page/general/Room').then((module) => ({ default: module.Room }))
-);
-const Roommate = React.lazy(() =>
-    import('./page/general/Room').then((module) => ({
-        default: module.Roommate,
-    }))
-);
-const Condominium = React.lazy(() =>
-    import('./page/general/Unit').then((module) => ({
-        default: module.Condominium,
-    }))
-);
-const House = React.lazy(() =>
-    import('./page/general/Unit').then((module) => ({ default: module.House }))
-);
+const Room = React.lazy(() => import('./page/general/Room'));
+const Unit = React.lazy(() => import('./page/general/Unit'));
 const BookmarkedRoom = React.lazy(() => import('./page/bookmarked/Room'));
 const BookmarkedUnit = React.lazy(() => import('./page/bookmarked/Unit'));
 const DetailedRoom = React.lazy(() => import('./page/detailed/Room'));
@@ -122,7 +108,7 @@ const App = () => {
             }}
         >
             <BrowserRouter>
-                <ThemeProvider theme={primaryTheme}>
+                <ThemeProvider theme={theme}>
                     <ErrorBoundary>
                         <React.Suspense fallback={<HashLoading />}>
                             <GlobalStyle />
@@ -196,22 +182,22 @@ const App = () => {
                                 <Route
                                     path={housesRoute}
                                     caseSensitive={true}
-                                    element={<House />}
+                                    element={<Unit unitType="House" />}
                                 />
                                 <Route
                                     path={condominiumsRoute}
                                     caseSensitive={true}
-                                    element={<Condominium />}
+                                    element={<Unit unitType="Condominium" />}
                                 />
                                 <Route
                                     path={roomsRoute}
                                     caseSensitive={true}
-                                    element={<Room />}
+                                    element={<Room roomType="Room" />}
                                 />
                                 <Route
                                     path={roommatesRoute}
                                     caseSensitive={true}
-                                    element={<Roommate />}
+                                    element={<Room roomType="Roommate" />}
                                 />
                                 <Route
                                     path={bookmarkedRoomsRoute}

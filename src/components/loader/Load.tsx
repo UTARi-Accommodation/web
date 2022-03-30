@@ -2,8 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { GlobalContainer } from '../../theme/GlobalTheme';
 import HashLoader from 'react-spinners/HashLoader';
-import BounceLoader from 'react-spinners/BounceLoader';
-import { primaryTheme } from '../../theme/colorTheme';
+import theme from '../../theme/colorTheme';
 
 const LoaderContainer = ({
     children,
@@ -19,26 +18,12 @@ const LoaderContainer = ({
 );
 
 const HashLoadingIcon = () => (
-    <HashLoader loading={true} size={100} color={primaryTheme.secondaryColor} />
+    <HashLoader loading={true} size={100} color={theme.secondaryColor} />
 );
 
 const HashLoading = () => (
     <LoaderContainer>
         <HashLoadingIcon />
-    </LoaderContainer>
-);
-
-const BounceLoadingIcon = () => (
-    <BounceLoader
-        loading={true}
-        size={100}
-        color={primaryTheme.secondaryColor}
-    />
-);
-
-const BounceLoading = () => (
-    <LoaderContainer>
-        <BounceLoadingIcon />
     </LoaderContainer>
 );
 
@@ -61,4 +46,4 @@ const InnerContainer = styled.div`
     place-items: center;
 `;
 
-export { HashLoading, BounceLoading, HashLoadingIcon, BounceLoadingIcon };
+export { HashLoading, HashLoadingIcon };

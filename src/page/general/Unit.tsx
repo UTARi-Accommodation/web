@@ -44,7 +44,7 @@ const Unit = ({
 
     const [state, setState] = React.useState({
         queried: undefined as UnitsQueried | undefined,
-        hoveredAccommodationID: undefined as number | undefined,
+        hoveredAccommodationId: undefined as number | undefined,
         shouldNotPush: true,
         queryParam: parseAsQueryUnits(new URLSearchParams(search), {
             region,
@@ -52,7 +52,7 @@ const Unit = ({
         }),
     });
 
-    const { queried, hoveredAccommodationID, queryParam, shouldNotPush } =
+    const { queried, hoveredAccommodationId, queryParam, shouldNotPush } =
         state;
 
     const url = initialLoad ? search : formGeneralUnitsQuery(queryParam);
@@ -228,7 +228,7 @@ const Unit = ({
                                         rental,
                                     })
                                 ),
-                                hoveredAccommodationID,
+                                hoveredAccommodationId,
                                 center: queried.center,
                                 link: 'Unit',
                             }}
@@ -243,13 +243,13 @@ const Unit = ({
                     onMouseEnter={(id) =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: id,
+                            hoveredAccommodationId: id,
                         }))
                     }
                     onMouseLeave={() =>
                         setState((prev) => ({
                             ...prev,
-                            hoveredAccommodationID: undefined,
+                            hoveredAccommodationId: undefined,
                         }))
                     }
                     onBookmarkButtonClick={(id, bookmarked) =>
@@ -271,7 +271,7 @@ const Unit = ({
                     paginateQuery={paginateQuery}
                     totalPage={queried.totalPage}
                     page={queried.page}
-                    hoveredAccommodationID={hoveredAccommodationID}
+                    hoveredAccommodationId={hoveredAccommodationId}
                     center={queried.center}
                     numberOfAccommodationFound={{
                         type: 'general',
@@ -284,7 +284,4 @@ const Unit = ({
     );
 };
 
-const Condominium = () => <Unit unitType="Condominium" />;
-const House = () => <Unit unitType="House" />;
-
-export { Condominium, House };
+export default Unit;

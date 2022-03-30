@@ -23,7 +23,7 @@ const UnitDisplayContainer = ({
     paginateQuery,
     totalPage,
     page,
-    hoveredAccommodationID,
+    hoveredAccommodationId,
     center,
     numberOfAccommodationFound,
 }: Readonly<{
@@ -34,7 +34,7 @@ const UnitDisplayContainer = ({
     paginateQuery: (page: number) => void;
     totalPage: number;
     page: number;
-    hoveredAccommodationID: number | undefined;
+    hoveredAccommodationId: number | undefined;
     center: Center;
     numberOfAccommodationFound: Readonly<
         | {
@@ -122,7 +122,7 @@ const UnitDisplayContainer = ({
                                 rental,
                             })
                         ),
-                        hoveredAccommodationID,
+                        hoveredAccommodationId,
                         link: 'Unit',
                     }}
                     center={center}
