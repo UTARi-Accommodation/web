@@ -54,5 +54,7 @@ declare module 'styled-components' {
         linkToPrivacyAndTerms: '#FD4D4D';
         emptyAuthAndVisitCountIcon: '#717171';
         popUpBackground: '#00000066';
+
+        darkThemeToggle: '#A2998B';
     }
 }

@@ -9,7 +9,7 @@ const Hamburger = ({
 }>) => (
     <HamburgerNav onClick={onClick}>
         <HamburgerButton>
-            <GiHamburgerMenu />
+            <HamburgerIcon />
         </HamburgerButton>
     </HamburgerNav>
 );
@@ -21,9 +21,12 @@ const HamburgerNav = styled.div`
     justify-content: center;
 `;
 
-const HamburgerButton = styled.button`
+const HamburgerIcon = styled(GiHamburgerMenu)`
+    font-size: 2.5em;
+`;
+
+const HamburgerButton = styled.div`
     background-color: transparent;
-    font-size: 2em;
     border: none;
     padding: 0;
     color: ${({ theme }) => theme.secondaryColor};

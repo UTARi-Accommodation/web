@@ -6,6 +6,7 @@ import AuthIcon from '../../header/AuthIcon';
 import useWindowResize from '../../../hook/windowResize';
 import SideBarNav from '../../sideNav/SideNav';
 import Hamburger from '../../buttons/Hamburger';
+import ToggleTheme from '../../toggle/Theme';
 
 const TopContainer = ({
     prompt,
@@ -54,7 +55,10 @@ const TopContainer = ({
             </InnerContainer>
             <InnerContainer>
                 {width > breakPoint ? (
-                    <AuthIcon />
+                    <>
+                        <ToggleTheme />
+                        <AuthIcon />
+                    </>
                 ) : (
                     <Hamburger onClick={() => setShowSideNav(true)} />
                 )}

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Location, Center, AccommodationType } from 'utari-common';
 import { DefaultMapMarker, MapMarker } from './MapMarker';
 import { parseAsString } from 'parse-dont-validate';
+import { AppContext } from '../../../../App';
 
 type MarkerArray = Readonly<{
     type: 'array';
@@ -32,50 +33,149 @@ const GoogleMapViewer = ({
               coordinate: Location['coordinate'];
           }>;
     center: Center;
-}>) => (
-    <GoogleMapContainer>
-        <LoadScript
-            googleMapsApiKey={parseAsString(
-                process.env.MAPS_API_KEY
-            ).orElseThrowDefault('apiKey')}
-        >
-            <GoogleMap
-                center={center}
-                zoom={marker.type === 'single' ? 16 : 14}
-                options={{ scrollwheel: true }}
-                mapContainerStyle={{
-                    width: '100%',
-                    height: '100%',
-                }}
+}>) => {
+    const { isDark } = React.useContext(AppContext);
+
+    return (
+        <GoogleMapContainer>
+            <LoadScript
+                googleMapsApiKey={parseAsString(
+                    process.env.MAPS_API_KEY
+                ).orElseThrowDefault('apiKey')}
             >
-                {marker.type === 'single' ? (
-                    <DefaultMapMarker
-                        latitude={marker.coordinate.latitude}
-                        longitude={marker.coordinate.longitude}
-                    />
-                ) : (
-                    marker.mapMarkerArrayProps.map(
-                        ({
-                            id,
-                            coordinate: { latitude, longitude },
-                            rental,
-                        }) => (
-                            <MapMarker
-                                id={id}
-                                key={id}
-                                link={marker.link}
-                                latitude={latitude}
-                                longitude={longitude}
-                                change={id === marker.hoveredAccommodationId}
-                                rental={rental}
-                            />
+                <GoogleMap
+                    center={center}
+                    zoom={marker.type === 'single' ? 16 : 14}
+                    options={{
+                        scrollwheel: true,
+                        styles: !isDark
+                            ? undefined
+                            : [
+                                  {
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#242F3E' }],
+                                  },
+                                  {
+                                      elementType: 'labels.text.stroke',
+                                      stylers: [{ color: '#242F3E' }],
+                                  },
+                                  {
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#746855' }],
+                                  },
+                                  {
+                                      featureType: 'administrative.locality',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#D59563' }],
+                                  },
+                                  {
+                                      featureType: 'poi',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#D59563' }],
+                                  },
+                                  {
+                                      featureType: 'poi.park',
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#263C3F' }],
+                                  },
+                                  {
+                                      featureType: 'poi.park',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#6B9A76' }],
+                                  },
+                                  {
+                                      featureType: 'road',
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#38414E' }],
+                                  },
+                                  {
+                                      featureType: 'road',
+                                      elementType: 'geometry.stroke',
+                                      stylers: [{ color: '#212A37' }],
+                                  },
+                                  {
+                                      featureType: 'road',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#9CA5B3' }],
+                                  },
+                                  {
+                                      featureType: 'road.highway',
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#746855' }],
+                                  },
+                                  {
+                                      featureType: 'road.highway',
+                                      elementType: 'geometry.stroke',
+                                      stylers: [{ color: '#1F2835' }],
+                                  },
+                                  {
+                                      featureType: 'road.highway',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#F3D19C' }],
+                                  },
+                                  {
+                                      featureType: 'transit',
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#2F3948' }],
+                                  },
+                                  {
+                                      featureType: 'transit.station',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#D59563' }],
+                                  },
+                                  {
+                                      featureType: 'water',
+                                      elementType: 'geometry',
+                                      stylers: [{ color: '#17263C' }],
+                                  },
+                                  {
+                                      featureType: 'water',
+                                      elementType: 'labels.text.fill',
+                                      stylers: [{ color: '#515C6D' }],
+                                  },
+                                  {
+                                      featureType: 'water',
+                                      elementType: 'labels.text.stroke',
+                                      stylers: [{ color: '#17263C' }],
+                                  },
+                              ],
+                    }}
+                    mapContainerStyle={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    {marker.type === 'single' ? (
+                        <DefaultMapMarker
+                            latitude={marker.coordinate.latitude}
+                            longitude={marker.coordinate.longitude}
+                        />
+                    ) : (
+                        marker.mapMarkerArrayProps.map(
+                            ({
+                                id,
+                                coordinate: { latitude, longitude },
+                                rental,
+                            }) => (
+                                <MapMarker
+                                    id={id}
+                                    key={id}
+                                    link={marker.link}
+                                    latitude={latitude}
+                                    longitude={longitude}
+                                    change={
+                                        id === marker.hoveredAccommodationId
+                                    }
+                                    rental={rental}
+                                />
+                            )
                         )
-                    )
-                )}
-            </GoogleMap>
-        </LoadScript>
-    </GoogleMapContainer>
-);
+                    )}
+                </GoogleMap>
+            </LoadScript>
+        </GoogleMapContainer>
+    );
+};
 
 const GoogleMapContainer = styled.div`
     width: 100%;

@@ -7,6 +7,7 @@ import useWindowResize from '../hook/windowResize';
 import SideNav from './sideNav/SideNav';
 import BackToTop from './buttons/BackToTop';
 import Hamburger from './buttons/Hamburger';
+import ToggleTheme from './toggle/Theme';
 
 const Header = () => {
     const breakPoint = 635;
@@ -53,11 +54,16 @@ const Header = () => {
                         </HeaderLinkContainer>
                         <RightHeaderLinkContainer>
                             <HeaderLinkContainer>
-                                {width > breakPoint ? (
-                                    <AuthIcon />
-                                ) : (
-                                    <Hamburger onClick={() => setShow(true)} />
-                                )}
+                                <RightInnerHeaderLinkContainer>
+                                    <ToggleTheme />
+                                    {width > breakPoint ? (
+                                        <AuthIcon />
+                                    ) : (
+                                        <Hamburger
+                                            onClick={() => setShow(true)}
+                                        />
+                                    )}
+                                </RightInnerHeaderLinkContainer>
                             </HeaderLinkContainer>
                         </RightHeaderLinkContainer>
                     </TopInnerHeader>
@@ -111,6 +117,11 @@ const LeftHeaderLinkContainer = styled.div`
 
 const RightHeaderLinkContainer = styled.div`
     margin: 0 0 0 auto;
+`;
+
+const RightInnerHeaderLinkContainer = styled.div`
+    display: flex;
+    align-items: center;
 `;
 
 export default Header;

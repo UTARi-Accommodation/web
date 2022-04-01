@@ -118,6 +118,7 @@ const SearchBarInput = styled.input`
     width: 100%;
     font-family: Montserrat, sans-serif;
     text-overflow: ellipsis;
+    background-color: transparent !important;
 `;
 
 export { SearchIcon, SearchIconContainer };
