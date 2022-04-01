@@ -1,4 +1,8 @@
 import * as React from 'react';
+import {
+    enable as enableDarkMode,
+    disable as disableDarkMode,
+} from 'darkreader';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -46,6 +50,8 @@ const AppContext = React.createContext({
     visitor: getVisitor(),
     loadedUser: false,
     setRegion: (_: Region) => {},
+    isDark: false,
+    setIsDark: () => {},
 });
 
 if (typeof window !== 'undefined') {
@@ -55,7 +61,17 @@ if (typeof window !== 'undefined') {
 const App = () => {
     const [state, setState] = React.useState(React.useContext(AppContext));
 
-    const { user, loadedUser, visitor } = state;
+    const { user, loadedUser, visitor, isDark } = state;
+
+    React.useEffect(() => {
+        !isDark
+            ? disableDarkMode()
+            : enableDarkMode({
+                  brightness: 100,
+                  contrast: 90,
+                  sepia: 10,
+              });
+    }, [isDark]);
 
     React.useEffect(() => {
         const style = (color: string) =>
@@ -104,6 +120,11 @@ const App = () => {
                     setState((prev) => ({
                         ...prev,
                         region,
+                    })),
+                setIsDark: () =>
+                    setState((prev) => ({
+                        ...prev,
+                        isDark: !prev.isDark,
                     })),
             }}
         >
