@@ -1,20 +1,26 @@
 import * as React from 'react';
 import { IoClose } from 'react-icons/io5';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+type CommonCloseProps = Readonly<{
+    padding?: boolean;
+}>;
 
 const CloseButtonContainer = ({
     onClick,
     children,
     noBorder,
+    padding,
 }: Readonly<{
     onClick: () => void;
     children?: React.ReactNode;
     noBorder: boolean;
-}>) => (
+}> &
+    CommonCloseProps) => (
     <Container noBorder={noBorder}>
-        <InvisibleIcon />
+        <InvisibleIcon padding={padding ?? true} />
         {children}
-        <CloseIcon onClick={onClick} />
+        <CloseIcon padding={padding ?? true} onClick={onClick} />
     </Container>
 );
 
@@ -33,9 +39,14 @@ const Container = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.border};
 `;
 
-const CloseIcon = styled(IoClose)`
-    padding: 4px;
+const CommonClose = css`
+    padding: ${({ padding }: CommonCloseProps) => (padding ? '4px' : '0')};
     font-size: 1.5em;
+`;
+
+const CloseIcon = styled(IoClose)`
+    cursor: pointer;
+    ${CommonClose}
     &:hover {
         border-radius: 50%;
         background: ${({ theme }) => theme.authClosePopup};
@@ -44,14 +55,15 @@ const CloseIcon = styled(IoClose)`
 
 const InvisibleIcon = styled(IoClose)`
     visibility: hidden !important;
-    padding: 4px;
-    font-size: 1.5em;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    ${CommonClose}
 `;
 
 export default CloseButtonContainer;
+
+export { CloseIcon };

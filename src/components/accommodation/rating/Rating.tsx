@@ -6,6 +6,7 @@ import { AppContext } from '../../../App';
 import utariAxios from '../../../config/axios';
 import ratingAPI from '../../../url/mutation/rating';
 import AuthPopup from '../../auth/create/Popup';
+import { CloseIcon } from '../../buttons/Close';
 import { ToastError } from '../../toaser/Toaser';
 import { AccommodationRatingStar } from '../display/AcommodationProperties';
 
@@ -21,6 +22,8 @@ const Rating = ({
     onRatingGiven: () => void;
 }>) => {
     const { user } = React.useContext(AppContext);
+
+    const padding = false;
 
     const [state, setState] = React.useState({
         show: false,
@@ -40,7 +43,29 @@ const Rating = ({
     return (
         <>
             <Title>
-                {rating ? 'Your rated' : 'Rate'} this {type.toLowerCase()}
+                {!rating ? 'Rate' : 'You rated'} this {type.toLowerCase()}
+                {!rating ? null : (
+                    <DeleteRatingIcon
+                        padding={padding}
+                        onClick={() => {
+                            if (!user) {
+                                throw new Error(
+                                    `user cannot be undefined when already sigin-in/up`
+                                );
+                            }
+                            user.getIdToken()
+                                .then((token) =>
+                                    utariAxios
+                                        .delete(
+                                            `${ratingAPI}/?token=${token}&id=${id}&type=${type}`
+                                        )
+                                        .then(onRatingGiven)
+                                        .catch(ToastError)
+                                )
+                                .catch(ToastError);
+                        }}
+                    />
+                )}
             </Title>
             <GiveRatingContainer>
                 {Array.from({ length: 5 }, (_, i) => {
@@ -95,6 +120,9 @@ const Rating = ({
 const Title = styled.div`
     font-size: 1.1em;
     color: ${({ theme }) => theme.highEmphasesTextColor};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const GiveRatingContainer = styled.div`
@@ -111,6 +139,10 @@ const RatingIcon = styled(AccommodationRatingStar)`
 const GiveRatingIcon = styled(AiOutlineStar)`
     font-size: 1.1em !important;
     cursor: pointer;
+`;
+
+const DeleteRatingIcon = styled(CloseIcon)`
+    font-size: 1.2em;
 `;
 
 export { RatingIcon };

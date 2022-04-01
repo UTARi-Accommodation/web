@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Button } from '../dropdown/Dropdown';
 import { AccommodationType } from 'utari-common';
 import { ToastError } from '../../toaser/Toaser';
+import { nanoid } from 'nanoid';
 
 type DownloadButtonProps = Readonly<{
     isEmpty: boolean;
@@ -30,7 +31,8 @@ const Download = ({
                         const blob = new Blob([info], {
                             type: 'text/plain;charset=utf-8',
                         });
-                        saveAs(blob, `${type}.txt`);
+                        // ref: https://zelark.github.io/nano-id-cc/
+                        saveAs(blob, `${type.toLowerCase()}-${nanoid(11)}.txt`);
                     })
                     .catch(ToastError);
             }

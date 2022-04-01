@@ -7,7 +7,7 @@ const Auth = () => (
     <Container>
         <Title
             title="Sign in | UTARi"
-            content="Sign in or sign up to UTARi with Google or Facebook account"
+            content="Sign in or sign up to UTARi with Google or Github account"
         />
         <AuthCardContainer>
             <AuthCard />
