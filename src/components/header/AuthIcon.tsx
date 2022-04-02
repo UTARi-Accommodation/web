@@ -171,7 +171,7 @@ const AuthIcon = () => {
                                                     );
                                                 case 'succeed':
                                                     return ToastInfo(
-                                                        'Sign out succeed'
+                                                        'Sign out success'
                                                     );
                                             }
                                         }}
