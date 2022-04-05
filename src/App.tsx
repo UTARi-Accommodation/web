@@ -15,7 +15,7 @@ import getVisitor from './visitor';
 import visitorAPI from './url/mutation/visitor';
 import { parseNullableAsDefaultOrUndefined, Region } from 'utari-common';
 import { auth, onUtariUserStateChanged, UtariUser } from './auth/user';
-import { MontserratFont } from './common/FontTag';
+import { MontserratFont } from './components/common/FontTag';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { ToastError } from './components/toaser/Toaser';

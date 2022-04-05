@@ -14,7 +14,7 @@ import {
     QueryContainer,
     QueryInnerContainer,
 } from '../../components/accommodation/display/container/Container';
-import Title from '../../components/Title';
+import Title from '../../components/common/Title';
 import RoomDisplayContainer from '../../components/accommodation/display/room/DisplayContainer';
 import historyListener from '../../hook/historyListener';
 import { parseAsRoomsQueried, RoomsQueried } from '../../parser/parser';

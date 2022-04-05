@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
-import Title from '../components/Title';
+import Title from '../components/common/Title';
 import {
     SiMicrosoftsqlserver,
     SiThreedotjs,

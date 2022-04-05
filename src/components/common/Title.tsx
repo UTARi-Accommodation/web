@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { NavLinkType } from './header/NavLinks';
+import { NavLinkType } from '../header/NavLinks';
 
 const Title = ({
     title,

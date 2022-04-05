@@ -16,7 +16,7 @@ import LeftContainer from '../../components/accommodation/detailed/LeftContainer
 import RightContainer from '../../components/accommodation/detailed/RightContainer';
 import DetailedContainer from '../../components/accommodation/detailed/Container';
 import { ToastError } from '../../components/toaser/Toaser';
-import Title from '../../components/Title';
+import Title from '../../components/common/Title';
 import utariAxios from '../../config/axios';
 
 type Queried = Readonly<{

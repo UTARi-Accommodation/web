@@ -14,7 +14,7 @@ import {
 import HorizontalLine from '../components/accommodation/display/HorizontalLine';
 import contactAPI from '../url/mutation/contact';
 import { ToastError, ToastPromise } from '../components/toaser/Toaser';
-import Title from '../components/Title';
+import Title from '../components/common/Title';
 import utariAxios from '../config/axios';
 import Input from '../components/input/Input';
 import parseAsData from '../parser/contact';
