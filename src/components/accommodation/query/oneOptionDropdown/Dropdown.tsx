@@ -6,7 +6,7 @@ import {
     DropdownAndButtonContainer,
     InnerContainer,
 } from '../../dropdown/Dropdown';
-import OutsideClickHandlerContainer from '../../../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../../../common/OutsideClickHandlerContainer';
 import { OptionLabel, OptionLinkLabel } from './Option';
 import useWindowResize from '../../../../hook/windowResize';
 import SlideFromBottom from '../../../popup/SlideFromBottom';

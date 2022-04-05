@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Logo from './Logo';
-import AuthIcon from './header/AuthIcon';
-import NavLinks from './header/NavLinks';
-import useWindowResize from '../hook/windowResize';
-import SideNav from './sideNav/SideNav';
-import BackToTop from './buttons/BackToTop';
-import Hamburger from './buttons/Hamburger';
-import ToggleTheme from './toggle/Theme';
+import Logo from '../common/Logo';
+import AuthIcon from './AuthIcon';
+import NavLinks from './NavLinks';
+import useWindowResize from '../../hook/windowResize';
+import SideNav from '../sideNav/SideNav';
+import BackToTop from '../buttons/BackToTop';
+import Hamburger from '../buttons/Hamburger';
+import ToggleTheme from '../toggle/Theme';
 
 const Header = () => {
     const breakPoint = 635;
