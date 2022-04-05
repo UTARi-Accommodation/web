@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
-import OutsideClickHandlerContainer from '../../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../../common/OutsideClickHandlerContainer';
 
 const SearchBar = ({
     prompt,

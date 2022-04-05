@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { GlobalContainer } from '../theme/GlobalTheme';
+import { GlobalContainer } from '../../theme/GlobalTheme';
 
 type ErrorBoundaryState = Readonly<{
     hasError: boolean;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Close from '../buttons/Close';
-import OutsideClickHandlerContainer from '../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../common/OutsideClickHandlerContainer';
 
 const SlideFromBottom = ({
     children,

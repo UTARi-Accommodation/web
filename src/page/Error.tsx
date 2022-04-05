@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import Title from '../components/Title';
+import Title from '../components/common/Title';
 import { GlobalContainer } from '../theme/GlobalTheme';
 
 const delay = 0.5;

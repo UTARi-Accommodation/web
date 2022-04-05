@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Select from 'react-select';
 import ReactTooltip from 'react-tooltip';
-import Title from '../components/Title';
+import Title from '../components/common/Title';
 import { Region, RoomType, UnitType } from 'utari-common';
 import {
     SearchIcon,
     SearchIconContainer,
 } from '../components/accommodation/query/SearchBar';
-import OutsideClickHandlerContainer from '../components/OutsideClickHandler';
+import OutsideClickHandlerContainer from '../components/common/OutsideClickHandlerContainer';
 import useWindowResize from '../hook/windowResize';
 import useIntersectionObserver from '../hook/interSectionObserverHook';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Logo from '../../Logo';
+import Logo from '../../common/Logo';
 import SearchBar from '../query/SearchBar';
 import AuthIcon from '../../header/AuthIcon';
 import useWindowResize from '../../../hook/windowResize';

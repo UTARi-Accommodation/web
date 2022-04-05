@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import AuthCard from '../../components/auth/create/Auth';
-import Title from '../../components/Title';
+import Title from '../../components/common/Title';
 
 const Auth = () => (
     <Container>

@@ -7,7 +7,7 @@ import { bookmarkedRoomsRoute } from '../../url/query/bookmarked/room';
 import { bookmarkedUnitsRoute } from '../../url/query/bookmarked/unit';
 import HorizontalLine from '../accommodation/display/HorizontalLine';
 import SlideInFullScreenContainer from '../animation/SideNav';
-import { NavLogo } from '../Logo';
+import { NavLogo } from '../common/Logo';
 import { google } from '../../auth/user';
 import { ToastError, ToastInfo } from '../toaser/Toaser';
 

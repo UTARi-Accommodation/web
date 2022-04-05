@@ -3,19 +3,19 @@ import {
     enable as enableDarkMode,
     disable as disableDarkMode,
 } from 'darkreader';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import GlobalStyle from './theme/GlobalTheme';
 import { ThemeProvider } from 'styled-components';
 import theme from './theme/colorTheme';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './components/lazy/ErrorBoundary';
 import { HashLoading } from './components/loader/Load';
 import getVisitor from './visitor';
 import visitorAPI from './url/mutation/visitor';
 import { parseNullableAsDefaultOrUndefined, Region } from 'utari-common';
 import { auth, onUtariUserStateChanged, UtariUser } from './auth/user';
-import { MontserratFont } from './common/FontTag';
+import { MontserratFont } from './components/common/FontTag';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { ToastError } from './components/toaser/Toaser';

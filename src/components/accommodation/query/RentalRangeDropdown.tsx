@@ -11,7 +11,7 @@ import {
 } from '../dropdown/Dropdown';
 import SearchAndResetButtons from './SearchAndResetButtons';
 import { RentalFrequencies, RentalRange } from 'utari-common';
-import OutsideClickHandlerContainer from '../../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../../common/OutsideClickHandlerContainer';
 import { NullableRentalRange } from './container/General';
 import SlideFromBottom from '../../popup/SlideFromBottom';
 import useWindowResize from '../../../hook/windowResize';

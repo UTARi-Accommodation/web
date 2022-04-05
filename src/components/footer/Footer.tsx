@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import HorizontalLine from './accommodation/display/HorizontalLine';
-import { condominiumsRoute, housesRoute } from '../url/query/general/unit';
-import { roommatesRoute, roomsRoute } from '../url/query/general/room';
+import HorizontalLine from '../accommodation/display/HorizontalLine';
+import { condominiumsRoute, housesRoute } from '../../url/query/general/unit';
+import { roommatesRoute, roomsRoute } from '../../url/query/general/room';
 
 const LinkToContent = ({
     link,

@@ -22,6 +22,5 @@ const Font = ({
 );
 
 const MontserratFont = () => <Font fontFamily="Montserrat" />;
-const RobotoFont = () => <Font fontFamily="Roboto" />;
 
-export { MontserratFont, RobotoFont };
+export { MontserratFont };

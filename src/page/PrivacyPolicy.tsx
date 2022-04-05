@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Title from '../components/Title';
+import Title from '../components/common/Title';
 
 const PrivacyPolicy = () => {
     const domain = window.location.origin.replace('http', 'https');

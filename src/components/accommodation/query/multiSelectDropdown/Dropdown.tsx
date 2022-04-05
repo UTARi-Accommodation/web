@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import useWindowResize from '../../../../hook/windowResize';
-import OutsideClickHandlerContainer from '../../../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../../../common/OutsideClickHandlerContainer';
 import SlideFromBottom from '../../../popup/SlideFromBottom';
 import {
     Button,

@@ -8,7 +8,7 @@ import {
     InnerContainer,
 } from '../accommodation/dropdown/Dropdown';
 import AuthPopup from '../auth/create/Popup';
-import OutsideClickHandlerContainer from '../OutsideClickHandler';
+import OutsideClickHandlerContainer from '../common/OutsideClickHandlerContainer';
 import { AppContext } from '../../App';
 import HorizontalLine from '../accommodation/display/HorizontalLine';
 import { Link } from 'react-router-dom';
