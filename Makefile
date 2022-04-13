@@ -1,6 +1,10 @@
 ## declare PHONY
 .PHONY: build test
 
+## install dev server
+install-server:
+	cd server && yarn
+
 ## type check
 typecheck:
 	node_modules/.bin/tsc -p tsconfig.json $(arguments) 

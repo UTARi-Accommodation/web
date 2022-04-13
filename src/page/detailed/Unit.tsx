@@ -124,8 +124,6 @@ const DetailedUnit = () => {
         },
     } = queried;
 
-    console.log({ bookmarked });
-
     return (
         <DetailedContainer
             show={show}

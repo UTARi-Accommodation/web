@@ -6,6 +6,7 @@
     "license": "MIT",
     "proxy": "http://localhost:5000",
     "scripts": {
+        "postinstall": "make install-server",
         "build": "make build && make clean-up"
     },
     "dependencies": {
@@ -16,6 +17,7 @@
         "darkreader": "^4.9.46",
         "dotenv": "^11.0.0",
         "esbuild": "^0.14.11",
+        "esbuild-env-parsing": "^1.0.0",
         "file-saver": "^2.0.5",
         "firebase": "^9.6.7",
         "granula-string": "^1.0.3",

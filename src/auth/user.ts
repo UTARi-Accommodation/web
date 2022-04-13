@@ -108,8 +108,22 @@ const onUtariUserStateChanged = (setUser: (user: UtariUser) => void) =>
 
 type UtariUser = User | undefined;
 
+type AuthResponse =
+    | Readonly<{
+          type: 'succeed';
+          name: string | null;
+          isFirstTime: boolean;
+          error?: undefined;
+      }>
+    | Readonly<{
+          type: 'failed';
+          error: any;
+          name?: undefined;
+          isFirstTime?: undefined;
+      }>;
+
 type NonNullableUtariUser = NonNullable<UtariUser>;
 
 export { google, onUtariUserStateChanged, auth, github };
 
-export type { UtariUser, NonNullableUtariUser };
+export type { UtariUser, NonNullableUtariUser, AuthResponse };

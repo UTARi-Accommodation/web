@@ -83,6 +83,19 @@ const RentalRangeDropdown = ({
         );
     };
 
+    const setPrice = (value: string, type: 'min' | 'max') =>
+        setState((prev) => ({
+            ...prev,
+            isSliding: false,
+            query: {
+                ...prev.query,
+                [type]:
+                    isPositiveFloat(value) || isPositiveInt(value)
+                        ? parseFloat(value)
+                        : min,
+            },
+        }));
+
     const RentalSelection = (
         <>
             <BarChart
@@ -92,10 +105,10 @@ const RentalRangeDropdown = ({
             />
             <Slider
                 stepSize={averageStepSize()}
-                setSliding={(sliding) =>
+                setSliding={(isSliding) =>
                     setState((prev) => ({
                         ...prev,
-                        isSliding: sliding,
+                        isSliding,
                     }))
                 }
                 rentalSelectedRange={query}
@@ -120,34 +133,10 @@ const RentalRangeDropdown = ({
             <Input
                 rentalRange={query}
                 onChangeListener={{
-                    minPriceChange: ({ target: { value } }) => {
-                        setState((prev) => ({
-                            ...prev,
-                            isSliding: false,
-                            query: {
-                                ...prev.query,
-                                min:
-                                    isPositiveFloat(value) ||
-                                    isPositiveInt(value)
-                                        ? parseFloat(value)
-                                        : min,
-                            },
-                        }));
-                    },
-                    maxPriceChange: ({ target: { value } }) => {
-                        setState((prev) => ({
-                            ...prev,
-                            isSliding: false,
-                            query: {
-                                ...prev.query,
-                                max:
-                                    isPositiveFloat(value) ||
-                                    isPositiveInt(value)
-                                        ? parseFloat(value)
-                                        : max,
-                            },
-                        }));
-                    },
+                    minPriceChange: ({ target: { value } }) =>
+                        setPrice(value, 'min'),
+                    maxPriceChange: ({ target: { value } }) =>
+                        setPrice(value, 'max'),
                 }}
             />
             <SearchAndResetButtons

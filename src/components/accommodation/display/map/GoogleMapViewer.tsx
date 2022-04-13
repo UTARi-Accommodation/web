@@ -3,8 +3,8 @@ import { LoadScript, GoogleMap } from '@react-google-maps/api';
 import styled from 'styled-components';
 import { Location, Center, AccommodationType } from 'utari-common';
 import { DefaultMapMarker, MapMarker } from './MapMarker';
-import { parseAsString } from 'parse-dont-validate';
 import { AppContext } from '../../../../App';
+import { parseAsEnv } from 'esbuild-env-parsing';
 
 type MarkerArray = Readonly<{
     type: 'array';
@@ -39,9 +39,10 @@ const GoogleMapViewer = ({
     return (
         <GoogleMapContainer>
             <LoadScript
-                googleMapsApiKey={parseAsString(
-                    process.env.MAPS_API_KEY
-                ).orElseThrowDefault('apiKey')}
+                googleMapsApiKey={parseAsEnv({
+                    env: process.env.MAPS_API_KEY,
+                    name: 'maps api key',
+                })}
             >
                 <GoogleMap
                     center={center}
