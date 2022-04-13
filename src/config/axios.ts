@@ -1,10 +1,14 @@
 import axios, { Method } from 'axios';
 import { parseAsString } from 'parse-dont-validate';
+import { parseAsEnv } from 'esbuild-env-parsing';
 import csrf from '../url/query/csrf';
 
 const createInstance = (method: Method) =>
     axios.create({
-        baseURL: `${process.env.API}/api`,
+        baseURL: `${parseAsEnv({
+            env: process.env.API,
+            name: 'api',
+        })}/api`,
         headers: {
             'Referrer-Policy': 'strict-origin-when-cross-origin',
         },

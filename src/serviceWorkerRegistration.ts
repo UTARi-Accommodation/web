@@ -1,3 +1,5 @@
+import { parseAsEnv } from 'esbuild-env-parsing';
+
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
         // [::1] is the IPv6 localhost address.
@@ -14,15 +16,21 @@ type Config = Readonly<{
 }>;
 
 const register = (config?: Config) => {
-    const PUBLIC_URL = process.env.PUBLIC_URL;
-    const NODE_ENV = process.env.NODE_ENV;
     if (
-        NODE_ENV !== 'development' &&
-        PUBLIC_URL &&
+        parseAsEnv({
+            env: process.env.NODE_ENV,
+            name: 'node env',
+        }) !== 'development' &&
         'serviceWorker' in navigator
     ) {
         // The URL constructor is available in all browsers that support SW.
-        const publicUrl = new URL(PUBLIC_URL, window.location.href);
+        const publicUrl = new URL(
+            parseAsEnv({
+                env: process.env.PUBLIC_URL,
+                name: 'public url',
+            }),
+            window.location.href
+        );
         if (publicUrl.origin !== window.location.origin) {
             // Our service worker won't work if PUBLIC_URL is on a different origin
             // from what our page is served on. This might happen if a CDN is used to

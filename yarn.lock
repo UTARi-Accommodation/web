@@ -3251,6 +3251,11 @@ esbuild-darwin-arm64@0.14.29:
   resolved "https://registry.yarnpkg.com/esbuild-darwin-arm64/-/esbuild-darwin-arm64-0.14.29.tgz#6d2d89dfd937992649239711ed5b86e51b13bd89"
   integrity sha512-5Wgz/+zK+8X2ZW7vIbwoZ613Vfr4A8HmIs1XdzRmdC1kG0n5EG5fvKk/jUxhNlrYPx1gSY7XadQ3l4xAManPSw==
 
+esbuild-env-parsing@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/esbuild-env-parsing/-/esbuild-env-parsing-1.0.0.tgz#beec9e73f893e3bcc5b2f2fd5cc331b6d7d029ae"
+  integrity sha512-EIuY8wAdSX1lWBc1s/yp9Kwexh6DA2VXUc4OjX6HahftWk7sNrc4xJDBXE915TgvdhG//GdsAwb59cExjTODrg==
+
 esbuild-freebsd-64@0.14.29:
   version "0.14.29"
   resolved "https://registry.yarnpkg.com/esbuild-freebsd-64/-/esbuild-freebsd-64-0.14.29.tgz#2cb41a0765d0040f0838280a213c81bbe62d6394"
@@ -6785,8 +6790,8 @@ url-parse-lax@^3.0.0:
     prepend-http "^2.0.0"
 
 "utari-common@git+https://github.com/Utari-Room/common.git":
-  version "0.0.0"
-  resolved "git+https://github.com/Utari-Room/common.git#335b5361bd0715e4cc607aae1f2f07745f42671a"
+  version "0.0.1"
+  resolved "git+https://github.com/Utari-Room/common.git#39173f9706118cc13bd57f884237cd96e7bfdeeb"
   dependencies:
     granula-string "^1.0.5"
     parse-dont-validate "^1.0.3"
