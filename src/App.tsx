@@ -108,11 +108,9 @@ const App = () => {
         return utariUnsubscribe;
     }, []);
 
-    if (!loadedUser) {
-        return <HashLoading />;
-    }
-    const num = 6467093130;
-    return (
+    return !loadedUser ? (
+        <HashLoading />
+    ) : (
         <AppContext.Provider
             value={{
                 ...state,
