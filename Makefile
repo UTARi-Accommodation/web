@@ -1,5 +1,18 @@
 ## declare PHONY
-.PHONY: build test
+.PHONY: build test all
+
+all:
+	make lint &&\
+		make typecheck &&\
+		make format-check &&\
+		make test &&\
+		make build
+
+NODE_BIN=node_modules/.bin/
+
+## install dev server
+install-server:
+	cd server && yarn
 
 ## install dev server
 install-server:
@@ -7,7 +20,7 @@ install-server:
 
 ## type check
 typecheck:
-	node_modules/.bin/tsc -p tsconfig.json $(arguments) 
+	$(NODE_BIN)tsc -p tsconfig.json $(arguments) 
 
 typecheck-watch:
 	make typecheck arguments=--w
@@ -22,7 +35,7 @@ start:
 
 ## generate-sw
 generate-sw:
-	node_modules/.bin/workbox generateSW workbox-config.cjs
+	$(NODE_BIN)workbox generateSW workbox-config.cjs
 
 ## transpile
 transpile:
@@ -43,25 +56,35 @@ clean-up:
 
 ## test
 test:
-	node_modules/.bin/esbuild test/index.ts --bundle --minify --target=node16.3.1 --platform=node --outfile=__tests__/index.test.js &&\
-		node_modules/.bin/jest __tests__ $(arguments)
+	$(NODE_BIN)esbuild test/index.ts --bundle --minify --target=node16.3.1 --platform=node --outfile=__tests__/index.test.js &&\
+		$(NODE_BIN)jest __tests__ $(arguments)
 
 ## code coverage
 code-cov:
 	make test arguments=--coverage
 
 ## format
-prettier=node_modules/.bin/prettier
-format-ts:
-	$(prettier) --write src/
+prettier=$(NODE_BIN)prettier
+prettify-src:
+	$(prettier) --$(type) src/
+
+prettify-test:
+	$(prettier) --$(type) test/
 
 format-check:
-	$(prettier) --check src/
+	(trap 'kill 0' INT; make prettify-src type=check & make prettify-test type=check)
 
 format:
-	make format-ts
+	(trap 'kill 0' INT; make prettify-src type=write & make prettify-test type=write)
 
 ## lint
-eslint=
+eslint:
+	$(NODE_BIN)eslint $(folder)/** -f='stylish' --color
 lint-src:
-	node_modules/.bin/eslint src/** -f='stylish' --color
+	make eslint folder=src
+
+lint-test:
+	make eslint folder=test
+
+lint:
+	(trap 'kill 0' INT; make lint-src & make lint-test)

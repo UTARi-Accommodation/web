@@ -5,7 +5,7 @@ import Title from '../components/common/Title';
 import { GlobalContainer } from '../theme/GlobalTheme';
 
 const delay = 0.5;
-const timeToCharge = 10 + delay;
+const timeToCharge = 15 + delay;
 
 const Error = () => {
     const navigate = useNavigate();
@@ -51,7 +51,6 @@ const Error = () => {
                     <ErrorMessageDescription>
                         So let&apos;s get you..
                     </ErrorMessageDescription>
-
                     <BackToHomeTimer>
                         Back to Home in: 00:00:
                         {countDown < 10 ? `0${countDown}` : countDown}

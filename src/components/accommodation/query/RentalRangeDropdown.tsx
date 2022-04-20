@@ -45,6 +45,9 @@ const RentalRangeDropdown = ({
 
     const { width } = useWindowResize();
 
+    const roundToTwoDecimalPlaces = (value: number) =>
+        Math.round(value * 100) / 100;
+
     const buttonRef = React.createRef<HTMLDivElement>();
 
     React.useEffect(
@@ -83,7 +86,15 @@ const RentalRangeDropdown = ({
         );
     };
 
-    const setPrice = (value: string, type: 'min' | 'max') =>
+    const onPriceChange = ({
+        alternativePrice,
+        type,
+        value,
+    }: Readonly<{
+        alternativePrice: number;
+        type: 'min' | 'max';
+        value: string;
+    }>) =>
         setState((prev) => ({
             ...prev,
             isSliding: false,
@@ -92,7 +103,7 @@ const RentalRangeDropdown = ({
                 [type]:
                     isPositiveFloat(value) || isPositiveInt(value)
                         ? parseFloat(value)
-                        : min,
+                        : alternativePrice,
             },
         }));
 
@@ -105,10 +116,10 @@ const RentalRangeDropdown = ({
             />
             <Slider
                 stepSize={averageStepSize()}
-                setSliding={(isSliding) =>
+                setSliding={(sliding) =>
                     setState((prev) => ({
                         ...prev,
-                        isSliding,
+                        isSliding: sliding,
                     }))
                 }
                 rentalSelectedRange={query}
@@ -134,9 +145,17 @@ const RentalRangeDropdown = ({
                 rentalRange={query}
                 onChangeListener={{
                     minPriceChange: ({ target: { value } }) =>
-                        setPrice(value, 'min'),
+                        onPriceChange({
+                            type: 'min',
+                            alternativePrice: min,
+                            value,
+                        }),
                     maxPriceChange: ({ target: { value } }) =>
-                        setPrice(value, 'max'),
+                        onPriceChange({
+                            type: 'max',
+                            alternativePrice: max,
+                            value,
+                        }),
                 }}
             />
             <SearchAndResetButtons
@@ -151,7 +170,11 @@ const RentalRangeDropdown = ({
                     }))
                 }
                 onSearch={() => {
-                    onSearch(query);
+                    onSearch({
+                        ...query,
+                        min: roundToTwoDecimalPlaces(query.min),
+                        max: roundToTwoDecimalPlaces(query.max),
+                    });
                     setState((prev) => ({
                         ...prev,
                         isShowDropdown: false,
