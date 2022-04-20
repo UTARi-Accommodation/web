@@ -18,19 +18,6 @@ import Rating, { RatingIcon } from '../rating/Rating';
 import TitleWithBorder from './TitleWithBorder';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 
-const isMobile = (contact: string) =>
-    isPositiveInt(contact) &&
-    ((contact.startsWith('01') &&
-        inRangeOf(contact, {
-            min: 10,
-            max: 10,
-        })) ||
-        (contact.startsWith('011') &&
-            inRangeOf(contact, {
-                min: 11,
-                max: 11,
-            })));
-
 const RightContainer = ({
     rental,
     ratings,
@@ -66,126 +53,146 @@ const RightContainer = ({
               capacities: ReadonlyArray<number>;
           }
     >;
-}>) => (
-    <Container>
-        <RightTopContainer>
-            <RentalAndRatingContainer>
-                <TopLeftContainer>
-                    <div>
-                        <RentalContainer>RM {rental}</RentalContainer>
-                        <span> / </span>
-                    </div>
-                    <div>
-                        <span>{about.type === 'Room' ? 'tenant' : 'unit'}</span>
-                    </div>
-                </TopLeftContainer>
-                <MarginlessAccommodationRating>
-                    <QuantityAndIconContainer>
-                        <RatingIcon />
-                        <QuantityContainer>
-                            {!ratings.length
-                                ? 0
-                                : (
-                                      ratings.reduce(
-                                          (prev, curr) => prev + curr,
-                                          0
-                                      ) / ratings.length
-                                  ).toFixed(2)}
-                        </QuantityContainer>
-                    </QuantityAndIconContainer>
-                    <QuantityAndIconContainer>
-                        <VisitCountIcon />
-                        <QuantityContainer>{visitCount}</QuantityContainer>
-                    </QuantityAndIconContainer>
-                </MarginlessAccommodationRating>
-            </RentalAndRatingContainer>
-            <RightInnerContainer>
-                <TitleWithBorder title={`About ${about.type}`} />
-                <AvailableContainer>
-                    <RightInnerInfoContainer>
-                        <AvailableText>
-                            Available from
-                            {` ${month.slice(0, 3)} ${year}`}
-                        </AvailableText>
-                    </RightInnerInfoContainer>
-                    {about.type === 'Room' ? (
-                        <>
-                            <RightInnerInfoContainer>
-                                <AvailableText>
-                                    Max {about.capacities.join('-')} tenants
-                                </AvailableText>
-                            </RightInnerInfoContainer>
-                            <RightInnerInfoContainer>
-                                <AvailableText>
-                                    Room Size: {about.size}
-                                </AvailableText>
-                            </RightInnerInfoContainer>
-                        </>
-                    ) : (
-                        <>
-                            <RightInnerInfoContainer>
-                                <AvailableText>
-                                    {about.bathRooms} bath rooms
-                                </AvailableText>
-                            </RightInnerInfoContainer>
-                            <RightInnerInfoContainer>
-                                <AvailableText>
-                                    {about.bedRooms} bed rooms
-                                </AvailableText>
-                            </RightInnerInfoContainer>
-                        </>
-                    )}
-                </AvailableContainer>
-            </RightInnerContainer>
-            <RightInnerContainer>
-                <TitleWithBorder title="Contact Details" />
-                <ContactContainer>
-                    <RightInnerInfoContainer>
-                        <AvailableText>
-                            {name} · {handlerType}
-                        </AvailableText>
-                    </RightInnerInfoContainer>
-                    {mobileNumber.map((number, index) =>
-                        isMobile(number) ? (
-                            <PortfolioLink
-                                href={`https://wa.me/+6${number}`}
-                                key={index}
-                            >
-                                <ContactInfoContainer>
-                                    <WhatsappIcon />
-                                    <ContactText>{number}</ContactText>
-                                </ContactInfoContainer>
-                            </PortfolioLink>
+}>) => {
+    const isMobile = (contact: string) =>
+        isPositiveInt(contact) &&
+        ((contact.startsWith('01') &&
+            inRangeOf(contact, {
+                min: 10,
+                max: 10,
+            })) ||
+            (contact.startsWith('011') &&
+                inRangeOf(contact, {
+                    min: 11,
+                    max: 11,
+                })));
+
+    return (
+        <Container>
+            <RightTopContainer>
+                <RentalAndRatingContainer>
+                    <TopLeftContainer>
+                        <div>
+                            <RentalContainer>RM {rental}</RentalContainer>
+                            <span> / </span>
+                        </div>
+                        <div>
+                            <span>
+                                {about.type === 'Room' ? 'tenant' : 'unit'}
+                            </span>
+                        </div>
+                    </TopLeftContainer>
+                    <MarginlessAccommodationRating>
+                        <QuantityAndIconContainer>
+                            <RatingIcon />
+                            <QuantityContainer>
+                                {!ratings.length
+                                    ? 0
+                                    : (
+                                          ratings.reduce(
+                                              (prev, curr) => prev + curr,
+                                              0
+                                          ) / ratings.length
+                                      ).toFixed(2)}
+                            </QuantityContainer>
+                        </QuantityAndIconContainer>
+                        <QuantityAndIconContainer>
+                            <VisitCountIcon />
+                            <QuantityContainer>{visitCount}</QuantityContainer>
+                        </QuantityAndIconContainer>
+                    </MarginlessAccommodationRating>
+                </RentalAndRatingContainer>
+                <RightInnerContainer>
+                    <TitleWithBorder title={`About ${about.type}`} />
+                    <AvailableContainer>
+                        <RightInnerInfoContainer>
+                            <AvailableText>
+                                Available from
+                                {` ${month.slice(0, 3)} ${year}`}
+                            </AvailableText>
+                        </RightInnerInfoContainer>
+                        {about.type === 'Room' ? (
+                            <>
+                                <RightInnerInfoContainer>
+                                    <AvailableText>
+                                        Max {about.capacities.join('-')} tenants
+                                    </AvailableText>
+                                </RightInnerInfoContainer>
+                                <RightInnerInfoContainer>
+                                    <AvailableText>
+                                        Room Size: {about.size}
+                                    </AvailableText>
+                                </RightInnerInfoContainer>
+                            </>
                         ) : (
-                            <PortfolioLink href={`tel:${number}`} key={index}>
+                            <>
+                                <RightInnerInfoContainer>
+                                    <AvailableText>
+                                        {about.bathRooms} bath rooms
+                                    </AvailableText>
+                                </RightInnerInfoContainer>
+                                <RightInnerInfoContainer>
+                                    <AvailableText>
+                                        {about.bedRooms} bed rooms
+                                    </AvailableText>
+                                </RightInnerInfoContainer>
+                            </>
+                        )}
+                    </AvailableContainer>
+                </RightInnerContainer>
+                <RightInnerContainer>
+                    <TitleWithBorder title="Contact Details" />
+                    <ContactContainer>
+                        <RightInnerInfoContainer>
+                            <AvailableText>
+                                {name} · {handlerType}
+                            </AvailableText>
+                        </RightInnerInfoContainer>
+                        {mobileNumber.map((number, index) =>
+                            isMobile(number) ? (
+                                <PortfolioLink
+                                    href={`https://wa.me/+6${number}`}
+                                    key={index}
+                                >
+                                    <ContactInfoContainer>
+                                        <WhatsappIcon />
+                                        <ContactText>{number}</ContactText>
+                                    </ContactInfoContainer>
+                                </PortfolioLink>
+                            ) : (
+                                <PortfolioLink
+                                    href={`tel:${number}`}
+                                    key={index}
+                                >
+                                    <ContactInfoContainer>
+                                        <TelephoneIcon />
+                                        <ContactText>{number}</ContactText>
+                                    </ContactInfoContainer>
+                                </PortfolioLink>
+                            )
+                        )}
+                        {email.map((email, index) => (
+                            <PortfolioLink href={`mailto:${email}`} key={index}>
                                 <ContactInfoContainer>
-                                    <TelephoneIcon />
-                                    <ContactText>{number}</ContactText>
+                                    <EmailIcon />
+                                    <ContactText>{email}</ContactText>
                                 </ContactInfoContainer>
                             </PortfolioLink>
-                        )
-                    )}
-                    {email.map((email, index) => (
-                        <PortfolioLink href={`mailto:${email}`} key={index}>
-                            <ContactInfoContainer>
-                                <EmailIcon />
-                                <ContactText>{email}</ContactText>
-                            </ContactInfoContainer>
-                        </PortfolioLink>
-                    ))}
-                </ContactContainer>
-            </RightInnerContainer>
-        </RightTopContainer>
-        <RightBottomContainer>
-            <Rating
-                onRatingGiven={onRatingGiven}
-                type={about.type}
-                rating={rating}
-                id={id}
-            />
-        </RightBottomContainer>
-    </Container>
-);
+                        ))}
+                    </ContactContainer>
+                </RightInnerContainer>
+            </RightTopContainer>
+            <RightBottomContainer>
+                <Rating
+                    onRatingGiven={onRatingGiven}
+                    type={about.type}
+                    rating={rating}
+                    id={id}
+                />
+            </RightBottomContainer>
+        </Container>
+    );
+};
 
 // Right Container
 const Container = styled.div`

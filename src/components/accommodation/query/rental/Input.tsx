@@ -12,10 +12,10 @@ const Field = ({
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }>) => {
     const [state, setState] = React.useState({
-        empty: false,
+        isEmpty: false,
     });
 
-    const { empty } = state;
+    const { isEmpty } = state;
 
     return (
         <InputDiv>
@@ -23,12 +23,12 @@ const Field = ({
                 <Currency>RM</Currency>
                 <InputField
                     type="text"
-                    value={empty ? '' : value.toFixed(2)}
+                    value={isEmpty ? '' : value.toFixed(2)}
                     required
                     onChange={(event) => {
                         setState((prev) => ({
                             ...prev,
-                            empty: !event.target.value,
+                            isEmpty: !event.target.value,
                         }));
                         onChange(event);
                     }}

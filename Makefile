@@ -14,6 +14,10 @@ NODE_BIN=node_modules/.bin/
 install-server:
 	cd server && yarn
 
+## install dev server
+install-server:
+	cd server && yarn
+
 ## type check
 typecheck:
 	$(NODE_BIN)tsc -p tsconfig.json $(arguments) 
