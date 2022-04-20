@@ -105,6 +105,16 @@ const Unit = ({
     React.useEffect(() => {
         setState((prev) => ({
             ...prev,
+            queryParam: {
+                ...prev.queryParam,
+                unitType,
+            },
+        }));
+    }, [unitType]);
+
+    React.useEffect(() => {
+        setState((prev) => ({
+            ...prev,
             initialLoad: false,
         }));
         return historyListener(

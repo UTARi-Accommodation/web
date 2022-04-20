@@ -45,6 +45,9 @@ const RentalRangeDropdown = ({
 
     const { width } = useWindowResize();
 
+    const roundToTwoDecimalPlaces = (value: number) =>
+        Math.round(value * 100) / 100;
+
     const buttonRef = React.createRef<HTMLDivElement>();
 
     React.useEffect(
@@ -83,6 +86,27 @@ const RentalRangeDropdown = ({
         );
     };
 
+    const onPriceChange = ({
+        alternativePrice,
+        type,
+        value,
+    }: Readonly<{
+        alternativePrice: number;
+        type: 'min' | 'max';
+        value: string;
+    }>) =>
+        setState((prev) => ({
+            ...prev,
+            isSliding: false,
+            query: {
+                ...prev.query,
+                [type]:
+                    isPositiveFloat(value) || isPositiveInt(value)
+                        ? parseFloat(value)
+                        : alternativePrice,
+            },
+        }));
+
     const RentalSelection = (
         <>
             <BarChart
@@ -120,34 +144,18 @@ const RentalRangeDropdown = ({
             <Input
                 rentalRange={query}
                 onChangeListener={{
-                    minPriceChange: ({ target: { value } }) => {
-                        setState((prev) => ({
-                            ...prev,
-                            isSliding: false,
-                            query: {
-                                ...prev.query,
-                                min:
-                                    isPositiveFloat(value) ||
-                                    isPositiveInt(value)
-                                        ? parseFloat(value)
-                                        : min,
-                            },
-                        }));
-                    },
-                    maxPriceChange: ({ target: { value } }) => {
-                        setState((prev) => ({
-                            ...prev,
-                            isSliding: false,
-                            query: {
-                                ...prev.query,
-                                max:
-                                    isPositiveFloat(value) ||
-                                    isPositiveInt(value)
-                                        ? parseFloat(value)
-                                        : max,
-                            },
-                        }));
-                    },
+                    minPriceChange: ({ target: { value } }) =>
+                        onPriceChange({
+                            type: 'min',
+                            alternativePrice: min,
+                            value,
+                        }),
+                    maxPriceChange: ({ target: { value } }) =>
+                        onPriceChange({
+                            type: 'max',
+                            alternativePrice: max,
+                            value,
+                        }),
                 }}
             />
             <SearchAndResetButtons
@@ -162,7 +170,11 @@ const RentalRangeDropdown = ({
                     }))
                 }
                 onSearch={() => {
-                    onSearch(query);
+                    onSearch({
+                        ...query,
+                        min: roundToTwoDecimalPlaces(query.min),
+                        max: roundToTwoDecimalPlaces(query.max),
+                    });
                     setState((prev) => ({
                         ...prev,
                         isShowDropdown: false,

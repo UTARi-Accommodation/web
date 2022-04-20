@@ -102,6 +102,16 @@ const Room = ({
     }, [url, initialLoad, loadedUser, JSON.stringify(user)]);
 
     React.useEffect(() => {
+        setState((prev) => ({
+            ...prev,
+            queryParam: {
+                ...prev.queryParam,
+                roomType,
+            },
+        }));
+    }, [roomType]);
+
+    React.useEffect(() => {
         return historyListener(
             properPathname,
             (search, shouldNotPush) =>

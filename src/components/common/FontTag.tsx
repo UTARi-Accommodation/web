@@ -13,9 +13,10 @@ const Font = ({
             crossOrigin="anonymous"
         />
         <link
-            href={`https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${[
-                100, 200, 300, 400, 500, 600, 700, 800, 900,
-            ].join(';')}&display=swap`}
+            href={`https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${Array.from(
+                { length: 9 },
+                (_, i) => (i + 1) * 100
+            ).join(';')}&display=swap`}
             rel="stylesheet"
         />
     </>
