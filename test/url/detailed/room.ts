@@ -1,8 +1,8 @@
 import { formDetailedRoomAPIQuery } from '../../../src/url/query/detailed/room';
 
-export default () =>
-    describe('Object Room Query Object to Query URL Param', () => {
-        it('should form query URL based on param object', () => {
+const testFormDetailedRoomQueryParam = () =>
+    describe('Detailed Room Query Object to Query URL Param', () => {
+        it('should form query param based on param object', () => {
             expect(
                 formDetailedRoomAPIQuery({
                     id: 1,
@@ -11,3 +11,5 @@ export default () =>
             ).toBe('/detailed-room/?id=1&token=token');
         });
     });
+
+export default testFormDetailedRoomQueryParam;

@@ -3,9 +3,9 @@ import {
     parseAsDownloadQueriedUnits,
 } from '../../../src/parser/bookmarked/unit';
 
-export default () =>
-    describe('Query URL Param to Object to Bookmarked Unit Query', () => {
-        it('should form query param object', () => {
+const testBookmarkedUnitQueryParser = () =>
+    describe('Bookmarked Unit Query Param Parser', () => {
+        it('should parse query param object from query param', () => {
             expect(
                 parseAsQueryUnits(
                     new URLSearchParams('?unitTypes=House&regions=BTHO&page=1')
@@ -21,7 +21,7 @@ export default () =>
                 page: 1,
             });
         });
-        it(`should form array value for string joined by ',' delimiter`, () => {
+        it('should parse array value for string joined by "," delimiter', () => {
             expect(
                 parseAsQueryUnits(
                     new URLSearchParams(
@@ -53,70 +53,73 @@ export default () =>
         });
     });
 
-describe('Parse Query Results Bookmarked Unit', () => {
-    it('should parse the queried units correctly', () => {
-        const units = [
-            {
-                id: 9,
-                handler: {
-                    name: 'Lee Yuan Khai',
-                    handlerType: 'Owner',
+const testBookmarkedUnitQueriedParser = () =>
+    describe('Bookmarked Unit Queried Results Parser', () => {
+        it('should parse the queried bookmarked units correctly', () => {
+            const units = [
+                {
+                    id: 9,
+                    handler: {
+                        name: 'Lee Yuan Khai',
+                        handlerType: 'Owner',
+                    },
+                    contact: {
+                        mobileNumber: ['0173339988'],
+                        email: ['yklee1306@gmail.com'],
+                    },
+                    timeCreated: new Date('2022-03-04T08:57:38.156Z'),
+                    address:
+                        '1447, Jln Seksyen 1/4, Bandar Barat, 31900, Kampar, Perak',
+                    facilities:
+                        'Bed · Table · Chair · Cupboard · Fan · Air-Conditioner · Parking Bay · Internet · Washing Machine · Water Heater',
+                    remarks: {
+                        remark: 'New 8" mattress, water filter',
+                        year: 2021,
+                        month: 'December',
+                    },
+                    properties: { bedRooms: 10, rental: 2600, bathRooms: 5 },
+                    ratings: [3],
+                    rating: 4,
                 },
-                contact: {
-                    mobileNumber: ['0173339988'],
-                    email: ['yklee1306@gmail.com'],
+            ];
+            expect(
+                parseAsDownloadQueriedUnits(JSON.parse(JSON.stringify(units)))
+            ).toStrictEqual(units);
+        });
+        it('should fail to parse because it did not contain the rental in its properties', () => {
+            const units = [
+                {
+                    id: 9,
+                    handler: {
+                        name: 'Lee Yuan Khai',
+                        handlerType: 'Owner',
+                    },
+                    contact: {
+                        mobileNumber: ['0173339988'],
+                        email: ['yklee1306@gmail.com'],
+                    },
+                    timeCreated: new Date('2022-03-04T08:57:38.156Z'),
+                    address:
+                        '1447, Jln Seksyen 1/4, Bandar Barat, 31900, Kampar, Perak',
+                    facilities:
+                        'Bed · Table · Chair · Cupboard · Fan · Air-Conditioner · Parking Bay · Internet · Washing Machine · Water Heater',
+                    remarks: {
+                        remark: 'New 8" mattress, water filter',
+                        year: 2021,
+                        month: 'December',
+                    },
+                    properties: {
+                        bedRooms: 10,
+                        bathRooms: 5,
+                    },
+                    rating: 3,
+                    ratings: [3],
                 },
-                timeCreated: new Date('2022-03-04T08:57:38.156Z'),
-                address:
-                    '1447, Jln Seksyen 1/4, Bandar Barat, 31900, Kampar, Perak',
-                facilities:
-                    'Bed · Table · Chair · Cupboard · Fan · Air-Conditioner · Parking Bay · Internet · Washing Machine · Water Heater',
-                remarks: {
-                    remark: 'New 8" mattress, water filter',
-                    year: 2021,
-                    month: 'December',
-                },
-                properties: { bedRooms: 10, rental: 2600, bathRooms: 5 },
-                ratings: [3],
-                rating: 4,
-            },
-        ];
-        expect(
-            parseAsDownloadQueriedUnits(JSON.parse(JSON.stringify(units)))
-        ).toStrictEqual(units);
+            ];
+            expect(() =>
+                parseAsDownloadQueriedUnits(JSON.parse(JSON.stringify(units)))
+            ).toThrowError();
+        });
     });
-    it('should fail to parse', () => {
-        const units = [
-            {
-                id: 9,
-                handler: {
-                    name: 'Lee Yuan Khai',
-                    handlerType: 'Owner',
-                },
-                contact: {
-                    mobileNumber: ['0173339988'],
-                    email: ['yklee1306@gmail.com'],
-                },
-                timeCreated: new Date('2022-03-04T08:57:38.156Z'),
-                address:
-                    '1447, Jln Seksyen 1/4, Bandar Barat, 31900, Kampar, Perak',
-                facilities:
-                    'Bed · Table · Chair · Cupboard · Fan · Air-Conditioner · Parking Bay · Internet · Washing Machine · Water Heater',
-                remarks: {
-                    remark: 'New 8" mattress, water filter',
-                    year: 2021,
-                    month: 'December',
-                },
-                properties: {
-                    bedRooms: 10,
-                    bathRooms: 5,
-                },
-                rating: 3,
-                ratings: [3],
-            },
-        ];
-        expect(() =>
-            parseAsDownloadQueriedUnits(JSON.parse(JSON.stringify(units)))
-        ).toThrowError();
-    });
-});
+
+export { testBookmarkedUnitQueriedParser, testBookmarkedUnitQueryParser };

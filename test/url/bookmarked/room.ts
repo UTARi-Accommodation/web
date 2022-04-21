@@ -3,9 +3,9 @@ import {
     formBookmarkedRoomsAPIQuery,
 } from '../../../src/url/query/bookmarked/room';
 
-export default () =>
+const testFormBookmarkedRoomsQueryParam = () =>
     describe('Bookmarked Room Query Object to Query URL Param', () => {
-        it('should form query URL based on param object', () => {
+        it('should form query param based on param object', () => {
             expect(
                 formBookmarkedRoomsQuery({
                     capacities: [],
@@ -32,7 +32,7 @@ export default () =>
                 '/bookmarked-rooms/?roomTypes=Room&regions=BTHO&page=1&token=1'
             );
         });
-        it('should form query URL with empty key-value pair for falsy value', () => {
+        it('should form query param with empty key-value pair for falsy value', () => {
             expect(
                 formBookmarkedRoomsQuery({
                     capacities: [0],
@@ -59,7 +59,7 @@ export default () =>
                 '/bookmarked-rooms/?roomTypes=Room,Roommate&regions=BTHO,KP&page=1&token=1'
             );
         });
-        it('should form query URL with joined string for array type query', () => {
+        it('should form query param with joined string for array type query', () => {
             expect(
                 formBookmarkedRoomsQuery({
                     capacities: [1, 2, 3, 4, 5],
@@ -87,3 +87,5 @@ export default () =>
             );
         });
     });
+
+export default testFormBookmarkedRoomsQueryParam;

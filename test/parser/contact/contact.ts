@@ -1,9 +1,9 @@
 import { GranulaString } from 'granula-string';
 import parseAsData from '../../../src/parser/contact';
 
-export default () =>
-    describe('Parse POST data', () => {
-        it('should parse type of succeed', () => {
+const testContactParser = () =>
+    describe('Contact POST Data Parser', () => {
+        it('should parse POST Data as type of succeed', () => {
             const succeed = {
                 type: 'succeed',
                 name: {
@@ -35,7 +35,7 @@ export default () =>
                 },
             });
         });
-        describe('parse type of input', () => {
+        describe('parse POST Data as type of input', () => {
             it('should parse when name is faulty', () => {
                 const input = {
                     type: 'input',
@@ -153,3 +153,5 @@ export default () =>
             expect(parseAsData(failed)).toStrictEqual(failed);
         });
     });
+
+export default testContactParser;
