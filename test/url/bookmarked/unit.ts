@@ -3,9 +3,9 @@ import {
     formBookmarkedUnitsAPIQuery,
 } from '../../../src/url/query/bookmarked/unit';
 
-export default () =>
+const testFormBookmarkedUnitsQueryParam = () =>
     describe('Bookmarked Unit Query Object to Query URL Param', () => {
-        it('should form query URL based on param object', () => {
+        it('should form query param based on param object', () => {
             expect(
                 formBookmarkedUnitsQuery({
                     bathRooms: [],
@@ -34,7 +34,7 @@ export default () =>
                 '/bookmarked-units/?unitTypes=Condominium&regions=BTHO&page=1&token=1'
             );
         });
-        it('should form query URL with empty key-value pair for falsy value', () => {
+        it('should form query param with empty key-value pair for falsy value', () => {
             expect(
                 formBookmarkedUnitsQuery({
                     bathRooms: [0, 1],
@@ -65,7 +65,7 @@ export default () =>
                 '/bookmarked-units/?bathRooms=1&bedRooms=2&unitTypes=Condominium,House&regions=BTHO,SL&page=1&token=1'
             );
         });
-        it('should form query URL with joined string for array type query', () => {
+        it('should form query param with joined string for array type query', () => {
             expect(
                 formBookmarkedUnitsQuery({
                     bathRooms: [1, 2, 3, 4, 5],
@@ -97,3 +97,5 @@ export default () =>
             );
         });
     });
+
+export default testFormBookmarkedUnitsQueryParam;

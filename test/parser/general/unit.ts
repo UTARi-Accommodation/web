@@ -3,75 +3,73 @@ import {
     parseAsQueryUnits,
 } from '../../../src/parser/general/unit';
 
-export default () =>
-    describe('Query URL Param to Object', () => {
-        describe('General Unit Query', () => {
-            it('should form query param object', () => {
-                expect(
-                    parseAsQueryUnits(
-                        new URLSearchParams(
-                            '?unitType=Condominium&region=BTHO&page=1'
-                        ),
-                        {
-                            region: 'KP',
-                            unitType: 'House',
-                        }
-                    )
-                ).toStrictEqual({
-                    bathRooms: [],
-                    bedRooms: [],
-                    maxRental: undefined,
-                    minRental: undefined,
-                    search: undefined,
-                    unitType: 'Condominium',
-                    region: 'BTHO',
-                    page: 1,
-                });
-            });
-            it(`should form array value for string joined by ',' delimiter`, () => {
-                expect(
-                    parseAsQueryUnits(
-                        new URLSearchParams(
-                            '?bathRooms=1,2,3,4,5&bedRooms=1,2,3,4,5,6&unitType=Condominium&region=BTHO&page=1'
-                        ),
-                        {
-                            region: 'SL',
-                            unitType: 'House',
-                        }
-                    )
-                ).toStrictEqual({
-                    bathRooms: [1, 2, 3, 4, 5],
-                    bedRooms: [1, 2, 3, 4, 5, 6],
-                    maxRental: undefined,
-                    minRental: undefined,
-                    search: undefined,
-                    unitType: 'Condominium',
-                    region: 'BTHO',
-                    page: 1,
-                });
-            });
-            it('should return default value of region, unitType, page, bathRooms and bedRooms should it fail to parse', () => {
-                expect(
-                    parseAsQueryUnits(new URLSearchParams(''), {
+const testGeneralUnitQueryParser = () =>
+    describe('General Unit Query Param Parser', () => {
+        it('should parse query param object from query param', () => {
+            expect(
+                parseAsQueryUnits(
+                    new URLSearchParams(
+                        '?unitType=Condominium&region=BTHO&page=1'
+                    ),
+                    {
                         region: 'KP',
                         unitType: 'House',
-                    })
-                ).toStrictEqual({
-                    bathRooms: [],
-                    bedRooms: [],
-                    maxRental: undefined,
-                    minRental: undefined,
-                    search: undefined,
+                    }
+                )
+            ).toStrictEqual({
+                bathRooms: [],
+                bedRooms: [],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                unitType: 'Condominium',
+                region: 'BTHO',
+                page: 1,
+            });
+        });
+        it('should parse array value for string joined by "," delimiter', () => {
+            expect(
+                parseAsQueryUnits(
+                    new URLSearchParams(
+                        '?bathRooms=1,2,3,4,5&bedRooms=1,2,3,4,5,6&unitType=Condominium&region=BTHO&page=1'
+                    ),
+                    {
+                        region: 'SL',
+                        unitType: 'House',
+                    }
+                )
+            ).toStrictEqual({
+                bathRooms: [1, 2, 3, 4, 5],
+                bedRooms: [1, 2, 3, 4, 5, 6],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                unitType: 'Condominium',
+                region: 'BTHO',
+                page: 1,
+            });
+        });
+        it('should return default value of region, unitType, page, bathRooms and bedRooms should it fail to parse', () => {
+            expect(
+                parseAsQueryUnits(new URLSearchParams(''), {
                     region: 'KP',
                     unitType: 'House',
-                    page: 1,
-                });
+                })
+            ).toStrictEqual({
+                bathRooms: [],
+                bedRooms: [],
+                maxRental: undefined,
+                minRental: undefined,
+                search: undefined,
+                region: 'KP',
+                unitType: 'House',
+                page: 1,
             });
         });
     });
 
-describe('Parse Query Results', () => {
-    describe('General Unit', () => {
+const testGeneralUnitQueriedParser = () =>
+    describe('Parse General Unit Queried Results', () => {
         it('should parse the queried units correctly', () => {
             const units = [
                 {
@@ -125,7 +123,7 @@ describe('Parse Query Results', () => {
             ];
             expect(parseAsQueriedUnits(units)).toStrictEqual(units);
         });
-        it('should fail to parse', () => {
+        it('should fail to parse because it did not contain bookmarked field', () => {
             const units = [
                 {
                     id: 2,
@@ -150,4 +148,5 @@ describe('Parse Query Results', () => {
             expect(() => parseAsQueriedUnits(units)).toThrowError();
         });
     });
-});
+
+export { testGeneralUnitQueriedParser, testGeneralUnitQueryParser };

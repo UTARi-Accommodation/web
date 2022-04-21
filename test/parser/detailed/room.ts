@@ -1,9 +1,9 @@
 import { parseAsQueryRoom } from '../../../src/parser/detailed/room';
 import { parseAsQueriedRoom } from '../../../src/parser/detailed/room';
 
-const testDetailedRoomURLParser = () =>
-    describe('Detailed Room Query URL Param to Object', () => {
-        it('should form query param object', () => {
+const testDetailedRoomQueryParser = () =>
+    describe('Detailed Room Query Param Parser', () => {
+        it('should parse query param object from query param', () => {
             expect(
                 parseAsQueryRoom(new URLSearchParams('?id=1'))
             ).toStrictEqual({
@@ -12,7 +12,7 @@ const testDetailedRoomURLParser = () =>
         });
     });
 
-const testDetailedRoomQueryParser = () =>
+const testDetailedRoomQueriedParser = () =>
     describe('Detailed Room Parse Query Results', () => {
         it('should parse the queried rooms correctly', () => {
             const room = {
@@ -52,7 +52,7 @@ const testDetailedRoomQueryParser = () =>
             };
             expect(parseAsQueriedRoom(room)).toStrictEqual(room);
         });
-        it('should fail to parse', () => {
+        it('should fail to parse because it lacks bookmarked and rating field', () => {
             const room = {
                 id: 12,
                 handler: {
@@ -90,4 +90,4 @@ const testDetailedRoomQueryParser = () =>
         });
     });
 
-export { testDetailedRoomQueryParser, testDetailedRoomURLParser };
+export { testDetailedRoomQueriedParser, testDetailedRoomQueryParser };

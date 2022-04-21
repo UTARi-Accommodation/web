@@ -3,9 +3,9 @@ import {
     formGeneralRoomsAPIQuery,
 } from '../../../src/url/query/general/room';
 
-export default () =>
-    describe('Object Room Query Object to Query URL Param', () => {
-        it('should form query URL based on param object', () => {
+const testFormGeneralRoomsQueryParam = () =>
+    describe('General Room Query Object to Query URL Param', () => {
+        it('should form query param based on param object', () => {
             expect(
                 formGeneralRoomsQuery({
                     capacities: [],
@@ -30,7 +30,7 @@ export default () =>
                 })
             ).toBe('/rooms/?roomType=Room&region=BTHO&page=1&token=1');
         });
-        it('should form query URL with empty key-value pair for falsy value', () => {
+        it('should form query param with empty key-value pair for falsy value', () => {
             expect(
                 formGeneralRoomsQuery({
                     capacities: [0],
@@ -55,7 +55,7 @@ export default () =>
                 })
             ).toBe('/rooms/?roomType=Room&region=BTHO&page=1&token=1');
         });
-        it('should form query URL with joined string for array type query', () => {
+        it('should form query param with joined string separated by delimiter "," for array type query', () => {
             expect(
                 formGeneralRoomsQuery({
                     capacities: [1, 2, 3, 4, 5],
@@ -83,3 +83,5 @@ export default () =>
             );
         });
     });
+
+export default testFormGeneralRoomsQueryParam;

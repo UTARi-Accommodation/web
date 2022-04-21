@@ -2,60 +2,79 @@ import {
     testConvertRegionToName,
     testConvertNameToRegion,
 } from './converter/converter';
-
-import testBookmarkedRoomParser from './parser/bookmarked/room';
-import testBookmarkedUnitParser from './parser/bookmarked/unit';
+import {
+    testBookmarkedRoomQueryParser,
+    testBookmarkedRoomQueriedParser,
+} from './parser/bookmarked/room';
+import {
+    testBookmarkedUnitQueryParser,
+    testBookmarkedUnitQueriedParser,
+} from './parser/bookmarked/unit';
 import testContactParser from './parser/contact/contact';
 import {
-    testDetailedRoomURLParser,
+    testDetailedRoomQueriedParser,
     testDetailedRoomQueryParser,
 } from './parser/detailed/room';
 import {
+    testDetailedUnitQueriedParser,
     testDetailedUnitQueryParser,
-    testDetailedUnitURLParser,
 } from './parser/detailed/unit';
-import testGeneralRoomParser from './parser/general/room';
-import testGeneralUnitParser from './parser/general/unit';
-import testRoomQueriedParser from './parser/queried/room';
-import testUnitQueriedParser from './parser/queried/unit';
+import {
+    testGeneralRoomQueriedParser,
+    testGeneralRoomQueryParser,
+} from './parser/general/room';
+import {
+    testGeneralUnitQueryParser,
+    testGeneralUnitQueriedParser,
+} from './parser/general/unit';
+import testRoomsQueriedParser from './parser/queried/room';
+import testUnitsQueriedParser from './parser/queried/unit';
 
-import testBookmarkedDownloadURL from './url/bookmarked/download';
-import testBookmarkedRoomURL from './url/bookmarked/room';
-import testBookmarkedUnitURL from './url/bookmarked/unit';
-import testDetailedRoomURL from './url/detailed/room';
-import testDetailedUnitURL from './url/detailed/unit';
-import testGeneralRoomURL from './url/general/room';
-import testGeneralUnitURL from './url/general/unit';
+import testFormBookmarkedDownloadAPIQuery from './url/bookmarked/download';
+import testFormBookmarkedRoomsQueryParam from './url/bookmarked/room';
+import testFormBookmarkedUnitsQueryParam from './url/bookmarked/unit';
+import testFormDetailedRoomQueryParam from './url/detailed/room';
+import testFormDetailedUnitQueryParam from './url/detailed/unit';
+import testFormGeneralRoomsQueryParam from './url/general/room';
+import testFormGeneralUnitsQueryParam from './url/general/unit';
 
 //converter
 testConvertRegionToName();
 testConvertNameToRegion();
 
 //parser
-testBookmarkedUnitParser();
-testBookmarkedRoomParser();
 
+//bookmarked
+testBookmarkedUnitQueryParser();
+testBookmarkedUnitQueriedParser();
+testBookmarkedRoomQueryParser();
+testBookmarkedRoomQueriedParser();
+
+//contact
 testContactParser();
 
-testDetailedRoomURLParser();
+//detailed
+testDetailedRoomQueriedParser();
 testDetailedRoomQueryParser();
-
-testDetailedUnitURLParser();
+testDetailedUnitQueriedParser();
 testDetailedUnitQueryParser();
 
-testGeneralUnitParser();
-testGeneralRoomParser();
+//general
+testGeneralRoomQueriedParser();
+testGeneralRoomQueryParser();
+testGeneralUnitQueryParser();
+testGeneralUnitQueriedParser();
 
-testUnitQueriedParser();
-testRoomQueriedParser();
+testUnitsQueriedParser();
+testRoomsQueriedParser();
 
 //url
-testBookmarkedDownloadURL();
-testBookmarkedRoomURL();
-testBookmarkedUnitURL();
+testFormBookmarkedDownloadAPIQuery();
+testFormBookmarkedRoomsQueryParam();
+testFormBookmarkedUnitsQueryParam();
 
-testDetailedUnitURL();
-testDetailedRoomURL();
+testFormDetailedRoomQueryParam();
+testFormDetailedUnitQueryParam();
 
-testGeneralUnitURL();
-testGeneralRoomURL();
+testFormGeneralUnitsQueryParam();
+testFormGeneralRoomsQueryParam();
