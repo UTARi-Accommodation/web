@@ -140,12 +140,12 @@ const UnitBookmarked = () => {
                     {!queried ? null : (
                         <Query
                             regions={queryParam.regions}
-                            setRegions={(region) =>
+                            setRegions={(regions) =>
                                 setState((prev) => ({
                                     ...prev,
                                     queryParam: {
                                         ...prev.queryParam,
-                                        region,
+                                        regions,
                                         page: 1,
                                     },
                                 }))
