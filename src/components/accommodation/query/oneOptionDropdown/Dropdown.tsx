@@ -50,6 +50,12 @@ const OneOptionDropdown = <T extends string>({
 
     const buttonRef = React.createRef<HTMLDivElement>();
 
+    const isCloseDropdown = () =>
+        setState((prev) => ({
+            ...prev,
+            isShowDropdown: false,
+        }));
+
     const DropdownContent = (
         <DropdownInnerContainer>
             {values.map(({ label: text, value }) => {
@@ -62,10 +68,7 @@ const OneOptionDropdown = <T extends string>({
                                 text={text}
                                 onClick={() => {
                                     label.onSearch(value);
-                                    setState((prev) => ({
-                                        ...prev,
-                                        isShowDropdown: false,
-                                    }));
+                                    isCloseDropdown();
                                 }}
                             />
                         );
@@ -74,7 +77,13 @@ const OneOptionDropdown = <T extends string>({
                         return (
                             <OptionLinkLabel
                                 key={value}
-                                onClick={label.onClick}
+                                onClick={() => {
+                                    const { onClick } = label;
+                                    if (onClick) {
+                                        onClick();
+                                    }
+                                    isCloseDropdown();
+                                }}
                                 text={text}
                                 to={label.toLink(value)}
                             />
