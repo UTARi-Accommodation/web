@@ -70,7 +70,10 @@ const RentalRangeDropdown = ({
     const isNotNaNOrUndefined = (value: number | undefined): value is number =>
         typeof value === 'number' && !Number.isNaN(value);
 
-    const averageStepSize = () => {
+    const stepSize = () => {
+        if (rentalFrequencies.length < 10) {
+            return 1;
+        }
         const rentals = rentalFrequencies.map(([rental]) => rental);
         const slideRentals = rentals.slice(1);
         return (
@@ -115,7 +118,7 @@ const RentalRangeDropdown = ({
                 length={max}
             />
             <Slider
-                stepSize={averageStepSize()}
+                stepSize={stepSize()}
                 setSliding={(sliding) =>
                     setState((prev) => ({
                         ...prev,
