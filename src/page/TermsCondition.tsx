@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import Title from '../components/common/Title';
 
 const TermsCondition = () => {
-    const domain = window.location.origin.replace('http', 'https');
+    const {
+        location: { origin },
+    } = window;
+
     return (
         <Container>
             <Title
@@ -13,16 +16,16 @@ const TermsCondition = () => {
             />
             <Content>
                 <h1>Terms and Conditions</h1>
-                <p>Last updated: March 06, 2022</p>
+                <p>Last updated: April 28, 2022</p>
                 <p>
                     These terms and conditions outline the rules and regulations
                     for the use of UTARi&apos;s Website, located at{' '}
                     <a
-                        href={domain}
+                        href={origin}
                         rel="external nofollow noopener noreferrer"
                         target="_blank"
                     >
-                        {domain}
+                        {origin}
                     </a>
                 </p>
                 <p>
@@ -198,7 +201,7 @@ const TermsCondition = () => {
                         to="/privacy-policy"
                         rel="nofollow noopener noreferrer"
                     >
-                        {domain}/privacy-policy
+                        {origin}/privacy-policy
                     </Link>
                 </p>
                 <h3>Reservation of Rights</h3>

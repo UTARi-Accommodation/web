@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import Title from '../components/common/Title';
 
 const PrivacyPolicy = () => {
-    const domain = window.location.origin.replace('http', 'https');
+    const {
+        location: { origin },
+    } = window;
+
     return (
         <Container>
             <Title
@@ -12,7 +15,7 @@ const PrivacyPolicy = () => {
             />
             <Content>
                 <h1>Privacy Policy</h1>
-                <p>Last updated: March 06, 2022</p>
+                <p>Last updated: April 28, 2022</p>
                 <p>
                     This Privacy Policy describes Our policies and procedures on
                     the collection, use and disclosure of Your information when
@@ -117,11 +120,11 @@ const PrivacyPolicy = () => {
                             <strong>Website</strong> refers to UTARi, accessible
                             from{' '}
                             <a
-                                href={domain}
+                                href={origin}
                                 rel="external nofollow noopener noreferrer"
                                 target="_blank"
                             >
-                                {domain}
+                                {origin}
                             </a>
                         </p>
                     </li>
