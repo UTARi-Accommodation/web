@@ -18,7 +18,7 @@ jobs:
               run: yarn
 
             - name: Run Linter
-              run: make lint-src
+              run: make lint
 
             - name: Run Typecheck
               run: make typecheck
