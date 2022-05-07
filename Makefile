@@ -11,6 +11,10 @@ all:
 
 NODE_BIN=node_modules/.bin/
 
+## install
+install:
+	yarn install --frozen-lockfile
+
 ## install dev server
 install-server:
 	cd server && yarn
