@@ -43,23 +43,23 @@ const Pagination = ({
                         }}
                     />
                 </NumberPaginationContainer>
-                {paginationRange.map((page) =>
+                {paginationRange.map((page, index) =>
                     currentPage === page ? (
-                        <CurrentPaginationContainer key={page}>
+                        <CurrentPaginationContainer key={`${page}${index}`}>
                             <CurrentPaginationButton>
                                 {page}
                             </CurrentPaginationButton>
                         </CurrentPaginationContainer>
                     ) : typeof page === 'number' ? (
                         <NumberPaginationContainer
-                            key={page}
+                            key={`${page}${index}`}
                             onClick={() => onClick(page)}
                             $disallowed={!numberOfResults}
                         >
                             <PaginationButton>{page}</PaginationButton>
                         </NumberPaginationContainer>
                     ) : (
-                        <DotPaginationContainer key={page}>
+                        <DotPaginationContainer key={`${page}${index}`}>
                             <PaginationButton>{page}</PaginationButton>
                         </DotPaginationContainer>
                     )
