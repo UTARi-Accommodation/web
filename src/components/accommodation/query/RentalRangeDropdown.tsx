@@ -119,10 +119,10 @@ const RentalRangeDropdown = ({
             />
             <Slider
                 stepSize={stepSize()}
-                setSliding={(sliding) =>
+                setSliding={(isSliding) =>
                     setState((prev) => ({
                         ...prev,
-                        isSliding: sliding,
+                        isSliding,
                     }))
                 }
                 rentalSelectedRange={query}
