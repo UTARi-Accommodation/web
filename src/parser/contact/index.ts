@@ -4,7 +4,7 @@ import {
     parseAsReadonlyObject,
     parseAsString,
 } from 'parse-dont-validate';
-import { Data, Email, Message, Name } from '../../../common/src/contact';
+import { Data, Email, Message, Name } from 'utari-common';
 
 const parseAsData = (data: any): Data => {
     const type = parseAsCustomType<Data['type']>(
