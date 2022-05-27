@@ -1,6 +1,10 @@
 import { GranulaString } from 'granula-string';
-import { parseAsCustomType, parseAsString } from 'parse-dont-validate';
-import { Data, Email, Message, Name } from 'utari-common';
+import {
+    parseAsCustomType,
+    parseAsReadonlyObject,
+    parseAsString,
+} from 'parse-dont-validate';
+import { Data, Email, Message, Name } from '../../../common/src/contact';
 
 const parseAsData = (data: any): Data => {
     const type = parseAsCustomType<Data['type']>(
@@ -28,64 +32,56 @@ const parseAsData = (data: any): Data => {
     }
 };
 
-const parseAsInfo = (info: any) => {
-    const { value, error } = info;
-    return {
+const parseAsInfo = (info: unknown) =>
+    parseAsReadonlyObject(info, (info) => ({
         value: GranulaString.createFromString(
-            parseAsString(value).orElseThrowDefault('value')
+            parseAsString(info.value).orElseThrowDefault('value')
         ),
-        error: parseAsString(error).orElseThrowDefault('error'),
+        error: parseAsString(info.error).orElseThrowDefault('error'),
+    })).orElseThrowDefault(`info: ${info}`);
+
+const parseAsName = (name: unknown): Name => {
+    const { value, error } = parseAsInfo(name);
+    return {
+        value,
+        error: parseAsCustomType<Name['error']>(
+            error,
+            (error) =>
+                error === '' ||
+                error === '*Please do not leave name section empty*' ||
+                error === '*Please do not leave name section blank*'
+        ).orElseThrowDefault(`name: ${name}`),
     };
 };
 
-const parseAsName = (name: any): Name => {
-    const { value, error } = parseAsInfo(name);
-    switch (error) {
-        case '':
-        case '*Please do not leave name section empty*':
-        case '*Please do not leave name section blank*':
-            return {
-                value,
-                error,
-            };
-    }
-    throw new Error(
-        `name is not of type Name, it is ${JSON.stringify(name, null, 2)}`
-    );
-};
-
-const parseAsEmail = (email: any): Email => {
+const parseAsEmail = (email: unknown): Email => {
     const { value, error } = parseAsInfo(email);
-    switch (error) {
-        case '':
-        case '*Please do not leave email section empty*':
-        case '*Please do not leave email section blank*':
-        case '*Please enter valid email format*':
-            return {
-                value,
-                error,
-            };
-    }
-    throw new Error(
-        `email is not of type Email, it is ${JSON.stringify(email, null, 2)}`
-    );
+    return {
+        value,
+        error: parseAsCustomType<Email['error']>(
+            error,
+            (error) =>
+                error === '' ||
+                error === '*Please do not leave email section empty*' ||
+                error === '*Please do not leave email section blank*' ||
+                error === '*Please enter valid email format*'
+        ).orElseThrowDefault(`email: ${email}`),
+    };
 };
 
-const parseAsMessage = (message: any): Message => {
+const parseAsMessage = (message: unknown): Message => {
     const { value, error } = parseAsInfo(message);
-    switch (error) {
-        case '':
-        case '*Please do not leave message section empty*':
-        case '*Please do not leave message section blank*':
-        case '*At least 10 words are required*':
-            return {
-                value,
-                error,
-            };
-    }
-    throw new Error(
-        `email is not of type Email, it is ${JSON.stringify(message, null, 2)}`
-    );
+    return {
+        value,
+        error: parseAsCustomType<Message['error']>(
+            error,
+            (error) =>
+                error === '' ||
+                error === '*Please do not leave message section empty*' ||
+                error === '*Please do not leave message section blank*' ||
+                error === '*At least 10 words are required*'
+        ).orElseThrowDefault(`message: ${message}`),
+    };
 };
 
 export default parseAsData;
