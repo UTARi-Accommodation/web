@@ -2,12 +2,26 @@ import { toast, ToastPromiseParams } from 'react-toastify';
 
 const position = toast.POSITION.TOP_CENTER;
 
-const ToastError = (error: any) =>
+const toastError = (error: any) =>
     toast.error(error, {
         autoClose: false,
         closeButton: true,
         position,
     });
+
+const ToastError = (error: any, stringCallBack?: (s: string) => string) => {
+    const errorMessage = (message: string) =>
+        !stringCallBack
+            ? toastError(message)
+            : toastError(stringCallBack(message));
+    if (error instanceof Error) {
+        return errorMessage(error.message);
+    }
+    if (typeof error === 'string') {
+        return errorMessage(error);
+    }
+    return errorMessage(JSON.stringify(error));
+};
 
 const ToastInfo = (info: any) =>
     toast.info(info, {

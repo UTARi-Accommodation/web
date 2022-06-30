@@ -193,17 +193,14 @@ const RentalRangeDropdown = ({
                 isMouseClicked={isShowDropdown}
                 ref={buttonRef}
                 onClick={() => {
-                    if (width <= breakPoint) {
-                        setState((prev) => ({
-                            ...prev,
-                            isShowBottomPopup: !prev.isShowBottomPopup,
-                        }));
-                    } else {
-                        setState((prev) => ({
-                            ...prev,
-                            isShowDropdown: !prev.isShowDropdown,
-                        }));
-                    }
+                    const name =
+                        width > breakPoint
+                            ? 'isShowDropdown'
+                            : 'isShowBottomPopup';
+                    setState((prev) => ({
+                        ...prev,
+                        [name]: !prev[name],
+                    }));
                 }}
             >
                 Rental
