@@ -14,6 +14,7 @@ dotenv.config({});
         },
         bundle: true,
         minify: true,
+        sourcemap: process.env.NODE_ENV === 'development',
         minifyWhitespace: true,
         platform: 'browser',
         define: parseAsEnvs([

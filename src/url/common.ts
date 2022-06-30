@@ -58,11 +58,11 @@ const formQuery = (
     `?${Object.entries(query.query)
         .filter(([_, value]) => value)
         .map(([key, value]) => {
-            if (Array.isArray(value)) {
-                const valueURL = value.filter(Boolean).join(',');
-                return !valueURL ? '' : `${key}=${valueURL}`;
+            if (!Array.isArray(value)) {
+                return `${key}=${value}`;
             }
-            return `${key}=${value}`;
+            const valueURL = value.filter(Boolean).join(',');
+            return !valueURL ? '' : `${key}=${valueURL}`;
         })
         .filter(Boolean)
         .join('&')}`;

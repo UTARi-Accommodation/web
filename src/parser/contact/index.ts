@@ -12,6 +12,13 @@ const parseAsData = (data: any): Data => {
         (type) => type === 'succeed' || type === 'input' || type === 'failed'
     ).orElseThrowDefault('type');
     switch (type) {
+        case 'failed': {
+            const { error } = data;
+            return {
+                type,
+                error: parseAsString(error).orElseThrowDefault('error'),
+            };
+        }
         case 'input':
         case 'succeed': {
             const { message, email, name } = data;
@@ -20,13 +27,6 @@ const parseAsData = (data: any): Data => {
                 message: parseAsMessage(message),
                 email: parseAsEmail(email),
                 name: parseAsName(name),
-            };
-        }
-        case 'failed': {
-            const { error } = data;
-            return {
-                type,
-                error: parseAsString(error).orElseThrowDefault('error'),
             };
         }
     }

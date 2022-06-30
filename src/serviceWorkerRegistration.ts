@@ -41,7 +41,10 @@ const register = (config?: Config) => {
         window.addEventListener('load', () => {
             const swUrl = './service-worker.js';
 
-            if (isLocalhost) {
+            if (!isLocalhost) {
+                // Is not localhost. Just register service worker
+                registerValidSW(swUrl, config);
+            } else {
                 // This is running on localhost. Let's check if a service worker still exists or not.
                 checkValidServiceWorker(swUrl, config);
                 // Add some additional logging to localhost, pointing developers to the
@@ -51,9 +54,6 @@ const register = (config?: Config) => {
                         'This web app is being served cache-first by a service worker. To learn more, visit https://cra.link/PWA'
                     );
                 });
-            } else {
-                // Is not localhost. Just register service worker
-                registerValidSW(swUrl, config);
             }
         });
     }
@@ -71,6 +71,15 @@ const registerValidSW = (swUrl: string, config?: Config) => {
                 installingWorker.onstatechange = () => {
                     if (installingWorker.state === 'installed') {
                         if (navigator.serviceWorker.controller) {
+                            // At this point, everything has been precached.
+                            // It's the perfect time to display a
+                            // "Content is cached for offline use." message.
+                            console.log('Content is cached for offline use.');
+                            // Execute callback
+                            if (config && config.onSuccess) {
+                                config.onSuccess(registration);
+                            }
+                        } else {
                             // At this point, the updated precached content has been fetched,
                             // but the previous service worker will still serve the older
                             // content until all client tabs are closed.
@@ -80,15 +89,6 @@ const registerValidSW = (swUrl: string, config?: Config) => {
                             // Execute callback
                             if (config && config.onUpdate) {
                                 config.onUpdate(registration);
-                            }
-                        } else {
-                            // At this point, everything has been precached.
-                            // It's the perfect time to display a
-                            // "Content is cached for offline use." message.
-                            console.log('Content is cached for offline use.');
-                            // Execute callback
-                            if (config && config.onSuccess) {
-                                config.onSuccess(registration);
                             }
                         }
                     }
@@ -110,16 +110,16 @@ const checkValidServiceWorker = (swUrl: string, config?: Config) => {
             const contentType = response.headers.get('content-type');
             const contentTypeLegit =
                 contentType != null && contentType.indexOf('javascript') === -1;
-            if (response.status === 404 || contentTypeLegit) {
+            if (!(response.status === 404 || contentTypeLegit)) {
+                // Service worker found. Proceed as normal.
+                registerValidSW(swUrl, config);
+            } else {
                 // No service worker found. Probably a different app. Reload the page.
                 navigator.serviceWorker.ready.then((registration) =>
                     registration
                         .unregister()
                         .then(() => window.location.reload())
                 );
-            } else {
-                // Service worker found. Proceed as normal.
-                registerValidSW(swUrl, config);
             }
         })
         .catch(() =>

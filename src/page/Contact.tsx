@@ -46,15 +46,15 @@ const Contact = () => {
     const showMessage = (data: Data) => {
         const { type } = data;
         switch (type) {
+            case 'failed':
+                notifyError();
+                break;
             case 'input':
             case 'succeed':
                 setState((prev) => ({
                     ...prev,
                     ...data,
                 }));
-                break;
-            case 'failed':
-                notifyError();
                 break;
         }
     };
