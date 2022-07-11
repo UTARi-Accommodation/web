@@ -41,7 +41,7 @@ const Title = ({
             <meta property="og:image:width" content="512" />
             <meta property="og:image:height" content="512" />
 
-            <title>{`${utari} '|' ${title}`}</title>
+            <title>{`${utari} | ${title}`}</title>
         </Helmet>
     );
 };
