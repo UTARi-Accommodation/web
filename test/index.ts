@@ -1,7 +1,4 @@
-import {
-    testConvertRegionToName,
-    testConvertNameToRegion,
-} from './converter/converter';
+import { testConvertRegionToName, testConvertNameToRegion } from './converter';
 import {
     testBookmarkedRoomQueryParser,
     testBookmarkedRoomQueriedParser,
@@ -10,7 +7,7 @@ import {
     testBookmarkedUnitQueryParser,
     testBookmarkedUnitQueriedParser,
 } from './parser/bookmarked/unit';
-import testContactParser from './parser/contact/contact';
+import testContactParser from './parser/contact';
 import {
     testDetailedRoomQueriedParser,
     testDetailedRoomQueryParser,
@@ -38,43 +35,53 @@ import testFormDetailedUnitQueryParam from './url/detailed/unit';
 import testFormGeneralRoomsQueryParam from './url/general/room';
 import testFormGeneralUnitsQueryParam from './url/general/unit';
 
-//converter
-testConvertRegionToName();
-testConvertNameToRegion();
+const tests: ReadonlyArray<readonly [() => void, 'only'?]> = [
+    //converter
+    [testConvertRegionToName],
+    [testConvertNameToRegion],
 
-//parser
+    //parser
 
-//bookmarked
-testBookmarkedUnitQueryParser();
-testBookmarkedUnitQueriedParser();
-testBookmarkedRoomQueryParser();
-testBookmarkedRoomQueriedParser();
+    //bookmarked
+    [testBookmarkedUnitQueryParser],
+    [testBookmarkedUnitQueriedParser],
+    [testBookmarkedRoomQueryParser],
+    [testBookmarkedRoomQueriedParser],
 
-//contact
-testContactParser();
+    //contact
+    [testContactParser],
 
-//detailed
-testDetailedRoomQueriedParser();
-testDetailedRoomQueryParser();
-testDetailedUnitQueriedParser();
-testDetailedUnitQueryParser();
+    //detailed
+    [testDetailedRoomQueriedParser],
+    [testDetailedRoomQueryParser],
+    [testDetailedUnitQueriedParser],
+    [testDetailedUnitQueryParser],
 
-//general
-testGeneralRoomQueriedParser();
-testGeneralRoomQueryParser();
-testGeneralUnitQueryParser();
-testGeneralUnitQueriedParser();
+    //general
+    [testGeneralRoomQueriedParser],
+    [testGeneralRoomQueryParser],
+    [testGeneralUnitQueryParser],
+    [testGeneralUnitQueriedParser],
 
-testUnitsQueriedParser();
-testRoomsQueriedParser();
+    [testUnitsQueriedParser],
+    [testRoomsQueriedParser],
 
-//url
-testFormBookmarkedDownloadAPIQuery();
-testFormBookmarkedRoomsQueryParam();
-testFormBookmarkedUnitsQueryParam();
+    //url
+    [testFormBookmarkedDownloadAPIQuery],
+    [testFormBookmarkedRoomsQueryParam],
+    [testFormBookmarkedUnitsQueryParam],
 
-testFormDetailedRoomQueryParam();
-testFormDetailedUnitQueryParam();
+    [testFormDetailedRoomQueryParam],
+    [testFormDetailedUnitQueryParam],
 
-testFormGeneralUnitsQueryParam();
-testFormGeneralRoomsQueryParam();
+    [testFormGeneralUnitsQueryParam],
+    [testFormGeneralRoomsQueryParam],
+];
+
+const selectedTests = tests.filter(([_, only]) => only);
+
+if (process.env.IS_CI && selectedTests.length) {
+    throw new Error('cannot have "only" in ci cd');
+}
+
+(!selectedTests.length ? tests : selectedTests).forEach(([test]) => test());
