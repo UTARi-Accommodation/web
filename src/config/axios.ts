@@ -1,9 +1,9 @@
 import axios, { Method } from 'axios';
-import { parseAsEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from 'esbuild-env-parsing';
 
 const createInstance = (method: Method) =>
     axios.create({
-        baseURL: `${parseAsEnv({
+        baseURL: `${parseAsStringEnv({
             env: process.env.API,
             name: 'api',
         })}/api`,
