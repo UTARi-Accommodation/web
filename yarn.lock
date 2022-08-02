@@ -4276,7 +4276,7 @@ graceful-fs@^4.2.9:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
 
-granula-string@^1.0.2, granula-string@^1.0.5:
+granula-string@^1.0.2:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/granula-string/-/granula-string-1.0.5.tgz#d3c314e48de263efc0f94400abf05521d8e598ef"
   integrity sha512-3XC5VWGA6jXtvjF3VW4g3R+rmKEbqtApK1dUx3WzOX8VOElBrRxjzZAzxFeUsNrMoWxdw2brIRSQhvOkUibxFw==
@@ -5908,7 +5908,7 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parse-dont-validate@^1.0.1, parse-dont-validate@^1.0.3:
+parse-dont-validate@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/parse-dont-validate/-/parse-dont-validate-1.0.3.tgz#68f075c6a545ae18816fb4a12ff1a553fd875348"
   integrity sha512-IfJMSDvgoMnsf4yFkf6FHSbk/UPfbjAIEiBkdqYTL28YdBNa8zRPECZumVRLyL9HiP2x5wEsfOu14wX1Tjdjfw==
@@ -7112,16 +7112,6 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
-ts-add-js-extension@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ts-add-js-extension/-/ts-add-js-extension-1.2.0.tgz#c1fdae1542f57219e97cee0a95d9eb02a04ad75d"
-  integrity sha512-uELVJHfmOn/STtBY4l7vOH2VGc0Cq1wz3BUsfHcYAjWHzmN3G+lh4MnLtKCf3aKGFY047BI/E5GnV75zKI7g1g==
-  dependencies:
-    "@typescript-eslint/typescript-estree" "^5.4.0"
-    console-table-printer "^2.11.0"
-    parse-dont-validate "^1.0.1"
-    yargs "^17.3.0"
-
 ts-add-js-extension@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ts-add-js-extension/-/ts-add-js-extension-1.2.1.tgz#350bbf7b7bb7f18af0d9e6f06d773b8a2ff5a57c"
@@ -7310,7 +7300,7 @@ url-parse-lax@^3.0.0:
 
 "utari-common@https://github.com/Utari-Room/common.git":
   version "0.0.1"
-  resolved "https://github.com/Utari-Room/common.git#3470066e9c7c7ebafbd8f06bbaa1c7c413165e97"
+  resolved "https://github.com/Utari-Room/common.git#6354c46dab7553ce204c7fc4670522de4ea073ff"
   dependencies:
     granula-string "^1.0.6"
     parse-dont-validate "^2.0.4"
