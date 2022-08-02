@@ -1,4 +1,4 @@
-import { parseAsEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from 'esbuild-env-parsing';
 
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
@@ -17,7 +17,7 @@ type Config = Readonly<{
 
 const register = (config?: Config) => {
     if (
-        parseAsEnv({
+        parseAsStringEnv({
             env: process.env.NODE_ENV,
             name: 'node env',
         }) !== 'development' &&
@@ -25,7 +25,7 @@ const register = (config?: Config) => {
     ) {
         // The URL constructor is available in all browsers that support SW.
         const publicUrl = new URL(
-            parseAsEnv({
+            parseAsStringEnv({
                 env: process.env.PUBLIC_URL,
                 name: 'public url',
             }),

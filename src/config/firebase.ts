@@ -1,33 +1,33 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { parseAsEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from 'esbuild-env-parsing';
 
 const app = initializeApp({
-    apiKey: parseAsEnv({
+    apiKey: parseAsStringEnv({
         env: process.env.FIREBASE_API_KEY,
         name: 'firebase api key',
     }),
-    authDomain: parseAsEnv({
+    authDomain: parseAsStringEnv({
         env: process.env.FIREBASE_AUTH_DOMAIN,
         name: 'firebase auth domain',
     }),
-    projectId: parseAsEnv({
+    projectId: parseAsStringEnv({
         env: process.env.FIREBASE_PROJECT_ID,
         name: 'firebase project Id',
     }),
-    storageBucket: parseAsEnv({
+    storageBucket: parseAsStringEnv({
         env: process.env.FIREBASE_STORAGE_BUCKET,
         name: 'firebase storage bucket',
     }),
-    messagingSenderId: parseAsEnv({
+    messagingSenderId: parseAsStringEnv({
         env: process.env.FIREBASE_MESSAGING_SENDER_ID,
         name: 'firebase messaging sender Id',
     }),
-    appId: parseAsEnv({
+    appId: parseAsStringEnv({
         env: process.env.FIREBASE_APP_ID,
         name: 'firebase app Id',
     }),
-    measurementId: parseAsEnv({
+    measurementId: parseAsStringEnv({
         env: process.env.FIREBASE_MEASUREMENT_ID,
         name: 'firebase measurement Id',
     }),

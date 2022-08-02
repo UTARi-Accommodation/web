@@ -1,6 +1,6 @@
 import { build } from 'esbuild';
 import dotenv from 'dotenv';
-import { parseAsEnvs, parseAsEnv } from 'esbuild-env-parsing';
+import { parseAsEnvs, parseAsStringEnv } from 'esbuild-env-parsing';
 
 dotenv.config({});
 
@@ -32,7 +32,7 @@ dotenv.config({});
         ]),
         logLevel: 'silent',
         watch:
-            parseAsEnv({
+            parseAsStringEnv({
                 env: process.env.NODE_ENV,
                 name: 'node env',
             }) !== 'development'
