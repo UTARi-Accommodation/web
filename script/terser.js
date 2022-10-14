@@ -2,15 +2,14 @@ import { minify } from 'html-minifier-terser';
 import fs from 'fs';
 import { getAllFilesAndCode, getAllFiles } from './util.js';
 
-const config = {
-    removeComments: true,
-    removeCommentsFromCDATA: true,
-    removeCDATASectionsFromCDATA: true,
-    collapseWhitespace: true,
-    collapseBooleanAttributes: true,
-};
-
-(async (dir) => {
+const main = async (dir) => {
+    const config = {
+        removeComments: true,
+        removeCommentsFromCDATA: true,
+        removeCDATASectionsFromCDATA: true,
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+    };
     const files = getAllFiles(dir, (extension) => extension === 'html');
     if (files.length === 0) {
         console.log('No HTML file in build folder');
@@ -31,4 +30,6 @@ const config = {
         )
     );
     console.log('Frontend HTML Terser done its job!');
-})('build');
+};
+
+main('build');
