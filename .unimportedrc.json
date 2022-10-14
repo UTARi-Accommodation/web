@@ -1,0 +1,18 @@
+{
+    "ignoreUnresolved": [],
+    "ignorePatterns": [
+        "**/node_modules/**",
+        "**/__tests__/**",
+        "**/src/**/*.d.ts"
+    ],
+    "ignoreUnused": [
+        "dotenv",
+        "esbuild",
+        "html-minifier-terser",
+        "workbox-cli"
+    ],
+    "ignoreUnimported": [
+        "src/components/animation/FullScreen.tsx",
+        "src/components/auth/delete/Popup.tsx"
+    ]
+}

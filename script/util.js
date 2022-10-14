@@ -31,4 +31,4 @@ const getAllFilesAndCode = (files) =>
         code: await readCode(file),
     }));
 
-export { readCode, getAllFilesAndCode, getAllFiles };
+export { getAllFilesAndCode, getAllFiles };
