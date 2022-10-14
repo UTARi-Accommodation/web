@@ -3,13 +3,13 @@ import { parseAsRental } from '../parser';
 
 const parseAsProperties = (properties: any) =>
     parseAsReadonlyObject(properties, (properties) => ({
-        bedRooms: parseAsNumber(properties.bedRooms).orElseThrowDefault(
-            'bedRooms'
+        bedRooms: parseAsNumber(properties.bedRooms).elseThrow(
+            `bedRooms is not a number, it is ${properties.bedRooms}`
         ),
-        bathRooms: parseAsNumber(properties.bathRooms).orElseThrowDefault(
-            'bathRooms'
+        bathRooms: parseAsNumber(properties.bathRooms).elseThrow(
+            `bathRooms is not a number, it is ${properties.bathRooms}`
         ),
         rental: parseAsRental(properties.rental),
-    })).orElseThrowDefault('unit properties');
+    })).elseThrow(`properties is an object, it is ${properties}`);
 
 export { parseAsProperties };

@@ -44,8 +44,8 @@ const accountAction = (auth: Auth) => {
                     data: {
                         token: await userCredential.user.getIdToken(true),
                         timeCreated: new Date(
-                            parseAsString(creationTime).orElseThrowDefault(
-                                'creationTime'
+                            parseAsString(creationTime).elseThrow(
+                                `creationTime is not an ISO String, it is ${creationTime}`
                             )
                         ).toISOString(),
                     },

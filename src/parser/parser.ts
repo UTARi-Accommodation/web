@@ -20,46 +20,55 @@ import { parseAsQueriedRooms } from './general/room';
 import { parseAsQueriedUnits } from './general/unit';
 
 // parse as non object
-const parseAsId = (id: unknown) => parseAsNumber(id).orElseThrowDefault('id');
+const parseAsId = (id: unknown) =>
+    parseAsNumber(id).elseThrow(`id is not a number, it is ${id}`);
 
 const parseAsAddress = (address: unknown) =>
-    parseAsString(address).orElseThrowDefault('address');
+    parseAsString(address).elseThrow(
+        `address is not a string, it is ${address}`
+    );
 
 const parseAsNumberFromQuery = (value: string | null) =>
     parseAsNumber(parseInt(value ?? ''))
         .inRangeOf(0, Number.MAX_SAFE_INTEGER)
-        .orElseGetUndefined();
+        .elseGet(undefined);
 
 const parseAsRental = (rental: unknown) =>
-    parseAsNumber(rental).orElseThrowDefault('rental');
+    parseAsNumber(rental).elseThrow(`rental is not a number, it is ${rental}`);
 
 const parseAsNullableRating = (rating: unknown) =>
-    parseAsNumber(rating).inRangeOf(1, 5).orElseGetUndefined();
+    parseAsNumber(rating).inRangeOf(1, 5).elseGet(undefined);
 
 const parseAsRating = (rating: unknown) =>
-    parseAsNumber(rating).inRangeOf(1, 5).orElseThrowDefault('rating');
+    parseAsNumber(rating)
+        .inRangeOf(1, 5)
+        .elseThrow(`rating is not a number, it is ${rating}`);
 
 const parseAsFacilities = (facilities: unknown) =>
-    parseAsString(facilities).orElseThrowDefault('facilities');
+    parseAsString(facilities).elseThrow(
+        `facilities is not a string, it is ${facilities}`
+    );
 
 const parseAsVisitCount = (visitCount: unknown) =>
     parseAsNumber(visitCount)
         .inRangeOf(0, Number.MAX_SAFE_INTEGER)
-        .orElseThrowDefault('visitCount');
+        .elseThrow(`visitCount is not a number, it is ${visitCount}`);
 
 const parseAsMonth = (month: unknown) =>
     parseAsCustomType<Month>(month, (month) =>
         Boolean(months.find((m) => m.includes(month)))
-    ).orElseThrowDefault('month');
+    ).elseThrow(`month is not typeof Month, it is ${month}`);
 
 const parseAsRegion = (region: string | null, defaultRegion: Region) =>
     parseAsCustomType<Region>(
         region,
         (region) => region === 'SL' || region === 'KP' || region === 'BTHO'
-    ).orElseLazyGet(() => defaultRegion);
+    ).elseLazyGet(() => defaultRegion);
 
 const parseAsBookmarked = (bookmarked: unknown) =>
-    parseAsBoolean(bookmarked).orElseThrowDefault('bookmarked');
+    parseAsBoolean(bookmarked).elseThrow(
+        `bookmarked is not a boolean, it is ${bookmarked}`
+    );
 
 // parse as object
 const parseAsLocation = (location: unknown) =>
@@ -71,73 +80,91 @@ const parseAsLocation = (location: unknown) =>
                 latitude: parseAsLatitude(coordinate.latitude),
                 longitude: parseAsLongitude(coordinate.longitude),
             })
-        ).orElseThrowDefault('coordinate'),
-    })).orElseThrowDefault('location');
+        ).elseThrow(
+            `coordinate is not an object, it is ${location.coordinate}`
+        ),
+    })).elseThrow(`location is not an object, it is ${location}`);
 
 const parseAsContact = (contact: unknown) =>
     parseAsReadonlyObject(contact, (contact) => ({
         email: parseAsReadonlyArray(contact.email, (email) =>
-            parseAsString(email).orElseThrowDefault('email')
-        ).orElseGetReadonlyEmptyArray(),
+            parseAsString(email).elseThrow(
+                `email is not a string, it is ${email}`
+            )
+        ).elseGet([]),
         mobileNumber: parseAsReadonlyArray(
             contact.mobileNumber,
             (mobileNumber) =>
-                parseAsString(mobileNumber).orElseThrowDefault('mobileNumber')
-        ).orElseGetReadonlyEmptyArray(),
-    })).orElseThrowDefault('contact');
+                parseAsString(mobileNumber).elseThrow(
+                    `mobileNumber is not a string, it is ${mobileNumber}`
+                )
+        ).elseGet([]),
+    })).elseThrow(`contact is not an object, it is ${contact}`);
 
 const parseAsRemarks = (remarks: unknown) =>
     parseAsReadonlyObject(remarks, (remarks) => ({
         ...parseAsRemarksWithoutRemark(remarks),
-        remark: parseAsString(remarks.remark).orElseThrowDefault('remark'),
-    })).orElseThrowDefault('remarks');
+        remark: parseAsString(remarks.remark).elseThrow(
+            `remark is not a string, it is ${remarks.remark}`
+        ),
+    })).elseThrow(`remarks is not an object, it is ${remarks}`);
 
 const parseAsRemarksWithoutRemark = (remarks: unknown) =>
     parseAsReadonlyObject(remarks, (remarks) => ({
-        year: parseAsNumber(remarks.year).orElseThrowDefault('year'),
+        year: parseAsNumber(remarks.year).elseThrow(
+            `year is not a number, it is ${remarks.year}`
+        ),
         month: parseAsMonth(remarks.month),
-    })).orElseThrowDefault('remarks');
+    })).elseThrow(`remarks is not an object, it is ${remarks}`);
 
-const parseAsRatings = (ratings: unknown) =>
-    parseAsReadonlyArray(ratings, (rating) =>
-        parseAsRating(rating)
-    ).orElseGetReadonlyEmptyArray();
+const parseAsRatings = (ratings: unknown): ReadonlyArray<number> =>
+    parseAsReadonlyArray(ratings, (rating) => parseAsRating(rating)).elseGet(
+        []
+    );
 
 const parseAsHandler = (handler: unknown) =>
     parseAsReadonlyObject(handler, (handler) => ({
-        name: parseAsString(handler.name).orElseThrowDefault('name'),
+        name: parseAsString(handler.name).elseThrow(
+            `name is not a string, it is ${handler.name}`
+        ),
         handlerType: parseAsCustomType<HandlerType>(
             handler.handlerType,
             (type) => type === 'Owner' || type === 'Tenant' || type === 'Agent'
-        ).orElseThrowDefault('handlerType'),
-    })).orElseThrowDefault('handler');
+        ).elseThrow(
+            `handlerType is not of HandlerType, it is ${handler.handlerType}`
+        ),
+    })).elseThrow(`handler is not an object, it is ${handler}`);
 
 // queried field
 const parseAsCenter = (center: unknown) =>
     parseAsReadonlyObject(center, (center) => ({
         lat: parseAsLatitude(center.lat),
         lng: parseAsLongitude(center.lng),
-    })).orElseThrowDefault('center');
+    })).elseThrow(`center is not an object, it is ${center}`);
 
 const parseExactlyAsNumber = (num: unknown) =>
-    parseAsNumber(num).orElseThrowDefault('num');
+    parseAsNumber(num).elseThrow(`num is not a number, it is ${num}`);
 
 const parseAsRentalFrequencies = (rentalRangeFrequencies: unknown) =>
     parseAsReadonlyArray(
         rentalRangeFrequencies,
         ([rental, frequencies]) =>
             [
-                parseAsNumber(rental).orElseThrowDefault('key/rental'),
-                parseAsNumber(frequencies).orElseThrowDefault(
-                    'value/frequency'
+                parseAsNumber(rental).elseThrow(
+                    `rental is not number, it is ${rental}`
+                ),
+                parseAsNumber(frequencies).elseThrow(
+                    `frequencies is not number, it is ${frequencies}`
                 ),
             ] as Readonly<[number, number]>
-    ).orElseThrowDefault('rentalRangeFrequencies');
+    ).elseThrow(
+        `rentalRangeFrequencies is not an object, it is ${rentalRangeFrequencies}`
+    );
 
 const parseExactlyAsReadonlyNumber = (numArray: unknown) =>
     parseAsReadonlyArray(numArray, (num) =>
-        parseAsNumber(num).orElseThrowDefault('num')
-    ).orElseThrowDefault('bedRooms');
+        parseAsNumber(num).elseThrow(`num is not a number, it is ${num}`)
+    ).elseThrow(`bedRooms is not an array, it is ${numArray}`);
 
 const parseAsRoomsQueried = (data: unknown): RoomsQueried =>
     parseAsReadonlyObject(data, (data) => ({
@@ -152,7 +179,7 @@ const parseAsRoomsQueried = (data: unknown): RoomsQueried =>
         page: parseExactlyAsNumber(data.page),
         totalPage: parseExactlyAsNumber(data.totalPage),
         center: parseAsCenter(data.center),
-    })).orElseThrowDefault('data');
+    })).elseThrow(`data is not an object, it is ${data}`);
 
 const parseAsUnitsQueried = (data: unknown): UnitsQueried =>
     parseAsReadonlyObject(data, (data) => ({
@@ -168,7 +195,7 @@ const parseAsUnitsQueried = (data: unknown): UnitsQueried =>
         page: parseExactlyAsNumber(data.page),
         totalPage: parseExactlyAsNumber(data.totalPage),
         center: parseAsCenter(data.center),
-    })).orElseThrowDefault('data');
+    })).elseThrow(`data is not an object, it is ${data}`);
 
 export {
     parseAsId,

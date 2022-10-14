@@ -13,7 +13,7 @@ const parseAsRoomType = (roomType: string | null, defaultRoomType: RoomType) =>
     parseAsCustomType<RoomType>(
         roomType,
         (roomType) => roomType === 'Room' || roomType === 'Roommate'
-    ).orElseLazyGet(() => defaultRoomType);
+    ).elseLazyGet(() => defaultRoomType);
 
 const parseAsQueryRooms = (
     params: URLSearchParams,
@@ -35,6 +35,6 @@ const parseAsQueriedRooms = (rooms: unknown): SortedRoom =>
     parseAsReadonlyArray(rooms, (room) => ({
         ...parseAsCommonProperties(room),
         properties: parseAsProperties(room.properties),
-    })).orElseThrowDefault('rooms');
+    })).elseThrow(`rooms is not an array, it is ${rooms}`);
 
 export { parseAsQueriedRooms, parseAsQueryRooms };

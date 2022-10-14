@@ -10,13 +10,15 @@ const parseAsData = (data: any): Data => {
     const type = parseAsCustomType<Data['type']>(
         data.type,
         (type) => type === 'succeed' || type === 'input' || type === 'failed'
-    ).orElseThrowDefault('type');
+    ).elseThrow(`type is not typeof type in Data, it is ${data.type}`);
     switch (type) {
         case 'failed': {
             const { error } = data;
             return {
                 type,
-                error: parseAsString(error).orElseThrowDefault('error'),
+                error: parseAsString(error).elseThrow(
+                    `error is not a string, it is ${error}`
+                ),
             };
         }
         case 'input':
@@ -35,10 +37,14 @@ const parseAsData = (data: any): Data => {
 const parseAsInfo = (info: unknown) =>
     parseAsReadonlyObject(info, (info) => ({
         value: GranulaString.createFromString(
-            parseAsString(info.value).orElseThrowDefault('value')
+            parseAsString(info.value).elseThrow(
+                `value is not a string, it is ${info.value}`
+            )
         ),
-        error: parseAsString(info.error).orElseThrowDefault('error'),
-    })).orElseThrowDefault(`info: ${info}`);
+        error: parseAsString(info.error).elseThrow(
+            `error is not a string, it is ${info.value}`
+        ),
+    })).elseThrow(`info is not an object, it is ${info}`);
 
 const parseAsName = (name: unknown): Name => {
     const { value, error } = parseAsInfo(name);
@@ -50,7 +56,7 @@ const parseAsName = (name: unknown): Name => {
                 error === '' ||
                 error === '*Please do not leave name section empty*' ||
                 error === '*Please do not leave name section blank*'
-        ).orElseThrowDefault(`name: ${name}`),
+        ).elseThrow(`name is not Name object, it is ${name}`),
     };
 };
 
@@ -65,7 +71,7 @@ const parseAsEmail = (email: unknown): Email => {
                 error === '*Please do not leave email section empty*' ||
                 error === '*Please do not leave email section blank*' ||
                 error === '*Please enter valid email format*'
-        ).orElseThrowDefault(`email: ${email}`),
+        ).elseThrow(`email is not an Email object, it is ${email}`),
     };
 };
 
@@ -80,7 +86,7 @@ const parseAsMessage = (message: unknown): Message => {
                 error === '*Please do not leave message section empty*' ||
                 error === '*Please do not leave message section blank*' ||
                 error === '*At least 10 words are required*'
-        ).orElseThrowDefault(`message: ${message}`),
+        ).elseThrow(`message is Message object, it it ${message}`),
     };
 };
 

@@ -2,20 +2,17 @@ import { build } from 'esbuild';
 import dotenv from 'dotenv';
 import { parseAsEnvs, parseAsStringEnv } from 'esbuild-env-parsing';
 
-dotenv.config({});
-
-(() =>
+const main = () => {
+    dotenv.config({});
     build({
         entryPoints: ['src/index.tsx'],
         outfile: 'build/index.js',
         loader: {
             '.ts': 'tsx',
-            '.png': 'binary',
         },
         bundle: true,
         minify: true,
         sourcemap: process.env.NODE_ENV === 'development',
-        minifyWhitespace: true,
         platform: 'browser',
         define: parseAsEnvs([
             'NODE_ENV',
@@ -30,7 +27,7 @@ dotenv.config({});
             'FIREBASE_APP_ID',
             'FIREBASE_MEASUREMENT_ID',
         ]),
-        logLevel: 'silent',
+        logLevel: 'debug',
         watch:
             parseAsStringEnv({
                 env: process.env.NODE_ENV,
@@ -49,4 +46,7 @@ dotenv.config({});
         .catch((e) => {
             console.log('Error building:', e.message);
             process.exit(1);
-        }))();
+        });
+};
+
+main();
