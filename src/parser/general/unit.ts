@@ -13,7 +13,7 @@ const parseAsUnitType = (unitType: string | null, defaultUnitType: UnitType) =>
     parseAsCustomType<UnitType>(
         unitType,
         (unitType) => unitType === 'House' || unitType === 'Condominium'
-    ).orElseLazyGet(() => defaultUnitType);
+    ).elseLazyGet(() => defaultUnitType);
 
 const parseAsQueryUnits = (
     params: URLSearchParams,
@@ -36,6 +36,6 @@ const parseAsQueriedUnits = (units: unknown): SortedUnit =>
     parseAsReadonlyArray(units, (unit) => ({
         ...parseAsCommonProperties(unit),
         properties: parseAsProperties(unit.properties),
-    })).orElseThrowDefault('units');
+    })).elseThrow(`units is not an array, it is ${units}`);
 
 export { parseAsQueriedUnits, parseAsQueryUnits };

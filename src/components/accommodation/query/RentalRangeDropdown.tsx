@@ -81,8 +81,8 @@ const RentalRangeDropdown = ({
                 .map(
                     (rental, index) =>
                         rental -
-                        parseAsNumber(rentals[index]).orElseThrowDefault(
-                            `array at index of ${index}`
+                        parseAsNumber(rentals[index]).elseThrow(
+                            `array at index of ${index} is not a number, it is undefined`
                         )
                 )
                 .reduce((prev, curr) => prev + curr, 0) / slideRentals.length

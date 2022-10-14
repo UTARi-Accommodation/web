@@ -26,11 +26,15 @@ const parseAsDownloadQueriedRooms = (
         ...parseAsDownloadProperties(room),
         properties: parseAsProperties(room.properties),
         timeCreated: new Date(
-            parseAsString(room.timeCreated).orElseThrowDefault('timeCreated')
+            parseAsString(room.timeCreated).elseThrow(
+                `timeCreated is not an ISO string, its ${room.timeCreated}`
+            )
         ),
         ratings: parseAsReadonlyArray(room.ratings, (rating) =>
-            parseAsNumber(rating).orElseThrowDefault('rating')
-        ).orElseThrowDefault('ratings'),
-    })).orElseThrowDefault('rooms');
+            parseAsNumber(rating).elseThrow(
+                `rating is not a number, it is ${rating}`
+            )
+        ).elseThrow(`ratings is not an array, it is ${room.ratings}`),
+    })).elseThrow(`rooms is not an array, it is ${rooms}`);
 
 export { parseAsQueryRooms, parseAsDownloadQueriedRooms };

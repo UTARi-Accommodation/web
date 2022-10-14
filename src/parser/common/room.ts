@@ -10,12 +10,14 @@ const parseAsRoomSize = (size: unknown) =>
     parseAsCustomType<RoomSize>(
         size,
         (size) => size === 'Master' || size === 'Middle' || size === 'Small'
-    ).orElseThrowDefault('roomSize');
+    ).elseThrow(`roomSize is not type of RoomSize, it is ${size}`);
 
 const parseAsRoomCapacity = (capacities: unknown) =>
     parseAsReadonlyArray(capacities, (capacity) =>
-        parseAsNumber(capacity).orElseThrowDefault('capacity')
-    ).orElseThrowDefault('capacities');
+        parseAsNumber(capacity).elseThrow(
+            `capacity is not a number, it is ${capacity}`
+        )
+    ).elseThrow(`capacities is not an array, it is ${capacities}`);
 
 const parseAsProperties = (properties: any) =>
     ({

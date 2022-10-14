@@ -27,7 +27,9 @@ const parseAsCommonProperties = (accommodation: any) => ({
     bookmarked: parseAsBookmarked(accommodation.bookmarked),
     visitCount: parseAsNumber(accommodation.visitCount)
         .inRangeOf(0, Number.MAX_SAFE_INTEGER)
-        .orElseThrowDefault('visitCount'),
+        .elseThrow(
+            `visitCount is not a number, it is ${accommodation.visitCount}`
+        ),
 });
 
 export { parseAsQuery, parseAsCommonProperties };

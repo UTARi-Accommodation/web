@@ -23,8 +23,10 @@ const parseAsDownloadQueriedUnits = (
         ...parseAsDownloadProperties(unit),
         properties: parseAsProperties(unit.properties),
         timeCreated: new Date(
-            parseAsString(unit.timeCreated).orElseThrowDefault('timeCreated')
+            parseAsString(unit.timeCreated).elseThrow(
+                `timeCreated is not an ISO string, its ${unit.timeCreated}`
+            )
         ),
-    })).orElseThrowDefault('units');
+    })).elseThrow(`units is not an array, it is ${units}`);
 
 export { parseAsQueryUnits, parseAsDownloadQueriedUnits };
