@@ -1,16 +1,13 @@
 {
+    "entry": ["server/index.js", "src/index.tsx", "script/**.js"],
     "ignoreUnresolved": [],
     "ignorePatterns": [
         "**/node_modules/**",
         "**/__tests__/**",
-        "**/src/**/*.d.ts"
+        "**/src/**/*.d.ts",
+        "**/build/**"
     ],
-    "ignoreUnused": [
-        "dotenv",
-        "esbuild",
-        "html-minifier-terser",
-        "workbox-cli"
-    ],
+    "ignoreUnused": ["workbox-cli"],
     "ignoreUnimported": [
         "src/components/animation/FullScreen.tsx",
         "src/components/auth/delete/Popup.tsx"
