@@ -38,15 +38,15 @@ jobs:
               # just to ensure build dont fail due to absence of env variable
               # the real env will be used somewhere else
               env:
-                  NODE_ENV: production
-                  PUBLIC_URL: publicUrl
-                  API: api
-                  MAPS_API_KEY: api
-                  FIREBASE_API_KEY: api
-                  FIREBASE_AUTH_DOMAIN: auth
-                  FIREBASE_PROJECT_ID: projectId
-                  FIREBASE_STORAGE_BUCKET: bucket
-                  FIREBASE_MESSAGING_SENDER_ID: sender
-                  FIREBASE_APP_ID: app
-                  FIREBASE_MEASUREMENT_ID: measurement
+                  VITE_NODE_ENV: production
+                  VITE_PUBLIC_URL: publicUrl
+                  VITE_API: api
+                  VITE_MAPS_API_KEY: api
+                  VITE_FIREBASE_API_KEY: api
+                  VITE_FIREBASE_AUTH_DOMAIN: auth
+                  VITE_FIREBASE_PROJECT_ID: projectId
+                  VITE_FIREBASE_STORAGE_BUCKET: bucket
+                  VITE_FIREBASE_MESSAGING_SENDER_ID: sender
+                  VITE_FIREBASE_APP_ID: app
+                  VITE_FIREBASE_MEASUREMENT_ID: measurement
               run: make build
