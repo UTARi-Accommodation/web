@@ -1,11 +1,11 @@
 import axios, { Method } from 'axios';
-import { parseAsStringEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from '../util/converter';
 
 const createInstance = (method: Method) =>
     axios.create({
         baseURL: `${parseAsStringEnv({
             env: process.env.API,
-            name: 'api',
+            name: 'API',
         })}/api`,
         headers: {
             'Referrer-Policy': 'strict-origin-when-cross-origin',

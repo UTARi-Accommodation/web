@@ -2,6 +2,7 @@ import {
     convertNameToRegion,
     convertRegionToName,
 } from '../../src/util/converter';
+import { describe, it, expect } from 'vitest';
 
 const testConvertNameToRegion = () =>
     describe('Convert region full name to acronym', () => {

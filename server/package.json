@@ -1,9 +1,0 @@
-{
-    "name": "utari-client-dev-server",
-    "private": true,
-    "author": "PoolOfDeath20",
-    "type": "module",
-    "dependencies": {
-        "express": "^4.17.3"
-    }
-}

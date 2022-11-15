@@ -2,6 +2,7 @@ import {
     formGeneralRoomsQuery,
     formGeneralRoomsAPIQuery,
 } from '../../../src/url/query/general/room';
+import { describe, it, expect } from 'vitest';
 
 const testFormGeneralRoomsQueryParam = () =>
     describe('General Room Query Object to Query URL Param', () => {

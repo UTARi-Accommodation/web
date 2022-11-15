@@ -56,21 +56,20 @@ I must admit I could have proposed a more advanced title 😏
 | Aspect                                                                 | Name              |
 | ---------------------------------------------------------------------- | ----------------- |
 | Development Language                                                   | TypeScipt         |
-| Scripting Language                                                     | JavaScript        |
-| Bundling                                                               | Esbuild           |
-| Testing                                                                | Jest              |
+| Bundling                                                               | Vite              |
+| Testing                                                                | Vitest            |
 | Styling                                                                | Styled-components |
 | Library                                                                | React             |
 | Authentication Service                                                 | Firebase          |
 | Build Automation Tool                                                  | Make              |
 | Progressive Web App                                                    | Workbox           |
 | Text Editor                                                            | NeoVim            |
-| Dependency Management                                                  | Yarn              |
+| Dependency Management                                                  | Pnpm              |
 | Continuous Integration, Continuous Delivery, and Continuous Deployment | GitHub Actions    |
 
 ## How to build this app?
 
-_*Make sure you have `yarn` and `make` available in your system*_
+_*Make sure you have `pnpm` and `make` available in your system*_
 
 ### Environment Variables
 

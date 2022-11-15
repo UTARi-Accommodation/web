@@ -63,14 +63,14 @@ const Footer = () => {
                         <SummaryTitle>Developers</SummaryTitle>
                         <LinkToContent
                             content="Open Source"
-                            link="https://github.com/Utari-Room/"
+                            link="https://github.com/Utari-Accommodation/"
                         />
                     </ColumnSummary>
                     <ColumnSummary>
                         <SummaryTitle>Social</SummaryTitle>
                         <LinkToContent
                             content="Github"
-                            link="https://github.com/Utari-Room/"
+                            link="https://github.com/Utari-Accommodation/"
                         />
                         <LinkToContent
                             content="Facebook"

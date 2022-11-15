@@ -1,4 +1,5 @@
 import { parseAsRoomsQueried } from '../../../src/parser/parser';
+import { describe, it, expect } from 'vitest';
 
 const testRoomsQueriedParser = () =>
     describe('All Room Information Queried Parser', () => {

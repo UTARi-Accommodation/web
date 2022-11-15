@@ -1,3 +1,4 @@
+import { parseAsString } from 'parse-dont-validate';
 import { Region } from 'utari-common';
 
 type RegionName = 'Sungai Long' | 'Kampar' | 'Bandar Tun Hussein Onn';
@@ -16,5 +17,13 @@ const convertRegionToName = (region: Region): RegionName =>
         ? 'Sungai Long'
         : 'Bandar Tun Hussein Onn';
 
-export { convertRegionToName, convertNameToRegion };
+const parseAsStringEnv = ({
+    env,
+    name,
+}: Readonly<{
+    env: unknown;
+    name: string;
+}>) => parseAsString(env).elseThrow(`process.env.${name} is not string`);
+
+export { parseAsStringEnv, convertRegionToName, convertNameToRegion };
 export type { RegionName };
