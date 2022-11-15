@@ -5,7 +5,6 @@
     "author": "PoolOfDeath20",
     "license": "GPL-3.0",
     "scripts": {
-        "postinstall": "make install-server",
         "build": "make build && make clean-up"
     },
     "dependencies": {
