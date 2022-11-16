@@ -1,5 +1,6 @@
 import { GranulaString } from 'granula-string';
 import parseAsData from '../../../src/parser/contact';
+import { describe, it, expect } from 'vitest';
 
 const testContactParser = () =>
     describe('Contact POST Data Parser', () => {

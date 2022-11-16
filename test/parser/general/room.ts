@@ -2,6 +2,7 @@ import {
     parseAsQueriedRooms,
     parseAsQueryRooms,
 } from '../../../src/parser/general/room';
+import { describe, it, expect } from 'vitest';
 
 const testGeneralRoomQueryParser = () =>
     describe('General Room Query Param Parser', () => {

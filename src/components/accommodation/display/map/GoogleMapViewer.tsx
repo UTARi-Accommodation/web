@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Location, Center, AccommodationType } from 'utari-common';
 import { DefaultMapMarker, MapMarker } from './MapMarker';
 import { AppContext } from '../../../../App';
-import { parseAsStringEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from '../../../../util/converter';
 
 type MarkerArray = Readonly<{
     type: 'array';
@@ -40,8 +40,8 @@ const GoogleMapViewer = ({
         <GoogleMapContainer>
             <LoadScript
                 googleMapsApiKey={parseAsStringEnv({
+                    name: 'MAPS_API_KEY',
                     env: process.env.MAPS_API_KEY,
-                    name: 'maps api key',
                 })}
             >
                 <GoogleMap

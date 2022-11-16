@@ -1,5 +1,6 @@
 import { parseAsQueryUnit } from '../../../src/parser/detailed/unit';
 import { parseAsQueriedUnit } from '../../../src/parser/detailed/unit';
+import { describe, it, expect } from 'vitest';
 
 const testDetailedUnitQueryParser = () =>
     describe('Detailed Unit Query Param Parser', () => {

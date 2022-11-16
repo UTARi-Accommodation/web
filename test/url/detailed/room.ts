@@ -1,4 +1,5 @@
 import { formDetailedRoomAPIQuery } from '../../../src/url/query/detailed/room';
+import { describe, it, expect } from 'vitest';
 
 const testFormDetailedRoomQueryParam = () =>
     describe('Detailed Room Query Object to Query URL Param', () => {

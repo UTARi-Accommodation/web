@@ -34,54 +34,49 @@ import testFormDetailedRoomQueryParam from './url/detailed/room';
 import testFormDetailedUnitQueryParam from './url/detailed/unit';
 import testFormGeneralRoomsQueryParam from './url/general/room';
 import testFormGeneralUnitsQueryParam from './url/general/unit';
+import testCases from 'cases-of-test';
 
-const tests: ReadonlyArray<readonly [() => void, 'only'?]> = [
-    //converter
-    [testConvertRegionToName],
-    [testConvertNameToRegion],
+testCases({
+    tests: [
+        //converter
+        [testConvertRegionToName],
+        [testConvertNameToRegion],
 
-    //parser
+        //parser
 
-    //bookmarked
-    [testBookmarkedUnitQueryParser],
-    [testBookmarkedUnitQueriedParser],
-    [testBookmarkedRoomQueryParser],
-    [testBookmarkedRoomQueriedParser],
+        //bookmarked
+        [testBookmarkedUnitQueryParser],
+        [testBookmarkedUnitQueriedParser],
+        [testBookmarkedRoomQueryParser],
+        [testBookmarkedRoomQueriedParser],
 
-    //contact
-    [testContactParser],
+        //contact
+        [testContactParser],
 
-    //detailed
-    [testDetailedRoomQueriedParser],
-    [testDetailedRoomQueryParser],
-    [testDetailedUnitQueriedParser],
-    [testDetailedUnitQueryParser],
+        //detailed
+        [testDetailedRoomQueriedParser],
+        [testDetailedRoomQueryParser],
+        [testDetailedUnitQueriedParser],
+        [testDetailedUnitQueryParser],
 
-    //general
-    [testGeneralRoomQueriedParser],
-    [testGeneralRoomQueryParser],
-    [testGeneralUnitQueryParser],
-    [testGeneralUnitQueriedParser],
+        //general
+        [testGeneralRoomQueriedParser],
+        [testGeneralRoomQueryParser],
+        [testGeneralUnitQueryParser],
+        [testGeneralUnitQueriedParser],
 
-    [testUnitsQueriedParser],
-    [testRoomsQueriedParser],
+        [testUnitsQueriedParser],
+        [testRoomsQueriedParser],
 
-    //url
-    [testFormBookmarkedDownloadAPIQuery],
-    [testFormBookmarkedRoomsQueryParam],
-    [testFormBookmarkedUnitsQueryParam],
+        //url
+        [testFormBookmarkedDownloadAPIQuery],
+        [testFormBookmarkedRoomsQueryParam],
+        [testFormBookmarkedUnitsQueryParam],
 
-    [testFormDetailedRoomQueryParam],
-    [testFormDetailedUnitQueryParam],
+        [testFormDetailedRoomQueryParam],
+        [testFormDetailedUnitQueryParam],
 
-    [testFormGeneralUnitsQueryParam],
-    [testFormGeneralRoomsQueryParam],
-];
-
-const selectedTests = tests.filter(([_, only]) => only);
-
-if (process.env.IS_CI && selectedTests.length) {
-    throw new Error('cannot have "only" in ci cd');
-}
-
-(!selectedTests.length ? tests : selectedTests).forEach(([test]) => test());
+        [testFormGeneralUnitsQueryParam],
+        [testFormGeneralRoomsQueryParam],
+    ],
+});

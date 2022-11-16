@@ -2,6 +2,7 @@ import {
     parseAsQueryRooms,
     parseAsDownloadQueriedRooms,
 } from '../../../src/parser/bookmarked/room';
+import { describe, it, expect } from 'vitest';
 
 const testBookmarkedRoomQueryParser = () =>
     describe('Bookmarked Room Query Param Parser', () => {

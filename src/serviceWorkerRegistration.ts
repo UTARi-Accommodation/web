@@ -1,4 +1,4 @@
-import { parseAsStringEnv } from 'esbuild-env-parsing';
+import { parseAsStringEnv } from './util/converter';
 
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||

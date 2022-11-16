@@ -2,6 +2,7 @@ import {
     formBookmarkedRoomsQuery,
     formBookmarkedRoomsAPIQuery,
 } from '../../../src/url/query/bookmarked/room';
+import { describe, it, expect } from 'vitest';
 
 const testFormBookmarkedRoomsQueryParam = () =>
     describe('Bookmarked Room Query Object to Query URL Param', () => {

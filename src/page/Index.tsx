@@ -12,6 +12,9 @@ import {
 import OutsideClickHandlerContainer from '../components/common/OutsideClickHandlerContainer';
 import useWindowResize from '../hook/windowResize';
 import useIntersectionObserver from '../hook/interSectionObserverHook';
+import Roommate from '../../public/img/home/roommate.webp';
+import Partition from '../../public/img/home/partition.webp';
+import Tailored from '../../public/img/home/tailored.webp';
 
 type IndexImageContainerProps = Readonly<{
     imageName: 'roommate' | 'partition' | 'tailored';
@@ -61,7 +64,18 @@ const IndexImageContainer = ({ imageName }: IndexImageContainerProps) => {
 
     return (
         <ImageContainer ref={containerRef} isVisible={isVisible}>
-            <IndexImage src={`img/home/${imageName}.webp`} alt={imageName} />
+            <IndexImage
+                alt={imageName}
+                src={
+                    imageName === 'partition'
+                        ? Partition
+                        : imageName === 'roommate'
+                        ? Roommate
+                        : imageName === 'tailored'
+                        ? Tailored
+                        : undefined
+                }
+            />
         </ImageContainer>
     );
 };
@@ -87,9 +101,9 @@ const RightIndexInfo = ({
 
     return (
         <Intro>
-            {width > breakPoint && <RightWordContainer />}
+            {width <= breakPoint ? null : <RightWordContainer />}
             <IndexImageContainer imageName={imageName} />
-            {width <= breakPoint && <RightWordContainer />}
+            {width > breakPoint ? null : <RightWordContainer />}
         </Intro>
     );
 };
